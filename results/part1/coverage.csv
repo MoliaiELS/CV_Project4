@@ -1,0 +1,10 @@
+﻿scene,method,status,psnr,ssim,lpips,ate_rmse,initialization_seconds,training_seconds,initial_gaussians,final_gaussians,peak_cuda_gib,reason
+Waymo-405841,colmap,pending,,,,,,,,,,Not run
+Waymo-405841,vggt,pending,,,,,,,,,,Not run
+Waymo-405841,vggt-omega,pending,,,,,,,,,,Not run
+Dl3dv-2,colmap,pending,,,,,,,,,,Not run
+Dl3dv-2,vggt,pending,,,,,,,,,,Not run
+Dl3dv-2,vggt-omega,pending,,,,,,,,,,Not run
+Re10k-1,colmap,pending,,,,,,,,,,Not run
+Re10k-1,vggt,pending,,,,,,,,,,Not run
+Re10k-1,vggt-omega,pending,,,,,,,,,,Not run

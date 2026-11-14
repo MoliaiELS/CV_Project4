@@ -1,0 +1,70 @@
+{
+  "archive": "data/downloads/project4_3d.zip",
+  "archive_sha256": "2e2a2658d6735761b5dd3c090c5d35a4a2cca04088cde6ae0cb231f90214c415",
+  "official_split_in_archive": false,
+  "split_rule": "project-defined natural order; indices 0,8,16,... test",
+  "preprocessing_versions": {
+    "numpy": "2.5.3",
+    "opencv": "5.0.0",
+    "Pillow": "12.3.0"
+  },
+  "scenes": [
+    {
+      "scene": "Dl3dv-2",
+      "frames": 306,
+      "train": 267,
+      "test": 39,
+      "width": 256,
+      "height": 256,
+      "split_hash": "f3a14c4c8008e7eda1a87777a6e07df8cd424521408705d24c1db0de1ade305c",
+      "manifest_sha256": "44c7b7cfb2aadd37b649881260e6ecba96e6d7579d151fef6aafaef94c309648",
+      "reference_sha256": "e4c982b0db5353041e43912fe9d33e2ba0a9d660243c6d5371dd466c141664fa",
+      "reference_kind": "reference",
+      "train_center_singular_values": [
+        60.69924629491215,
+        15.007802299030049,
+        4.0345758406594765
+      ],
+      "all_image_hashes_verified": true,
+      "reference_camera_validation": "passed"
+    },
+    {
+      "scene": "Re10k-1",
+      "frames": 279,
+      "train": 244,
+      "test": 35,
+      "width": 256,
+      "height": 256,
+      "split_hash": "57f851dc1cfeaf671b146a05fbbb27118936549a6d1305beb582a43c2d9e0a92",
+      "manifest_sha256": "f90e831abe2373200900f494615f5438b7520c404014e8fd8b02ba6e4d4c85ed",
+      "reference_sha256": "8bf3b068fdf2254b7a73ff4b815e65ead975ebb295db98a380575ad283c4c5ba",
+      "reference_kind": "reference",
+      "train_center_singular_values": [
+        18.549313691655506,
+        1.143121365908996,
+        0.09278643150855169
+      ],
+      "all_image_hashes_verified": true,
+      "reference_camera_validation": "passed"
+    },
+    {
+      "scene": "Waymo-405841",
+      "frames": 199,
+      "train": 174,
+      "test": 25,
+      "width": 960,
+      "height": 640,
+      "split_hash": "a9fae16cd14dd665d3c99c4d2c31f1702826fdacf29331c67a6ea15e2b9edd51",
+      "manifest_sha256": "f7afbeb13af08457ee068782c082b6f09c56f1016efa9d5fa9472fd8b811a21e",
+      "reference_sha256": "d308bca7ffdf3c5143c23803a23d7e66765b892a03c7a8abe659386277aea7e2",
+      "reference_kind": "reference",
+      "train_center_singular_values": [
+        307.3062653158607,
+        53.051282833939275,
+        0.8706636473901078
+      ],
+      "all_image_hashes_verified": true,
+      "reference_camera_validation": "passed"
+    }
+  ]
+}
