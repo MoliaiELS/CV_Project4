@@ -1,10 +1,12 @@
-# Project 4 · Part 1
+# Project 4 · Part 1 + Part 2
 
-本仓库实现 AIAA3201 Part 1：**COLMAP / VGGT / VGGT-Ω → 同一套 vanilla 3DGS → 同一测试集评价**。三个指定场景共 9 项比较。当前交付是代码、CPU 验证和服务器运行流程；**尚无真实场景训练成绩**。实际状态见 [coverage.md](results/part1/coverage.md)，不能用合成测试或旧项目数字补齐。
+本分支合并了 Part 1 的三种初始化比较和 Part 2 的 VGGT full/sparse 实验代码。Part 2 的入口见 [课程服务器实验说明](docs/part2_hpc.md)，实际结果与可复现版本见 [交接说明](docs/integration_handoff.md)。
+
+本仓库实现 AIAA3201 Part 1：**COLMAP / VGGT / VGGT-Ω → 同一套 vanilla 3DGS → 同一测试集评价**。三个指定场景共 9 项比较。正式运行记录见 [交接说明](docs/integration_handoff.md)。仓库随附的 [coverage.md](results/part1/coverage.md) 是运行前模板。
 
 如果你不了解旧项目，先读 [旧仓库说明与复用审计](docs/reuse_audit.md)。旧仓库是 VGGT + ORB-SLAM3 / ROS2 的 SLAM 原型，并非现成的 3DGS 项目。本实现复用其 VGGT 技术路线，使用固定官方模型源码；不需要安装旧 ROS 环境。
 
-代码仓库：[MoliaiELS/CV_Project4](https://github.com/MoliaiELS/CV_Project4)。服务器可直接获取：
+原始 Part 1 代码仓库为 [MoliaiELS/CV_Project4](https://github.com/MoliaiELS/CV_Project4)。下方命令用于获取原仓库，本分支通过 Git bundle 交接。
 
 ```bash
 git clone git@github.com:MoliaiELS/CV_Project4.git
@@ -131,6 +133,6 @@ python -m p4.train train --dataset data/prepared/Re10k-1 --scene runs/part1/Re10
 python -m pytest -q
 ```
 
-当前 Part 1 的 VGGT dense checkpoint 以后可以交给 Part 2 成为 full 条件，但对方仍须核对 manifest/split、过滤、权重、seed、预算和相机设置。sparse 分支必须重新估计几何。这里不声称已经实现 Part 2 或 Part 3，也不将旧团队的 ATE 作为本次结果。
+Part 1 的 VGGT dense checkpoint 可以用于 Part 2 full 对照，复用条件包括相同的 manifest/split、过滤、权重、seed、预算和相机设置。sparse 分支从稀疏图像重新估计几何。已归档的 Part 2 结果使用课程服务器上独立训练的 full 对照。
 
 上游 gsplat 1.5.3 的 opacity reset 有布尔优先级错误，本训练器明确补上同一 reset 调用；三种初始化均使用该修正，记录在 provenance 中。论文分析应描述所运行的完整系统，不把所有差异归因于模型大小。

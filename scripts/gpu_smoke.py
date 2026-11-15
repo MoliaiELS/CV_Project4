@@ -64,8 +64,8 @@ def main():
     scene = synthetic_dataset(root / "dataset")
     cfg = TrainConfig(steps=40, save_steps=[20, 40], log_every=10)
     train(root / "dataset", scene, root / "continuous", cfg)
-    # Compare both continuations from precisely the same optimizer state.
-    # Independent CUDA trajectories can diverge before the resume point.
+    # Fork the exact saved prefix: independent initial runs already diverge
+    # slightly under CUDA atomics and confound a checkpoint-restore test.
     train(root / "dataset", scene, root / "resumed", cfg,
           resume=root / "continuous/checkpoints/step_000020.pt")
     a = torch.load(root / "continuous/checkpoints/step_000040.pt", map_location="cpu", weights_only=False)
@@ -84,6 +84,7 @@ def main():
                             refine_every=5, reset_every=10, log_every=5)
     train(root / "dataset", scene, root / "densification", dense_cfg)
     result = {"synthetic_only": True, "resume_parameter_max_abs_error": differences,
+              "resume_comparison": "shared exact step-20 checkpoint versus uninterrupted continuation",
               "sampler_and_schedule_resume": "passed", "densification_and_reset_execution": "passed",
               "rendering_metrics": metrics, "complete": bool(metrics["complete"])}
     write_json(root / "verification.json", result)

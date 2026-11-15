@@ -214,7 +214,7 @@ def _vggt_with_offloaded_features(model, images):
 
 
 def _run_neural(dataset, output, frames, method, repo, weights, seed,
-                max_points, confidence_quantile, vggt_offload_features=False):
+                max_points, confidence_quantile, vggt_offload_features=False, neural_backend="native"):
     repo, revision = _repo_info(repo, method)
     if not weights or not Path(weights).is_file():
         raise ValueError("An explicit local --weights file is required; see README for downloads/access")
@@ -253,29 +253,37 @@ def _run_neural(dataset, output, frames, method, repo, weights, seed,
         images = load_and_preprocess_images(paths, image_resolution=416, mode="balanced")
     if tuple(images.shape[-2:]) != shape:
         raise ValueError(f"Official preprocessing shape {images.shape[-2:]} differs from geometry {shape}")
-    checkpoint = torch.load(str(weights), map_location="cpu", weights_only=True)
+    checkpoint = torch.load(str(weights), map_location="cpu", weights_only=True, mmap=neural_backend == "offload")
     model.load_state_dict(checkpoint, strict=True)
     del checkpoint
     if method == "vggt":
         # These prediction heads do not contribute to camera/depth inference.
         model.point_head = None
         model.track_head = None
-    model = model.eval().to("cuda")
-    images = images.to("cuda")
+    model = model.eval()
+    if neural_backend == "native":
+        model = model.to("cuda")
+        images = images.to("cuda")
     torch.cuda.synchronize()
     load_seconds = time.perf_counter() - started
     inference_start = time.perf_counter()
     dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
     try:
         with torch.inference_mode(), torch.autocast(device_type="cuda", dtype=dtype):
-            predictions = _vggt_with_offloaded_features(model, images) if vggt_offload_features else model(images)
+            if vggt_offload_features:
+                predictions = _vggt_with_offloaded_features(model, images)
+            elif neural_backend == "offload":
+                from p4.vggt_offload import forward
+                predictions = forward(model, images, output / "offload_cache")
+            else:
+                predictions = model(images)
         with torch.inference_mode(), torch.autocast(device_type="cuda", enabled=False):
             ext, kin = decoder(predictions["pose_enc"].float(), images.shape[-2:])
         torch.cuda.synchronize()
     except torch.cuda.OutOfMemoryError as e:
         memory_hint = "Use a larger GPU."
-        if method == "vggt" and not vggt_offload_features:
-            memory_hint = "Try --vggt-offload-features or use a larger GPU."
+        if method == "vggt" and not vggt_offload_features and neural_backend == "native":
+            memory_hint = "Try --vggt-offload-features or --neural-backend offload, or use a larger GPU."
         raise RuntimeError(
             f"Joint {method} inference OOM for {len(frames)} train frames at {shape}. {memory_hint}"
         ) from e
@@ -295,6 +303,7 @@ def _run_neural(dataset, output, frames, method, repo, weights, seed,
     np.savez_compressed(output / "scene.npz", names=np.array([f["image"] for f in frames]),
                         c2w=np.linalg.inv(w2c), K=canonical_k, points=points, colors=colors)
     return {
+        "neural_backend": neural_backend, "all_training_views_joint": True,
         "source_commit": revision, "weights_file": Path(weights).name, "weights_sha256": _sha256(weights),
         "model_resolution": 518 if method == "vggt" else 416, "model_input_hw": list(shape),
         "preprocessing": "square_pad_bicubic518" if method == "vggt" else "official_balanced416_crop_and_pad",
@@ -416,12 +425,16 @@ def _run_colmap(dataset, output, frames, seed, matcher, colmap):
 
 def run_initializer(dataset, output, method, repo=None, weights=None, seed=42,
                     max_points=100000, confidence_quantile=.5, matcher="exhaustive", colmap="colmap",
-                    vggt_offload_features=False):
+                    vggt_offload_features=False, neural_backend="native"):
     """Create scene.npz and provenance scene.json, preserving failed-run evidence."""
     if method not in ("colmap", *MODEL_COMMITS):
         raise ValueError(f"Unknown initializer: {method}")
-    if vggt_offload_features and method != "vggt":
-        raise ValueError("--vggt-offload-features applies only to VGGT")
+    if neural_backend not in {"native", "offload"}:
+        raise ValueError(f"Unknown neural backend: {neural_backend}")
+    if method != "vggt" and (vggt_offload_features or neural_backend == "offload"):
+        raise ValueError("VGGT offload modes apply only to VGGT")
+    if vggt_offload_features and neural_backend == "offload":
+        raise ValueError("Choose one VGGT offload mode")
     output = Path(output).resolve()
     if output.exists() and any(output.iterdir()):
         raise FileExistsError(f"Initializer output must be new/empty to prevent stale artifact reuse: {output}")
@@ -432,14 +445,17 @@ def run_initializer(dataset, output, method, repo=None, weights=None, seed=42,
                 "input_frames": len(frames), "manifest_sha256": _sha256(Path(dataset) / "manifest.json"),
                 "camera_convention": "OpenCV c2w; x-right y-down z-forward", "status": "running"}
     if method == "vggt":
-        metadata["memory_strategy"] = "cpu_head_features" if vggt_offload_features else "stock"
+        metadata["neural_backend"] = neural_backend
+        strategy = "cpu_disk_layers" if neural_backend == "offload" else "stock"
+        metadata["memory_strategy"] = "cpu_head_features" if vggt_offload_features else strategy
     started = time.perf_counter()
     try:
         if method == "colmap":
             result = _run_colmap(dataset, output, frames, seed, matcher, colmap)
         else:
             result = _run_neural(dataset, output, frames, method, repo, weights, seed,
-                                 max_points, confidence_quantile, vggt_offload_features)
+                                 max_points, confidence_quantile,
+                                 vggt_offload_features=vggt_offload_features, neural_backend=neural_backend)
         metadata.update(result)
         metadata["status"] = "completed"
     except Exception as e:
@@ -456,6 +472,7 @@ def main():
     p.add_argument("--dataset", required=True)
     p.add_argument("--output", required=True)
     p.add_argument("--method", choices=("colmap", *MODEL_COMMITS), required=True)
+    p.add_argument("--neural-backend", choices=("native", "offload"), default="native")
     p.add_argument("--repo")
     p.add_argument("--weights")
     p.add_argument("--seed", type=int, default=42)
