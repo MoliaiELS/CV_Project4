@@ -1,6 +1,6 @@
 # Part 1 与 Part 2 交接
 
-`main` 整合 IADC 的 Part 1 和课程服务器上组员的 Part 2。两个实验各自保留原始结果及复现所需的源码版本。
+课程服务器的合并工作树整合 IADC 的 Part 1 和课程服务器上组员的 Part 2。两个实验各自保留原始结果及复现所需的源码版本。
 
 | 实验 | 原始源码 | VGGT 初始化参数 |
 | --- | --- | --- |
@@ -13,8 +13,8 @@
 
 - [Part 1 最终汇总](../results/part1-final/)记录全部 9 项正式实验与 45 个收敛评估点。[Part 1 正文](../report/part1.tex)可并入课程报告。
 - 组内交接的 `part1-combined-20261115-211003.zip` 保存九项运行的评估、日志、抽样渲染和 7,000 步 checkpoint 清单。其 SHA-256 为 `d38e5431f7e3a0cccb00bc12bdbffa66ccd9c9c6edddd35ede10783a06bcf54c`。课程服务器的副本与 `part1-report.pdf` 位于合并工作树的 `output/handoff/`。
-- `output/handoff/part2-snapshot-20261115-200104.zip` 有组员提交前的 17 个代码和文档文件的 SHA-256，以及归档时的 Part 2 日志和指标。Re10k-1 的配对已完成，Waymo 的 Full 已评估，Sparse 当时在训练。
-- 归档包含采集时的状态。后续实验的实时状态以两台服务器原运行目录为准。
+- [Part 2 正式结果](../results/part2-final/)记录 6 项 Full/Sparse 实验、30 个收敛评估点和 990 条逐帧指标。组内原始归档、含课程 RGB 的失败案例与源码快照位于 `output/handoff/part2-final/`。
+- `output/handoff/part2-snapshot-20261115-200104.zip` 记录较早的源码交接阶段。最终报告、指标和只读复现依据见 [Part 2 结果说明](part2_results.md)。
 
 三场景的 dense split hash 在当前 IADC 与组员 Part 2 中一致。Part 2 已有的 Full 是组员在课程服务器训练的，位姿 ATE 也按 sparse 的共同原始帧另外计算，因此保留原配对。Part 1 的正式结果仍可独立用于三初始化比较。
 
