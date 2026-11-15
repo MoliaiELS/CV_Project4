@@ -26,11 +26,15 @@ cd CV_Project4
 
 参考相机只在数据标准化和评价侧使用，初始化与训练不加载 `reference.npz`。若相机来自原数据 SfM，报告为 reference；仅确认其为真实 GT 后才使用 `--reference-kind ground_truth`。ATE 经 Sim3 对齐，单位是否为米取决于 reference，不能因此声称恢复绝对尺度。
 
-## 1. 课程数据已在本机验收
+## 1. 准备课程数据
 
-用户上传的 **project4_3d.zip** 已归档到 `data/downloads/`，包含全部三个指定场景，完整 CRC 校验通过，已安全解压到 `data/raw/project4_3d/` 并完成标准化。源 ZIP 为 907,794,590 bytes，SHA256 `2e2a2658d6735761b5dd3c090c5d35a4a2cca04088cde6ae0cb231f90214c415`。详细事实见 [完整数据审计](docs/local_data_audit.md)。
+将 `--raw` 指向直接包含 `405841/`、`DL3DV-2/` 和 `Re10k-1/` 的目录。本机原始场景直接位于 `data/`，可在安装依赖后运行：
 
-在空的服务器工作区复制同一压缩包后，可重现解包（本机已解包，不需重复覆盖）：
+```bash
+python scripts/prepare_course_data.py --raw data --output data/prepared
+```
+
+课程服务器可将 `--raw` 设为 `/data/disk1/shared/aiaa3201/project4_3d`，脚本读取这个共享目录，并将标准化数据写入自己的工作区。也可以从课程压缩包准备数据：
 
 ```bash
 python scripts/inspect_archive.py data/downloads/project4_3d.zip
@@ -38,7 +42,7 @@ python scripts/inspect_archive.py data/downloads/project4_3d.zip --extract-to da
 python scripts/prepare_course_data.py
 ```
 
-也可直接同步本机 `data/prepared/`，保留本次预处理结果、manifest 和 reference。不要复制 Windows 的 `.venv-cpu` 到 Linux。重新准备时应记录图像库版本并让两位组员共用同一份 prepared 输入；文件指纹会识别不同预处理输出。
+归档校验与原始数据结构见[数据审计](docs/local_data_audit.md)。复现既有 checkpoint 时，使用原运行的 `data/prepared/` 与环境，保留 manifest、参考相机和图像指纹。
 
 手册的 [Google Drive](https://drive.google.com/drive/folders/1euG7pnbFowljVWoNLcbCmil81IVsIEfM?usp=drive_link) 和 [百度网盘](https://pan.baidu.com/s/1Sa18zCeYiYA2gWAllo11dg?pwd=p3bm)（提取码 `p3bm`）保留为备用，详见 [数据来源记录](docs/data_sources.md)。该 Drive 归档大小与上传包不同，不直接当作逐字节相同的数据版本。本机旧 `.partial` 不用于实验。
 
