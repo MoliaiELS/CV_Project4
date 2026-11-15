@@ -1,19 +1,20 @@
 # Project 4 · Part 1 + Part 2
 
-本分支合并了 Part 1 的三种初始化比较和 Part 2 的 VGGT full/sparse 实验代码。Part 2 的入口见 [课程服务器实验说明](docs/part2_hpc.md)，实际结果与可复现版本见 [交接说明](docs/integration_handoff.md)。
+AIAA 3201 Project 4 的 Part 1 比较 COLMAP、VGGT 和 VGGT-Ω 的相机与点云初始化。三个课程场景的 **9 项正式比较已完成**。每项使用同一套 3D Gaussian Splatting 训练器和同场景固定的测试视角。
 
-本仓库实现 AIAA3201 Part 1：**COLMAP / VGGT / VGGT-Ω → 同一套 vanilla 3DGS → 同一测试集评价**。三个指定场景共 9 项比较。正式运行记录见 [交接说明](docs/integration_handoff.md)。仓库随附的 [coverage.md](results/part1/coverage.md) 是运行前模板。
+- [最终指标](results/part1-final/coverage.csv)包含 PSNR、SSIM、LPIPS、对齐后的 ATE 和各阶段耗时。
+- [收敛曲线](results/part1-final/convergence.png)比较五个固定迭代点的测试视角质量。
+- [Part 1 报告与复现记录](docs/part1_report.md)、[CVPR LaTeX 正文与编译方法](report/README.md)。
+- [Part 2 full/sparse 实验入口](docs/part2_hpc.md)和[交接说明](docs/integration_handoff.md)。
 
 如果你不了解旧项目，先读 [旧仓库说明与复用审计](docs/reuse_audit.md)。旧仓库是 VGGT + ORB-SLAM3 / ROS2 的 SLAM 原型，并非现成的 3DGS 项目。本实现复用其 VGGT 技术路线，使用固定官方模型源码；不需要安装旧 ROS 环境。
 
-原始 Part 1 代码仓库为 [MoliaiELS/CV_Project4](https://github.com/MoliaiELS/CV_Project4)。下方命令用于获取原仓库，本分支通过 Git bundle 交接。
-
 ```bash
-git clone git@github.com:MoliaiELS/CV_Project4.git
+git clone https://github.com/MoliaiELS/CV_Project4.git
 cd CV_Project4
 ```
 
-仓库包含源码、固定 split、测试和审计说明。正式数据保存在本地 `data/`，原始包位于 `data/downloads/project4_3d.zip`，打包交付位于 `output/`；这些文件、虚拟环境和模型权重不进入 Git。新服务器需另行同步 `data/prepared/` 或原始数据包。
+仓库包含源码、固定划分、测试与汇总结果。运行时需要另外准备课程数据和模型权重。原始数据、环境、逐帧渲染和模型 checkpoint 存放在本地或服务器上。
 
 ## 已实现的流程
 
@@ -51,7 +52,7 @@ conda activate project4
 bash scripts/setup_server.sh
 ```
 
-脚本固定 PyTorch 2.6.0 + torchvision 0.21.0 + cu124、NumPy 1.26.4、gsplat 1.5.3 commit `937e299...`。VGGT 原 requirements 指向更老 torch，Ω 要求 torch≥2.6，因此这里显式选择统一环境，**仍须通过服务器 pilot 验证**。不要在此环境继续执行两份上游 requirements 覆盖这些版本。若服务器 CUDA/toolchain 不同，应在新环境统一调整并记录 `pip freeze`，避免混用不同后端。
+脚本固定 PyTorch 2.6.0 + torchvision 0.21.0 + cu124、NumPy 1.26.4、gsplat 1.5.3 commit `937e299...`。VGGT 原 requirements 指向更老 torch，Ω 要求 torch≥2.6。IADC 正式实验使用了上述统一环境。若服务器 CUDA/toolchain 不同，可在独立环境安装匹配版本并记录 `pip freeze`。
 
 另装 **COLMAP 3.11.1**（优先）并确认 `colmap -h` 能运行。Ubuntu 的包版本可能不同；初始化器记录版本和完整命令，如参数不兼容会保留日志报错。CPU SIFT 是本协议的默认设置，时间表会说明该设置，不能将跨硬件差异直接归因于算法。
 
@@ -68,7 +69,14 @@ python -m p4.doctor --output results/server_doctor.json
 python scripts/gpu_smoke.py --output runs/gpu_smoke
 ```
 
-若官方模型页要求账户授权，先在模型页完成你自己的访问流程，再通过 `HF_TOKEN` 使用已有凭证；脚本不会申请、代替接受条款或打印 token。Ω 使用 reproduction checkpoint 和 `image_resolution=416`，不替换为原 512 权重。LPIPS 首次使用还会下载 AlexNet 特征权重；离线服务器需提前缓存。
+Hugging Face 如需账户授权，可通过 `HF_TOKEN` 使用已有凭证。IADC 的 Ω 实验使用 [ModelScope 的同一 reproduction checkpoint](https://modelscope.cn/models/facebook/VGGT-Omega)。把下载的文件放到下列位置并用 `sha256sum` 核对。
+
+| 文件 | SHA-256 |
+| --- | --- |
+| `weights/vggt/model.pt` | `d15bf50a8615c8225ed48b51ea5cac673d82442ec0309036df555a053253afe0` |
+| `weights/vggt-omega/vggt_omega_1b_416_reproduce.pt` | `e900833330eb0e570e10543e6108d0dd704fa7c8dbc32738a645987875298896` |
+
+采用 [VGGT-Ω 官方复现设置](https://github.com/facebookresearch/vggt-omega/blob/48b23c8ce72c9a8fcf987f0d7f43d8e4870759f6/reproduction.md)的 416 档。LPIPS 首次使用会下载 AlexNet 特征权重，离线服务器需提前缓存。
 
 `gpu_smoke.py` 用合成场景真实执行训练、save/resume、渲染、增密和 opacity reset，并检查续训数值一致性。这是服务器验收，**不是课程实验**。本机无 CUDA，尚未运行该脚本。
 
@@ -98,36 +106,36 @@ manifest.json   # 原帧ID、划分、尺寸、图像SHA、预处理与split has
 reference.npz   # 仅评价的相机（如果源数据提供）
 ```
 
-## 4. 先 pilot，再冻结并跑九项实验
+## 4. 复现九项 Part 1 实验
 
-配置见 [configs/part1.json](configs/part1.json)。默认 7k 是执行方案建议的阶段预算，不是课程指定门槛。必须在正式比较前根据首场景试跑统一冻结预算，不能给单个方法私自减少训练帧或步数。
+[正式复现配置](configs/part1_reproduce.json)固定 7,000 步、seed 42、相同划分和训练设置。Waymo 与 Re10k 采用共享 PINHOLE 内参、8 个 COLMAP 工作线程，DL3DV 采用逐图内参、4 个工作线程。各场景运行 CPU SIFT 和穷举匹配，Waymo 的匹配块大小为 200，另两场景为 50。VGGT 对全部训练视角联合推理，并将预测头使用的特征卸载到 CPU。
 
 ```bash
-python -m p4.experiment run --dry-run
-python -m p4.experiment run --scenes Re10k-1 --methods vggt --pilot-steps 100
-python -m p4.experiment run
-python -m p4.experiment summarize
-python -m p4.visualize
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+export OPENBLAS_NUM_THREADS=1
+python -m p4.experiment run --config configs/part1_reproduce.json --dry-run
+python -m p4.experiment run --config configs/part1_reproduce.json
+python -m p4.experiment summarize --config configs/part1_reproduce.json --output results/part1_reproduce
+python -m p4.visualize --config configs/part1_reproduce.json --output results/part1_reproduce
 ```
 
-pilot 写入独立的 `runs/part1_pilot/`，不会算入正式完成数量。神经初始化默认对所有 train 帧联合推理；OOM 会报出帧数和预处理尺寸，**不会自动截短 full 或拼接未经验证的窗口**。完整 dense 若装不下，先换大显存 GPU，或另外实现、记录并验证重叠窗口的 Sim3 融合协议。
+训练和评价文件位于 `runs/part1_reproduce/`。[探索配置](configs/part1.json)可用于试跑。首次部署可以用 `python -m p4.experiment run --scenes Re10k-1 --methods vggt --pilot-steps 100`，输出位于 `runs/part1_pilot/`。显存不足时初始化器会给出帧数和尺寸，并保留失败状态。
 
 每个 run 记录 `status.json`、冻结配置、初始化日志与点云、训练日志与 checkpoint、500/1k/2k/4k/7k 的测试渲染与指标、版本和文件指纹。COLMAP 未全注册时该主条件标记 failed。LPIPS 缺失时不会完成该条件。修改协议、源码、权重或数据后请换 `output_root`；校验不匹配不会静默复用。
 
 意外中断可手动恢复到相同预算：
 
 ```bash
-python -m p4.train train --dataset data/prepared/Re10k-1 --scene runs/part1/Re10k-1/vggt/init/scene.npz --output runs/part1/Re10k-1/vggt/train --config runs/part1/Re10k-1/vggt/frozen_config.json --resume runs/part1/Re10k-1/vggt/train/checkpoints/step_004000.pt
+python -m p4.train train --dataset data/prepared/Re10k-1 --scene runs/part1_reproduce/Re10k-1/vggt/init/scene.npz --output runs/part1_reproduce/Re10k-1/vggt/train --config runs/part1_reproduce/Re10k-1/vggt/frozen_config.json --resume runs/part1_reproduce/Re10k-1/vggt/train/checkpoints/step_004000.pt
 ```
 
 矩阵命令会复用校验通过的已完成阶段；未完成训练默认归档该次尝试并重新训练。手动 resume 完成后，可单独执行 dry-run 中列出的 render / evaluate 命令获取结果。正式比较使用最终固定步数；中间测试曲线仅分析收敛，不据此选择最佳 checkpoint。
 
-## 5. 输出、复现与后续交接
+## 5. 输出与后续交接
 
-- `results/part1/coverage.csv|json|md`：真实完成覆盖、质量、ATE、耗时、Gaussian 数与显存；缺项保持 pending。
-- `results/part1/*_convergence.png`：固定迭代点的 test PSNR 曲线，仅使用通过校验的条件。
-- `python -m p4.visualize`：同测试视角的 GT / 三方法渲染比较图；缺项明确标识。
-- [资源预估](docs/resources.md)、[验证记录](docs/validation.md)、[报告填充结构](docs/part1_report.md)、[来源与 AI 使用记录](docs/sources_and_prompts.md)。
+已发布的 [9 项指标与 45 个评价点](results/part1-final/)来自 IADC 完成的正式运行。生成命令分别保存覆盖表、各场景测试曲线与同视角的参考图和各方法渲染。
+
+- [资源预估](docs/resources.md)、[验证记录](docs/validation.md)、[来源与 AI 使用记录](docs/sources_and_prompts.md)。
 
 ```bash
 python -m pytest -q

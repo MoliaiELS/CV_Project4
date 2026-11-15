@@ -84,6 +84,15 @@ def stage_commands(config, scene, method, run, pilot_steps=None):
            "--max-points", str(init["max_points"]), "--confidence-quantile", str(init["confidence_quantile"])]
     if method == "colmap":
         cmd += ["--matcher", init["matcher"]]
+        options = init.get("colmap_scene_options", {}).get(scene, {})
+        if "single_camera" in options:
+            shared = options["single_camera"]
+            if not isinstance(shared, bool):
+                raise ValueError(f"COLMAP single_camera option for {scene} must be a boolean")
+            cmd.append("--colmap-single-camera" if shared else "--no-colmap-single-camera")
+        for key in ("num_threads", "exhaustive_block_size"):
+            if key in options:
+                cmd += ["--colmap-" + key.replace("_", "-"), str(options[key])]
     else:
         key = method.replace("-", "_")
         cmd += ["--repo", init[key + "_repo"], "--weights", init[key + "_weights"]]

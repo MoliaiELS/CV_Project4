@@ -50,6 +50,30 @@ def test_exact_mandatory_nine_conditions_and_uniform_budget(config, tmp_path):
         assert evaluate_stages == [stage.replace("render_", "evaluate_") for stage in render_stages]
 
 
+
+def test_reproduction_config_routes_runtime_colmap_options(tmp_path):
+    config = json.loads(PROJECT_CONFIG.with_name("part1_reproduce.json").read_text(encoding="utf-8"))
+    default = json.loads(PROJECT_CONFIG.read_text(encoding="utf-8"))
+    assert config["training"] == default["training"]
+    assert config["output_root"] != default["output_root"]
+    variants = {
+        "Waymo-405841": ("--colmap-single-camera", "8", "200"),
+        "Dl3dv-2": ("--no-colmap-single-camera", "4", "50"),
+        "Re10k-1": ("--colmap-single-camera", "8", "50"),
+    }
+    for scene, (camera, threads, block) in variants.items():
+        def plan(method, configuration):
+            return experiment.stage_commands(configuration, scene, method, tmp_path)[0][1]
+
+        assert plan("colmap", config)[-7:] == [
+            "--matcher", "exhaustive", camera, "--colmap-num-threads", threads,
+            "--colmap-exhaustive-block-size", block,
+        ]
+        assert not any(token.startswith(("--colmap-", "--no-colmap-")) for token in plan("colmap", default))
+        assert "--vggt-offload-features" in plan("vggt", config)
+        assert "--vggt-offload-features" not in plan("vggt-omega", config)
+
+
 def test_planned_cli_commands_parse_without_cuda(config, tmp_path, monkeypatch):
     from p4 import evaluate, initialize, train
     run = tmp_path / "run"

@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "scenes": [
+    "Waymo-405841",
+    "Dl3dv-2",
+    "Re10k-1"
+  ],
+  "methods": [
+    "colmap",
+    "vggt",
+    "vggt-omega"
+  ],
+  "dataset_root": "data/prepared",
+  "output_root": "runs/part1_reproduce",
+  "initialization": {
+    "max_points": 100000,
+    "confidence_quantile": 0.5,
+    "matcher": "exhaustive",
+    "vggt_repo": "third_party/vggt",
+    "vggt_weights": "weights/vggt/model.pt",
+    "vggt_omega_repo": "third_party/vggt-omega",
+    "vggt_omega_weights": "weights/vggt-omega/vggt_omega_1b_416_reproduce.pt",
+    "vggt_offload_features": true,
+    "colmap_scene_options": {
+      "Waymo-405841": {
+        "single_camera": true,
+        "num_threads": 8,
+        "exhaustive_block_size": 200
+      },
+      "Dl3dv-2": {
+        "single_camera": false,
+        "num_threads": 4,
+        "exhaustive_block_size": 50
+      },
+      "Re10k-1": {
+        "single_camera": true,
+        "num_threads": 8,
+        "exhaustive_block_size": 50
+      }
+    }
+  },
+  "training": {
+    "steps": 7000,
+    "seed": 42,
+    "save_steps": [
+      500,
+      1000,
+      2000,
+      4000,
+      7000
+    ],
+    "sh_degree": 3,
+    "sh_degree_interval": 1000,
+    "ssim_lambda": 0.2,
+    "refine_start": 500,
+    "refine_stop": 6000,
+    "refine_every": 100,
+    "reset_every": 3000,
+    "max_gaussians": 3000000,
+    "log_every": 50
+  }
+}

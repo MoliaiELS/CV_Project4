@@ -1,0 +1,20 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage[pagenumbers]{cvpr}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\graphicspath{{../results/part1-final/}}
+
+\title{Camera Initialization for 3D Gaussian Splatting}
+\author{AIAA 3201 Course Project Team}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We compare COLMAP, VGGT, and VGGT-$\Omega$ as camera and point-cloud initializers for 3D Gaussian Splatting on three course scenes. Each initializer uses the same dense training views for a given scene, and each reconstruction uses a common 7,000-iteration training budget. VGGT-$\Omega$ has the shortest initialization time in all three scenes. The best held-out rendering depends on the scene and metric. Code and aggregate results are available in the \href{https://github.com/MoliaiELS/CV_Project4}{project repository}.
+\end{abstract}
+
+\input{part1}
+\bibliographystyle{ieeenat_fullname}
+\bibliography{part1_refs}
+\end{document}

@@ -1,5 +1,7 @@
 import hashlib
 import json
+from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 from PIL import Image
@@ -105,6 +107,40 @@ def test_failed_initialization_keeps_metadata_and_refuses_stale_reuse(tmp_path, 
     assert "GPU unavailable" in metadata["error"]
     with pytest.raises(FileExistsError):
         run_initializer(dataset, out, "vggt")
+
+
+
+def test_colmap_reproduction_flags_reach_native_processes(tmp_path, monkeypatch):
+    dataset = _toy_dataset(tmp_path)
+    from p4 import initialize
+
+    calls = []
+    def run(command, **kwargs):
+        calls.append(command)
+        if command[1] == "mapper":
+            (Path(command[command.index("--output_path") + 1]) / "0").mkdir()
+        elif command[1] == "model_converter":
+            model = Path(command[command.index("--output_path") + 1])
+            (model / "cameras.txt").write_text("1 PINHOLE 16 12 10 11 8 6\n")
+            (model / "images.txt").write_text(
+                "1 1 0 0 0 0 0 0 1 images/0.png\n\n2 1 0 0 0 -2 0 0 1 images/2.png\n\n"
+            )
+            (model / "points3D.txt").write_text("1 2 3 4 255 100 0 .01 1 0 2 0\n")
+        return SimpleNamespace(stdout="COLMAP 3.11.1")
+
+    monkeypatch.setattr(initialize.shutil, "which", lambda _: "colmap")
+    monkeypatch.setattr(initialize.subprocess, "run", run)
+    out = tmp_path / "init"
+    meta = run_initializer(dataset, out, "colmap", colmap_single_camera=True, colmap_num_threads=8,
+                           colmap_exhaustive_block_size=200)
+    assert meta["registered_frames"] == 2
+    assert meta["colmap_options"] == {"single_camera": True, "num_threads": 8, "exhaustive_block_size": 200}
+    assert meta["commands"] == calls[:3]
+    assert [json.loads(line) for line in (out / "colmap.log").read_text().splitlines()] == calls[:3]
+    assert calls[0][calls[0].index("--ImageReader.single_camera") + 1] == "1"
+    assert calls[0][-2:] == ["--SiftExtraction.num_threads", "8"]
+    assert calls[1][-4:] == ["--ExhaustiveMatching.block_size", "200", "--SiftMatching.num_threads", "8"]
+    assert calls[2][-2:] == ["--Mapper.num_threads", "8"]
 
 
 def test_colmap_text_opencv_convention_and_empty_observation_line(tmp_path):

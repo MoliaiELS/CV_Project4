@@ -359,7 +359,8 @@ def _read_colmap_text(model):
     return images, np.array(points, dtype=np.float32).reshape(-1, 3), np.array(colors, dtype=np.uint8).reshape(-1, 3)
 
 
-def _run_colmap(dataset, output, frames, seed, matcher, colmap):
+def _run_colmap(dataset, output, frames, seed, matcher, colmap, single_camera=False,
+                num_threads=None, exhaustive_block_size=None):
     if matcher not in ("exhaustive", "sequential"):
         raise ValueError("COLMAP matcher must be exhaustive or sequential")
     if not shutil.which(colmap):
@@ -377,12 +378,17 @@ def _run_colmap(dataset, output, frames, seed, matcher, colmap):
     db = output / "database.db"
     commands = [
         [colmap, "feature_extractor", "--database_path", str(db), "--image_path", str(image_dir),
-         "--ImageReader.camera_model", "PINHOLE", "--ImageReader.single_camera", "0", "--SiftExtraction.use_gpu", "0",
-         "--random_seed", str(seed)],
+         "--ImageReader.camera_model", "PINHOLE", "--ImageReader.single_camera", str(int(single_camera)),
+         "--SiftExtraction.use_gpu", "0", "--random_seed", str(seed)],
         [colmap, matcher + "_matcher", "--database_path", str(db), "--SiftMatching.use_gpu", "0", "--random_seed", str(seed)],
         [colmap, "mapper", "--database_path", str(db), "--image_path", str(image_dir), "--output_path", str(sparse),
          "--random_seed", str(seed)],
     ]
+    if exhaustive_block_size is not None:
+        commands[1] += ["--ExhaustiveMatching.block_size", str(exhaustive_block_size)]
+    if num_threads is not None:
+        for command, option in zip(commands, ("SiftExtraction.num_threads", "SiftMatching.num_threads", "Mapper.num_threads")):
+            command += ["--" + option, str(num_threads)]
     timings = {}
     with (output / "colmap.log").open("w", encoding="utf-8") as log:
         for command in commands:
@@ -425,10 +431,20 @@ def _run_colmap(dataset, output, frames, seed, matcher, colmap):
 
 def run_initializer(dataset, output, method, repo=None, weights=None, seed=42,
                     max_points=100000, confidence_quantile=.5, matcher="exhaustive", colmap="colmap",
-                    vggt_offload_features=False, neural_backend="native"):
+                    vggt_offload_features=False, neural_backend="native", colmap_single_camera=False,
+                    colmap_num_threads=None, colmap_exhaustive_block_size=None):
     """Create scene.npz and provenance scene.json, preserving failed-run evidence."""
     if method not in ("colmap", *MODEL_COMMITS):
         raise ValueError(f"Unknown initializer: {method}")
+    if not isinstance(colmap_single_camera, bool):
+        raise ValueError("colmap_single_camera must be a boolean")
+    colmap_limits = (colmap_num_threads, colmap_exhaustive_block_size)
+    if any(value is not None and (type(value) is not int or value < 1) for value in colmap_limits):
+        raise ValueError("COLMAP thread count and block size must be positive integers")
+    if method != "colmap" and (colmap_single_camera or any(value is not None for value in colmap_limits)):
+        raise ValueError("COLMAP options apply only to the COLMAP initializer")
+    if colmap_exhaustive_block_size is not None and matcher != "exhaustive":
+        raise ValueError("COLMAP exhaustive block size requires exhaustive matching")
     if neural_backend not in {"native", "offload"}:
         raise ValueError(f"Unknown neural backend: {neural_backend}")
     if method != "vggt" and (vggt_offload_features or neural_backend == "offload"):
@@ -444,6 +460,12 @@ def run_initializer(dataset, output, method, repo=None, weights=None, seed=42,
                 "scene": manifest.get("scene"), "input_names": [f["image"] for f in frames],
                 "input_frames": len(frames), "manifest_sha256": _sha256(Path(dataset) / "manifest.json"),
                 "camera_convention": "OpenCV c2w; x-right y-down z-forward", "status": "running"}
+    if method == "colmap":
+        metadata["colmap_options"] = {
+            "single_camera": colmap_single_camera,
+            "num_threads": colmap_num_threads,
+            "exhaustive_block_size": colmap_exhaustive_block_size,
+        }
     if method == "vggt":
         metadata["neural_backend"] = neural_backend
         strategy = "cpu_disk_layers" if neural_backend == "offload" else "stock"
@@ -451,7 +473,9 @@ def run_initializer(dataset, output, method, repo=None, weights=None, seed=42,
     started = time.perf_counter()
     try:
         if method == "colmap":
-            result = _run_colmap(dataset, output, frames, seed, matcher, colmap)
+            result = _run_colmap(dataset, output, frames, seed, matcher, colmap,
+                                 single_camera=colmap_single_camera, num_threads=colmap_num_threads,
+                                 exhaustive_block_size=colmap_exhaustive_block_size)
         else:
             result = _run_neural(dataset, output, frames, method, repo, weights, seed,
                                  max_points, confidence_quantile, vggt_offload_features, neural_backend)
@@ -479,6 +503,12 @@ def main():
     p.add_argument("--confidence-quantile", type=float, default=.5)
     p.add_argument("--matcher", choices=("exhaustive", "sequential"), default="exhaustive")
     p.add_argument("--colmap", default="colmap")
+    p.add_argument("--colmap-single-camera", action=argparse.BooleanOptionalAction, default=False,
+                   help="Estimate one shared PINHOLE camera from the training images")
+    p.add_argument("--colmap-num-threads", type=int,
+                   help="Thread limit for COLMAP SIFT extraction, matching and mapping")
+    p.add_argument("--colmap-exhaustive-block-size", type=int,
+                   help="Images per exhaustive matching cache block, retaining all image pairs")
     p.add_argument("--vggt-offload-features", action="store_true",
                    help="Store VGGT head features on CPU during joint all-frame inference")
     a = p.parse_args()
