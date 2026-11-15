@@ -1,0 +1,39 @@
+{
+  "baseline": "runs/part2_formal/Re10k-1/full_sparse_7000_v1",
+  "package_source_sha256": "c8b6722a8b18deaecd6766279d8e69617e762ec9cb9add52300ba171424bf51c",
+  "baseline_config_sha256": "1094e876e84a73fa8a830932826e128c6dd4fef80239e0bc8729bd650f426a48",
+  "scenes": {
+    "Waymo-405841": {
+      "status": "passed",
+      "full_train": 174,
+      "sparse_train": 20,
+      "test": 25,
+      "width": 960,
+      "height": 640,
+      "all_image_hashes_verified": true,
+      "unchanged_test_set": true,
+      "reference_pose_max_abs_error": 0.0,
+      "reference_K_max_abs_error": 0.0,
+      "official_vggt_preprocessing_matches": true,
+      "full_split_hash": "5505c9eb86732a0607b84d2f0a40e5e15c59f1ef7f32286df40fec724ed23e3e",
+      "sparse_split_hash": "d2b2f9f9bcde3b9fc24ab13a27eddcb8a30dd256c3edfb917cb29085053aca55",
+      "reference_sha256": "a3f182f8a26c567b863fcfcb491883acdc81de1abd3a1addc3a008d7ab34ab6c"
+    },
+    "Dl3dv-2": {
+      "status": "passed",
+      "full_train": 267,
+      "sparse_train": 11,
+      "test": 39,
+      "width": 256,
+      "height": 256,
+      "all_image_hashes_verified": true,
+      "unchanged_test_set": true,
+      "reference_pose_max_abs_error": 4.440892098500626e-16,
+      "reference_K_max_abs_error": 0.0,
+      "official_vggt_preprocessing_matches": true,
+      "full_split_hash": "9a15e67cde2fbb79ee23675ebeb995c2d6b45e21d0f06ef2516e65a66b59d67c",
+      "sparse_split_hash": "8e4064e6fafc649deb06cb372038871c9f0d3be7140febb849b665161a35f309",
+      "reference_sha256": "77a26709ec49464c1ab863fd07647d5c65276141e6e972c06211ec07ae522765"
+    }
+  }
+}

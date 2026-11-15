@@ -1,0 +1,66 @@
+{
+  "reproduction_versions": {
+    "numpy": "2.5.3",
+    "opencv": "5.0.0",
+    "Pillow": "12.3.0"
+  },
+  "scenes": [
+    {
+      "scene": "Dl3dv-2",
+      "frames": 306,
+      "frame_assignment_and_dimensions_identical": true,
+      "hpc_split_hash": "9a15e67cde2fbb79ee23675ebeb995c2d6b45e21d0f06ef2516e65a66b59d67c",
+      "b_versions_split_hash": "9a15e67cde2fbb79ee23675ebeb995c2d6b45e21d0f06ef2516e65a66b59d67c",
+      "published_b_split_hash": "f3a14c4c8008e7eda1a87777a6e07df8cd424521408705d24c1db0de1ade305c",
+      "b_versions_match_published_b": false,
+      "b_versions_reference_matches_published_b": false,
+      "png_byte_changed_frames": 0,
+      "decoded_rgb_changed_frames": 0,
+      "changed_pixels": 0,
+      "max_channel_delta_0_255": 0,
+      "mean_absolute_channel_delta_0_255": 0.0,
+      "reference_numeric_max_abs_difference": {
+        "c2w": 0.0,
+        "K": 0.0
+      }
+    },
+    {
+      "scene": "Re10k-1",
+      "frames": 279,
+      "frame_assignment_and_dimensions_identical": true,
+      "hpc_split_hash": "ae78d5d5f785913ebbee3cfefe8155622867c82d27b3d23f978645270a0944a8",
+      "b_versions_split_hash": "ae78d5d5f785913ebbee3cfefe8155622867c82d27b3d23f978645270a0944a8",
+      "published_b_split_hash": "57f851dc1cfeaf671b146a05fbbb27118936549a6d1305beb582a43c2d9e0a92",
+      "b_versions_match_published_b": false,
+      "b_versions_reference_matches_published_b": false,
+      "png_byte_changed_frames": 0,
+      "decoded_rgb_changed_frames": 0,
+      "changed_pixels": 0,
+      "max_channel_delta_0_255": 0,
+      "mean_absolute_channel_delta_0_255": 0.0,
+      "reference_numeric_max_abs_difference": {
+        "c2w": 0.0,
+        "K": 0.0
+      }
+    },
+    {
+      "scene": "Waymo-405841",
+      "frames": 199,
+      "frame_assignment_and_dimensions_identical": true,
+      "hpc_split_hash": "5505c9eb86732a0607b84d2f0a40e5e15c59f1ef7f32286df40fec724ed23e3e",
+      "b_versions_split_hash": "5505c9eb86732a0607b84d2f0a40e5e15c59f1ef7f32286df40fec724ed23e3e",
+      "published_b_split_hash": "a9fae16cd14dd665d3c99c4d2c31f1702826fdacf29331c67a6ea15e2b9edd51",
+      "b_versions_match_published_b": false,
+      "b_versions_reference_matches_published_b": false,
+      "png_byte_changed_frames": 0,
+      "decoded_rgb_changed_frames": 0,
+      "changed_pixels": 0,
+      "max_channel_delta_0_255": 0,
+      "mean_absolute_channel_delta_0_255": 0.0,
+      "reference_numeric_max_abs_difference": {
+        "c2w": 0.0,
+        "K": 0.0
+      }
+    }
+  ]
+}

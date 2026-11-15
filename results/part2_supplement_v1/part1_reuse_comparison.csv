@@ -1,0 +1,4 @@
+scene,A_full_paired_ate,B_full_paired_ate,B_original_all_train_ate,psnr_B_minus_A,ssim_B_minus_A,lpips_B_minus_A,same_training_config,B_checkpoint_copy
+Re10k-1,0.029021926722405382,0.029021821349885124,0.04512176034249547,0.015479486193500591,-0.0004274915273402846,0.0026153274944850646,True,/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints/Re10k-1/vggt/step_007000.pt
+Waymo-405841,0.956492971046773,0.9564914869893076,0.9275643146112159,0.05274940176264309,0.0006902232998938773,0.0006320786476134987,True,/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints/Waymo-405841/vggt/step_007000.pt
+Dl3dv-2,0.03789904535544095,0.03789905639854294,0.0331467640766631,-0.08867572823128711,-0.00104578949541545,0.010811813175678253,True,/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints/Dl3dv-2/vggt/step_007000.pt

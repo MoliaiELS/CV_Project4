@@ -1,4 +1,7 @@
 # HPC Part 2 pilot
+
+> 最新 Part 2 交付：三个场景 Full / Sparse 7000 步及补充评估均已完成。入口见 [代码、结果与 HPC 复现说明](part2_handoff.md)。旧阶段记录按其当时状态保留；当前数据对齐状态以新交接为准。
+
 This is a sparse-only single-scene validation, not a completed full/sparse benchmark.
 
 ## Location and environment

@@ -38,12 +38,15 @@ def verify(scene):
             render=load(case/"renders/render.json"); prov=load(case/"train/provenance.json")
             records=[json.loads(l) for l in (case/"train/train.jsonl").read_text().splitlines()]
             assert records[-1]["step"]==render["step"]==7000
+            assert all(math.isfinite(r[k]) for r in records for k in ["loss","l1","ssim"])
             assert load(case/"train/config.json")==load(BASE/"full/train/config.json")
             assert prov["seed"]==42 and not prov["pose_optimization"] and not prov["appearance_optimization"]
             assert prov["package_source_sha256"]==digest
             assert prov["manifest_sha256"]==sha256_file(datasets[kind]/"manifest.json")
             assert prov["scene_sha256"]==sha256_file(case/"init/scene.npz")
             assert meta["registered_frames"]==len(train[kind])
+            assert meta["max_points"]==meta["initial_points"]==100000
+            assert meta["confidence_quantile"]==0.5 and not meta["bundle_adjustment"]
             assert meta["all_training_views_joint"] and meta["neural_backend"]=="offload"
             assert meta["weights_sha256"]==base["results"][0]["weights_sha256"]
             assert sha256_file(case/"train/checkpoints/step_007000.pt")==row["checkpoint_sha256"]==render["checkpoint_sha256"]
@@ -127,7 +130,27 @@ def main():
         with (out/"comparison.csv").open("w",newline="") as f:
             writer=csv.DictWriter(f,fieldnames=keys,extrasaction="ignore");writer.writeheader();writer.writerows(rows)
         macro={kind:{m:statistics.mean(r[m] for r in rows if r["condition"]==kind) for m in ["psnr","ssim","lpips"]} for kind in ["full","sparse"]}
-        write_json(out/"comparison.json",{"rows":rows,"macro_average_by_scene":macro,"ate_aggregation":"not aggregated across different reference trajectory units","verification":verification})
+        paired_details={}
+        frame_rows=[]
+        for scene in SCENES:
+            pair={r["condition"]:r for r in rows if r["scene"]==scene}
+            fs={}
+            for kind in ["full","sparse"]:
+                m=load(Path(pair[kind]["run_path"])/kind/"metrics.json")
+                fs[kind]={f["id"]:f for f in m["per_frame"]}
+                frame_rows.extend(dict(scene=scene,condition=kind,**f) for f in m["per_frame"])
+            assert fs["full"].keys()==fs["sparse"].keys()
+            paired_details[scene]={
+                "full_minus_sparse_mean":{k:pair["full"][k]-pair["sparse"][k] for k in ["psnr","ssim","lpips","paired_ate_rmse"]},
+                "test_frame_count":len(fs["full"]),
+                "full_higher_psnr_frames":sum(fs["full"][i]["psnr"]>fs["sparse"][i]["psnr"] for i in fs["full"]),
+                "sparse_lower_lpips_frames":sum(fs["sparse"][i]["lpips"]<fs["full"][i]["lpips"] for i in fs["full"]),
+                "sparse_fraction_of_full_train_views":pair["sparse"]["train_frames"]/pair["full"]["train_frames"]}
+        assert len(frame_rows)==198
+        with (out/"per_frame_metrics.csv").open("w",newline="") as f:
+            writer=csv.DictWriter(f,fieldnames=["scene","condition","id","image","psnr","ssim","lpips"]);writer.writeheader();writer.writerows(frame_rows)
+        write_json(out/"paired_details.json",paired_details)
+        write_json(out/"comparison.json",{"rows":rows,"macro_average_by_scene":macro,"ate_aggregation":"not aggregated across different reference trajectory units","verification":verification,"paired_details":paired_details})
         lines=["# Part 2: three-scene Full / Sparse comparison","",
                "All six runs use 7000 steps and seed 42; same frozen configuration, model weights, implementation and evaluation protocol.","",
                "| Scene | Condition | Train/test | PSNR (dB) | SSIM | LPIPS | Paired ATE |",
@@ -143,6 +166,21 @@ def main():
                 "This is one seed and three scenes; results describe this fixed-budget comparison and are not a statistical generalization.",
                 "Each run contains verified reports, checkpoint hashes, all test renders, per-frame metrics and a first/middle/last-frame preview.",
                 "All computation and report generation ran on the HPC through direct connections with proxies disabled.",""]
+        lines+=["Observed differences (Full minus Sparse):",""]
+        for scene,d in paired_details.items():
+            delta=d["full_minus_sparse_mean"]
+            lines.append(f"- {scene}: PSNR {delta['psnr']:+.6f} dB; SSIM {delta['ssim']:+.6f}; LPIPS {delta['lpips']:+.6f}.")
+        if all(d["full_minus_sparse_mean"]["paired_ate_rmse"]>0 for d in paired_details.values()):
+            lines+=["","Sparse has lower paired ATE in all three scenes, while Full has higher mean PSNR/SSIM in all three. Lower center-trajectory error alone does not establish better held-out rendering quality."]
+        lines+=["Waymo is a mixed outcome: Full has higher PSNR on 24/25 test frames, while Sparse has lower LPIPS on all 25 frames.",
+                "Fixed first/middle/last previews were visually inspected; they were not chosen by score.",""]
+        alignment_path=out/"part1_alignment_update.json"
+        if alignment_path.exists():
+            alignment=load(alignment_path)
+            if alignment.get("status")=="verified":
+                current=load(out/"comparison.json");current["latest_part1_alignment"]=alignment;write_json(out/"comparison.json",current)
+                lines=[line.replace("Preprocessing and source-camera audits passed. B's published prepared hashes remain unresolved because B's actual artifacts are unavailable; no B model/checkpoint/score is used.",
+                    "Latest Part 1 handoff 901c5ae verified: all 784 PNG hashes/frame records match, reference intrinsics match exactly and poses agree within 4.44e-16. See ../hpc_setup/part1_handoff_901c5ae/audit.json. Part 2 results retain their original independently trained Full/Sparse pairs.") for line in lines]
         (out/"report.md").write_text("\n".join(lines))
     print(json.dumps(rows,indent=2))
 if __name__=="__main__":main()

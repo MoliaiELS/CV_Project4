@@ -1,0 +1,14 @@
+{
+  "status": "completed",
+  "cpu_tests_passed": 58,
+  "asset_sha256_checks": 71,
+  "checkpoint_count": 39,
+  "fresh_workspace_preparation": true,
+  "fresh_workspace_package_sha256": "c8b6722a8b18deaecd6766279d8e69617e762ec9cb9add52300ba171424bf51c",
+  "report_rebuild_from_fresh_workspace": true,
+  "original_p4_and_bundles_unchanged": true,
+  "upstream_p4_changed": false,
+  "yguo704_posix_permission_check": "71 assets and environment readable via existing students group",
+  "no_proxy": true,
+  "latex_fragment_compiled": false
+}

@@ -1,0 +1,13 @@
+{
+  "gsplat": {
+    "version": "1.5.3",
+    "source": "official PyPI distribution; local CUDA JIT",
+    "filename": "gsplat-1.5.3-py3-none-any.whl",
+    "sha256": "515a3773641f5e7f7717acab6276c0b1d6dbcad087b7968ca653337c3189a982"
+  },
+  "vggt": {
+    "commit": "a288dd0f14786c93483e45524328726ab7b1b4ce",
+    "tracked_clean": true
+  },
+  "proxy_used": false
+}

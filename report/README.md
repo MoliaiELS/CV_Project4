@@ -21,3 +21,7 @@ tectonic part1_standalone.tex
 ```
 
 See the [Part 1 results and provenance](../docs/part1_report.md) for the experiment settings and artifact layout.
+
+## Part 2 section
+
+See [part2.tex](part2.tex), [integration notes](part2_integration.md), and [the HPC handoff](../docs/part2_handoff.md). Part 2 is a LaTeX section, not a compiled final paper.

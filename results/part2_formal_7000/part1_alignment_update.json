@@ -1,0 +1,14 @@
+{
+  "status": "verified",
+  "github_commit": "901c5aedfe4627e7af93814e8f37e847237adb7b",
+  "audit_path": "/data/disk2/home/zguo400/CV_Project4/results/hpc_setup/part1_handoff_901c5ae/audit.json",
+  "archive_sha256": "d38e5431f7e3a0cccb00bc12bdbffa66ccd9c9c6edddd35ede10783a06bcf54c",
+  "prepared_frame_hashes_verified": 784,
+  "reference_K_identical": true,
+  "reference_c2w_max_abs_difference": 4.440892098500626e-16,
+  "part2_metric_values_changed": false,
+  "part1_checkpoint_reused_in_part2": false,
+  "large_checkpoint_binaries_accessible": true,
+  "checkpoint_import_receipt": "/data/disk2/home/zguo400/CV_Project4/results/hpc_setup/part1_handoff_901c5ae/checkpoint_import_receipt.json",
+  "imported_checkpoint_directory": "/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints"
+}

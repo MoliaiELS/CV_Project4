@@ -1,0 +1,197 @@
+{
+  "status": "completed",
+  "coverage": [
+    {
+      "scene": "Re10k-1",
+      "condition": "full",
+      "test_frames": 35,
+      "mean_alpha": 0.944500093800681,
+      "coverage_alpha_0_1": 0.9898202078683036,
+      "coverage_alpha_0_5": 0.9639195033482143,
+      "coverage_alpha_0_9": 0.8726658412388393,
+      "replay_max_pixel_difference": 0,
+      "checkpoint_sha256": "faa86af8dcb5a6975ec9fe4c6ed9ff3b3dac868eba539dce3b072212bc1f8011"
+    },
+    {
+      "scene": "Re10k-1",
+      "condition": "sparse",
+      "test_frames": 35,
+      "mean_alpha": 0.9340734345572336,
+      "coverage_alpha_0_1": 0.9872188023158482,
+      "coverage_alpha_0_5": 0.9642286028180803,
+      "coverage_alpha_0_9": 0.8368722098214286,
+      "replay_max_pixel_difference": 0,
+      "checkpoint_sha256": "281427b1936ecf598501b54d75b7ad39a99cac247abfb1335c885c7a252b6b49"
+    },
+    {
+      "scene": "Waymo-405841",
+      "condition": "full",
+      "test_frames": 25,
+      "mean_alpha": 0.9858386993408204,
+      "coverage_alpha_0_1": 0.9991647786458333,
+      "coverage_alpha_0_5": 0.9949797526041667,
+      "coverage_alpha_0_9": 0.9634505859375001,
+      "replay_max_pixel_difference": 0,
+      "checkpoint_sha256": "d88db176cc0443538b11936fcffca2d86d9eff1f69060025403d53b812a6cc1f"
+    },
+    {
+      "scene": "Waymo-405841",
+      "condition": "sparse",
+      "test_frames": 25,
+      "mean_alpha": 0.9765784764289855,
+      "coverage_alpha_0_1": 0.9973332682291667,
+      "coverage_alpha_0_5": 0.9910412760416665,
+      "coverage_alpha_0_9": 0.9418364583333333,
+      "replay_max_pixel_difference": 0,
+      "checkpoint_sha256": "58d4e317001ad6807e54a47af74eee1c64b7eeb3519bf9aee620eeacdf43f4dd"
+    },
+    {
+      "scene": "Dl3dv-2",
+      "condition": "full",
+      "test_frames": 39,
+      "mean_alpha": 0.984517439817771,
+      "coverage_alpha_0_1": 0.9998971009865786,
+      "coverage_alpha_0_5": 0.9933553842397836,
+      "coverage_alpha_0_9": 0.9597586607321714,
+      "replay_max_pixel_difference": 0,
+      "checkpoint_sha256": "c8dfb1c80d3054ef2dbb85711a9ef53c3188423210c16e99b634816dc95f1671"
+    },
+    {
+      "scene": "Dl3dv-2",
+      "condition": "sparse",
+      "test_frames": 39,
+      "mean_alpha": 0.9657939779452789,
+      "coverage_alpha_0_1": 0.9923440004006411,
+      "coverage_alpha_0_5": 0.9812007806239984,
+      "coverage_alpha_0_9": 0.9229184664212741,
+      "replay_max_pixel_difference": 0,
+      "checkpoint_sha256": "dff20b805c714bb0cc63334bfbdaa93f52018597d2db6e2f46ed3dac1ffa7eb3"
+    }
+  ],
+  "camera_diagnostics": [
+    {
+      "scene": "Re10k-1",
+      "condition": "full",
+      "common_frames": 10,
+      "paired_ate_rmse": 0.029021926722405382,
+      "all_available_train_ate": 0.04512176326909908,
+      "paired_rotation_mean_degrees": 3.477709763969685,
+      "paired_rotation_max_degrees": 3.8948922096459486,
+      "paired_focal_ratio_fx": 1.2056298519753699,
+      "paired_focal_ratio_fy": 1.193806618843446,
+      "trajectory_singular_ratio_2_to_1": 0.06490335928115838,
+      "reference_path_length": 4.041404986925615,
+      "paired_ate_over_path_length": 0.007181147847418032
+    },
+    {
+      "scene": "Re10k-1",
+      "condition": "sparse",
+      "common_frames": 10,
+      "paired_ate_rmse": 0.026431858126685425,
+      "all_available_train_ate": 0.026431858126685425,
+      "paired_rotation_mean_degrees": 3.853491566558449,
+      "paired_rotation_max_degrees": 4.197367516896222,
+      "paired_focal_ratio_fx": 1.2083303828174774,
+      "paired_focal_ratio_fy": 1.1981296698859667,
+      "trajectory_singular_ratio_2_to_1": 0.06490335928115838,
+      "reference_path_length": 4.041404986925615,
+      "paired_ate_over_path_length": 0.006540264638707421
+    },
+    {
+      "scene": "Waymo-405841",
+      "condition": "full",
+      "common_frames": 20,
+      "paired_ate_rmse": 0.956492971046773,
+      "all_available_train_ate": 0.9275639133416637,
+      "paired_rotation_mean_degrees": 1.0528157259609745,
+      "paired_rotation_max_degrees": 1.720076140712892,
+      "paired_focal_ratio_fx": 1.0168375128061031,
+      "paired_focal_ratio_fy": 1.0107083033819473,
+      "trajectory_singular_ratio_2_to_1": 0.182631437122992,
+      "reference_path_length": 81.13041460829096,
+      "paired_ate_over_path_length": 0.011789573314334155
+    },
+    {
+      "scene": "Waymo-405841",
+      "condition": "sparse",
+      "common_frames": 20,
+      "paired_ate_rmse": 0.7293696011635176,
+      "all_available_train_ate": 0.7293696011635176,
+      "paired_rotation_mean_degrees": 2.2140204279484164,
+      "paired_rotation_max_degrees": 3.626181070473289,
+      "paired_focal_ratio_fx": 1.0020512226673144,
+      "paired_focal_ratio_fy": 1.0006000474324876,
+      "trajectory_singular_ratio_2_to_1": 0.182631437122992,
+      "reference_path_length": 81.13041460829096,
+      "paired_ate_over_path_length": 0.008990088423497113
+    },
+    {
+      "scene": "Dl3dv-2",
+      "condition": "full",
+      "common_frames": 11,
+      "paired_ate_rmse": 0.03789904535544095,
+      "all_available_train_ate": 0.033146834618160925,
+      "paired_rotation_mean_degrees": 0.5726482550009724,
+      "paired_rotation_max_degrees": 0.8523979837716023,
+      "paired_focal_ratio_fx": 1.0166689362097332,
+      "paired_focal_ratio_fy": 1.01487398560409,
+      "trajectory_singular_ratio_2_to_1": 0.24197678494915983,
+      "reference_path_length": 25.532018439579378,
+      "paired_ate_over_path_length": 0.0014843732564711913
+    },
+    {
+      "scene": "Dl3dv-2",
+      "condition": "sparse",
+      "common_frames": 11,
+      "paired_ate_rmse": 0.02902769301422055,
+      "all_available_train_ate": 0.02902769301422055,
+      "paired_rotation_mean_degrees": 0.4725102544705836,
+      "paired_rotation_max_degrees": 0.6944845580631587,
+      "paired_focal_ratio_fx": 1.008447365240519,
+      "paired_focal_ratio_fy": 1.0047708555992554,
+      "trajectory_singular_ratio_2_to_1": 0.24197678494915983,
+      "reference_path_length": 25.532018439579378,
+      "paired_ate_over_path_length": 0.0011369133655810865
+    }
+  ],
+  "part1_reuse": [
+    {
+      "scene": "Re10k-1",
+      "A_full_paired_ate": 0.029021926722405382,
+      "B_full_paired_ate": 0.029021821349885124,
+      "B_original_all_train_ate": 0.04512176034249547,
+      "psnr_B_minus_A": 0.015479486193500591,
+      "ssim_B_minus_A": -0.0004274915273402846,
+      "lpips_B_minus_A": 0.0026153274944850646,
+      "same_training_config": true,
+      "B_checkpoint_copy": "/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints/Re10k-1/vggt/step_007000.pt"
+    },
+    {
+      "scene": "Waymo-405841",
+      "A_full_paired_ate": 0.956492971046773,
+      "B_full_paired_ate": 0.9564914869893076,
+      "B_original_all_train_ate": 0.9275643146112159,
+      "psnr_B_minus_A": 0.05274940176264309,
+      "ssim_B_minus_A": 0.0006902232998938773,
+      "lpips_B_minus_A": 0.0006320786476134987,
+      "same_training_config": true,
+      "B_checkpoint_copy": "/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints/Waymo-405841/vggt/step_007000.pt"
+    },
+    {
+      "scene": "Dl3dv-2",
+      "A_full_paired_ate": 0.03789904535544095,
+      "B_full_paired_ate": 0.03789905639854294,
+      "B_original_all_train_ate": 0.0331467640766631,
+      "psnr_B_minus_A": -0.08867572823128711,
+      "ssim_B_minus_A": -0.00104578949541545,
+      "lpips_B_minus_A": 0.010811813175678253,
+      "same_training_config": true,
+      "B_checkpoint_copy": "/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints/Dl3dv-2/vggt/step_007000.pt"
+    }
+  ],
+  "coverage_definition": "Fraction of held-out rendered pixels whose accumulated Gaussian alpha exceeds the threshold; a visibility/support proxy, not ground-truth 3D completeness or geometric accuracy.",
+  "camera_protocol": "One Sim3 fitted on the same sparse TRAIN camera IDs per condition; reference-trajectory units. ATE is constant during fixed-camera GS training.",
+  "selected_alpha_previews": "First/middle/last test, lowest Sparse PSNR, and largest Full-minus-Sparse PSNR gap.",
+  "test_images_used_for_training": false,
+  "source_unchanged": true
+}

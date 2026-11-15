@@ -1,0 +1,1 @@
+Include part2.tex in the shared CVPR paper. Add ../results/part2_supplement_v1/figures/ to the graphics path when building from report/. Reuse kerbl2023gaussians and wang2025vggt from the Part 1 bibliography. Requires booktabs and graphicx. This is a LaTeX fragment, not a compiled final submission.
