@@ -151,8 +151,70 @@ def _repo_info(repo, method):
     return repo, actual
 
 
+def _vggt_with_offloaded_features(model, images):
+    """Keep joint VGGT attention and stage the saved head features on CPU."""
+    import torch
+
+    images = images.unsqueeze(0)
+    batch_size, frame_count = images.shape[:2]
+    aggregator = model.aggregator
+    cached_layers = aggregator.cached_layer_indices
+    depth_layers = model.depth_head.intermediate_layer_idx
+    last_layer = len(aggregator.frame_blocks) - 1
+    frame_features, global_features = {}, {}
+
+    def capture(features, layer):
+        def save_feature(_module, _inputs, tokens):
+            features[layer] = tokens.detach().cpu()
+        return save_feature
+
+    hooks = []
+    try:
+        # Stock VGGT concatenates these same features on device. Save the
+        # inputs to that concatenation as each layer runs, in their native dtype.
+        aggregator.cached_layer_indices = set()
+        for layer in sorted(cached_layers):
+            hooks.append(aggregator.frame_blocks[layer].register_forward_hook(capture(frame_features, layer)))
+            hooks.append(aggregator.global_blocks[layer].register_forward_hook(capture(global_features, layer)))
+        layer_outputs, patch_start_idx = aggregator(images)
+    finally:
+        aggregator.cached_layer_indices = cached_layers
+        for hook in hooks:
+            hook.remove()
+
+    def head_features(layer, start, end, token_stop=None):
+        frame, global_ = frame_features[layer], global_features[layer]
+        channels = frame.shape[-1]
+        frame = frame.reshape(batch_size, frame_count, -1, channels)[:, start:end, :token_stop]
+        global_ = global_.reshape(batch_size, frame_count, -1, channels)[:, start:end, :token_stop]
+        return torch.cat((frame, global_), dim=-1).to(images.device)
+
+    with torch.autocast(device_type=images.device.type, enabled=False):
+        # CameraHead reads only token zero from the final layer, across all views.
+        layer_outputs[-1] = head_features(last_layer, 0, frame_count, token_stop=1)
+        pose_enc = model.camera_head(layer_outputs)[-1]
+        layer_outputs[-1] = None
+
+        depths, confidences = [], []
+        # Match the pinned DPT head's default eight frames per decoder call.
+        for start in range(0, frame_count, 8):
+            end = min(start + 8, frame_count)
+            for layer in depth_layers:
+                layer_outputs[layer] = head_features(layer, start, end)
+            depth, confidence = model.depth_head(
+                layer_outputs, images=images[:, start:end].contiguous(),
+                patch_start_idx=patch_start_idx,
+            )
+            depths.append(depth.cpu())
+            confidences.append(confidence.cpu())
+            for layer in depth_layers:
+                layer_outputs[layer] = None
+    return {"pose_enc": pose_enc, "depth": torch.cat(depths, dim=1),
+            "depth_conf": torch.cat(confidences, dim=1)}
+
+
 def _run_neural(dataset, output, frames, method, repo, weights, seed,
-                max_points, confidence_quantile):
+                max_points, confidence_quantile, vggt_offload_features=False):
     repo, revision = _repo_info(repo, method)
     if not weights or not Path(weights).is_file():
         raise ValueError("An explicit local --weights file is required; see README for downloads/access")
@@ -206,14 +268,16 @@ def _run_neural(dataset, output, frames, method, repo, weights, seed,
     dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
     try:
         with torch.inference_mode(), torch.autocast(device_type="cuda", dtype=dtype):
-            predictions = model(images)
+            predictions = _vggt_with_offloaded_features(model, images) if vggt_offload_features else model(images)
         with torch.inference_mode(), torch.autocast(device_type="cuda", enabled=False):
             ext, kin = decoder(predictions["pose_enc"].float(), images.shape[-2:])
         torch.cuda.synchronize()
     except torch.cuda.OutOfMemoryError as e:
+        memory_hint = "Use a larger GPU."
+        if method == "vggt" and not vggt_offload_features:
+            memory_hint = "Try --vggt-offload-features or use a larger GPU."
         raise RuntimeError(
-            f"Joint {method} inference OOM for {len(frames)} train frames at {shape}. "
-            "Use a larger GPU; do not silently truncate full input or merge windows without a documented Sim3 protocol."
+            f"Joint {method} inference OOM for {len(frames)} train frames at {shape}. {memory_hint}"
         ) from e
     inference_seconds = time.perf_counter() - inference_start
     export_start = time.perf_counter()
@@ -351,10 +415,13 @@ def _run_colmap(dataset, output, frames, seed, matcher, colmap):
 
 
 def run_initializer(dataset, output, method, repo=None, weights=None, seed=42,
-                    max_points=100000, confidence_quantile=.5, matcher="exhaustive", colmap="colmap"):
+                    max_points=100000, confidence_quantile=.5, matcher="exhaustive", colmap="colmap",
+                    vggt_offload_features=False):
     """Create scene.npz and provenance scene.json, preserving failed-run evidence."""
     if method not in ("colmap", *MODEL_COMMITS):
         raise ValueError(f"Unknown initializer: {method}")
+    if vggt_offload_features and method != "vggt":
+        raise ValueError("--vggt-offload-features applies only to VGGT")
     output = Path(output).resolve()
     if output.exists() and any(output.iterdir()):
         raise FileExistsError(f"Initializer output must be new/empty to prevent stale artifact reuse: {output}")
@@ -364,12 +431,15 @@ def run_initializer(dataset, output, method, repo=None, weights=None, seed=42,
                 "scene": manifest.get("scene"), "input_names": [f["image"] for f in frames],
                 "input_frames": len(frames), "manifest_sha256": _sha256(Path(dataset) / "manifest.json"),
                 "camera_convention": "OpenCV c2w; x-right y-down z-forward", "status": "running"}
+    if method == "vggt":
+        metadata["memory_strategy"] = "cpu_head_features" if vggt_offload_features else "stock"
     started = time.perf_counter()
     try:
         if method == "colmap":
             result = _run_colmap(dataset, output, frames, seed, matcher, colmap)
         else:
-            result = _run_neural(dataset, output, frames, method, repo, weights, seed, max_points, confidence_quantile)
+            result = _run_neural(dataset, output, frames, method, repo, weights, seed,
+                                 max_points, confidence_quantile, vggt_offload_features)
         metadata.update(result)
         metadata["status"] = "completed"
     except Exception as e:
@@ -393,6 +463,8 @@ def main():
     p.add_argument("--confidence-quantile", type=float, default=.5)
     p.add_argument("--matcher", choices=("exhaustive", "sequential"), default="exhaustive")
     p.add_argument("--colmap", default="colmap")
+    p.add_argument("--vggt-offload-features", action="store_true",
+                   help="Store VGGT head features on CPU during joint all-frame inference")
     a = p.parse_args()
     print(json.dumps(run_initializer(**vars(a)), indent=2))
 

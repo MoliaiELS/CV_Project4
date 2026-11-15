@@ -64,8 +64,10 @@ def main():
     scene = synthetic_dataset(root / "dataset")
     cfg = TrainConfig(steps=40, save_steps=[20, 40], log_every=10)
     train(root / "dataset", scene, root / "continuous", cfg)
-    train(root / "dataset", scene, root / "resumed", cfg, stop_after=20)
-    train(root / "dataset", scene, root / "resumed", cfg, resume=root / "resumed/checkpoints/step_000020.pt")
+    # Compare both continuations from precisely the same optimizer state.
+    # Independent CUDA trajectories can diverge before the resume point.
+    train(root / "dataset", scene, root / "resumed", cfg,
+          resume=root / "continuous/checkpoints/step_000020.pt")
     a = torch.load(root / "continuous/checkpoints/step_000040.pt", map_location="cpu", weights_only=False)
     b = torch.load(root / "resumed/checkpoints/step_000040.pt", map_location="cpu", weights_only=False)
     differences = {key: float((a["splats"][key] - b["splats"][key]).abs().max()) for key in a["splats"]}

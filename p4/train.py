@@ -176,6 +176,11 @@ def train(dataset, scene_path, output, config=None, resume=None, stop_after=None
     if saved:
         for k, opt in optimizers.items():
             opt.load_state_dict(saved["optimizers"][k])
+            # map_location moves all saved tensors to CUDA. Ordinary Adam
+            # keeps its non-capturable step counters on the CPU.
+            for optimizer_state in opt.state.values():
+                if "step" in optimizer_state:
+                    optimizer_state["step"] = optimizer_state["step"].cpu()
         scheduler.load_state_dict(saved["scheduler"])
         state = saved["strategy"]
         sampler.bit_generator.state = saved["sampler"]

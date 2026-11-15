@@ -87,6 +87,8 @@ def stage_commands(config, scene, method, run, pilot_steps=None):
     else:
         key = method.replace("-", "_")
         cmd += ["--repo", init[key + "_repo"], "--weights", init[key + "_weights"]]
+        if method == "vggt" and init.get("vggt_offload_features", False):
+            cmd.append("--vggt-offload-features")
     commands = [("initialize", cmd)]
     train = [sys.executable, "-m", "p4.train", "train", "--dataset", str(dataset),
              "--scene", str(run / "init/scene.npz"), "--output", str(run / "train"),
