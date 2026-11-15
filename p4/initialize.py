@@ -454,8 +454,7 @@ def run_initializer(dataset, output, method, repo=None, weights=None, seed=42,
             result = _run_colmap(dataset, output, frames, seed, matcher, colmap)
         else:
             result = _run_neural(dataset, output, frames, method, repo, weights, seed,
-                                 max_points, confidence_quantile,
-                                 vggt_offload_features=vggt_offload_features, neural_backend=neural_backend)
+                                 max_points, confidence_quantile, vggt_offload_features, neural_backend)
         metadata.update(result)
         metadata["status"] = "completed"
     except Exception as e:

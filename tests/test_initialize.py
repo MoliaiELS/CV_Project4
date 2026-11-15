@@ -72,14 +72,22 @@ def _toy_dataset(tmp_path):
     return dataset
 
 
-def test_only_manifest_train_rgb_reaches_initializer(tmp_path, monkeypatch):
+@pytest.mark.parametrize("head_offload,backend,strategy", [
+    (False, "native", "stock"),
+    (True, "native", "cpu_head_features"),
+    (False, "offload", "cpu_disk_layers"),
+])
+def test_only_manifest_train_rgb_reaches_initializer(tmp_path, monkeypatch, head_offload, backend, strategy):
     dataset = _toy_dataset(tmp_path)
     seen = []
     def mocked_neural(dataset, output, frames, *args):
+        assert args[-2:] == (head_offload, backend)
         seen.extend(f["image"] for f in frames)
         return {"registered_frames": len(frames), "initial_points": 1}
     monkeypatch.setattr("p4.initialize._run_neural", mocked_neural)
-    result = run_initializer(dataset, tmp_path / "init", "vggt")
+    result = run_initializer(dataset, tmp_path / "init", "vggt",
+                             vggt_offload_features=head_offload, neural_backend=backend)
+    assert result["memory_strategy"] == strategy
     assert seen == ["images/0.png", "images/2.png"]
     assert result["status"] == "completed"
 
