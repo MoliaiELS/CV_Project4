@@ -1,0 +1,50 @@
+[
+  {
+    "scene": "Re10k-1",
+    "condition": "full",
+    "highest_sampled_psnr_step": 500,
+    "highest_sampled_psnr": 11.66428897895661,
+    "final_psnr": 11.364302995051043,
+    "peak_minus_final_db": 0.2999859839055681
+  },
+  {
+    "scene": "Re10k-1",
+    "condition": "sparse",
+    "highest_sampled_psnr_step": 500,
+    "highest_sampled_psnr": 11.608838126340842,
+    "final_psnr": 11.23416072917376,
+    "peak_minus_final_db": 0.3746773971670816
+  },
+  {
+    "scene": "Waymo-405841",
+    "condition": "full",
+    "highest_sampled_psnr_step": 1000,
+    "highest_sampled_psnr": 17.80771579039324,
+    "final_psnr": 17.68943561211013,
+    "peak_minus_final_db": 0.11828017828310777
+  },
+  {
+    "scene": "Waymo-405841",
+    "condition": "sparse",
+    "highest_sampled_psnr_step": 1000,
+    "highest_sampled_psnr": 17.120638378295645,
+    "final_psnr": 16.726004886649665,
+    "peak_minus_final_db": 0.3946334916459797
+  },
+  {
+    "scene": "Dl3dv-2",
+    "condition": "full",
+    "highest_sampled_psnr_step": 7000,
+    "highest_sampled_psnr": 18.608707600145117,
+    "final_psnr": 18.608707600145117,
+    "peak_minus_final_db": 0.0
+  },
+  {
+    "scene": "Dl3dv-2",
+    "condition": "sparse",
+    "highest_sampled_psnr_step": 1000,
+    "highest_sampled_psnr": 16.1051552872191,
+    "final_psnr": 15.478618005356376,
+    "peak_minus_final_db": 0.626537281862726
+  }
+]

@@ -28,3 +28,6 @@ results/*doctor*.json
 *.partial
 .DS_Store
 Thumbs.db
+
+# Tiny diagnostic trajectories, not model checkpoints.
+!results/part2_supplement_v1/*_paired_trajectories.npz

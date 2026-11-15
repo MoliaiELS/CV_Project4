@@ -1,0 +1,440 @@
+{
+  "status": "passed",
+  "github_commit": "901c5aedfe4627e7af93814e8f37e847237adb7b",
+  "source_archive": "/data/disk2/home/yguo704/CV_Project4-merged/output/handoff/part1-combined-20261115-211003.zip",
+  "archive_sha256": "d38e5431f7e3a0cccb00bc12bdbffa66ccd9c9c6edddd35ede10783a06bcf54c",
+  "prepared_data_alignment_status": "resolved for this latest Part 1 archive",
+  "historical_published_hash_mismatch": "Earlier aggregate mismatch is superseded by actual latest manifest/reference evidence; its historical cause is not inferred.",
+  "all_prepared_frame_hashes_verified": 784,
+  "preserved_part2_source_sha256": "c8b6722a8b18deaecd6766279d8e69617e762ec9cb9add52300ba171424bf51c",
+  "scenes": {
+    "Waymo-405841": {
+      "status": "passed",
+      "frames": 199,
+      "train_frames": 174,
+      "test_frames": 25,
+      "frame_records_identical": true,
+      "all_A_RGB_hashes_match_B_manifest": true,
+      "split_hash": "5505c9eb86732a0607b84d2f0a40e5e15c59f1ef7f32286df40fec724ed23e3e",
+      "reference_arrays": {
+        "names": {
+          "array_equal": true,
+          "shape": [
+            199
+          ],
+          "dtype": "<U21",
+          "max_abs_difference": null
+        },
+        "c2w": {
+          "array_equal": true,
+          "shape": [
+            199,
+            4,
+            4
+          ],
+          "dtype": "float64",
+          "max_abs_difference": 0.0
+        },
+        "K": {
+          "array_equal": true,
+          "shape": [
+            199,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "max_abs_difference": 0.0
+        }
+      },
+      "reference_npz_bytes_equal": false,
+      "A_manifest_sha256": "242380ca6920958df0efe67be16ae6f8d69a9c8078027b0eaebfb26dd3940e34",
+      "B_manifest_sha256": "74f2bae490a39b8c2d69b6b18f513c4d4f04c0e06d2b52ef877263dc187c5a7b",
+      "manifest_metadata_differences": {
+        "split_source": {
+          "A": {
+            "kind": "explicit",
+            "file": "/data/disk2/home/zguo400/CV_Project4/configs/splits/Waymo-405841.json",
+            "sha256": "a5f74e8274b54657f20a8be5b2c547d58cc4f50915c8365658b97824baa63927"
+          },
+          "B": {
+            "kind": "explicit",
+            "file": "/mnt/slurmfs-4090node1/homes/yguo704/CV_Project4/configs/splits/Waymo-405841.json",
+            "sha256": "a5f74e8274b54657f20a8be5b2c547d58cc4f50915c8365658b97824baa63927"
+          }
+        },
+        "source": {
+          "A": "/data/disk1/shared/aiaa3201/project4_3d/405841/FRONT",
+          "B": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/data/raw/405841/FRONT"
+        }
+      }
+    },
+    "Dl3dv-2": {
+      "status": "passed",
+      "frames": 306,
+      "train_frames": 267,
+      "test_frames": 39,
+      "frame_records_identical": true,
+      "all_A_RGB_hashes_match_B_manifest": true,
+      "split_hash": "9a15e67cde2fbb79ee23675ebeb995c2d6b45e21d0f06ef2516e65a66b59d67c",
+      "reference_arrays": {
+        "names": {
+          "array_equal": true,
+          "shape": [
+            306
+          ],
+          "dtype": "<U26",
+          "max_abs_difference": null
+        },
+        "c2w": {
+          "array_equal": false,
+          "shape": [
+            306,
+            4,
+            4
+          ],
+          "dtype": "float64",
+          "max_abs_difference": 4.440892098500626e-16
+        },
+        "K": {
+          "array_equal": true,
+          "shape": [
+            306,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "max_abs_difference": 0.0
+        }
+      },
+      "reference_npz_bytes_equal": false,
+      "A_manifest_sha256": "b5aa93f46a1abd19b3b375585c683ec757fd34b59177427a10326efff8474fbe",
+      "B_manifest_sha256": "8a04790400115c21bdeefe606db977ad35926538ace082d00b316ae00bfec0c9",
+      "manifest_metadata_differences": {
+        "split_source": {
+          "A": {
+            "kind": "explicit",
+            "file": "/data/disk2/home/zguo400/CV_Project4/configs/splits/Dl3dv-2.json",
+            "sha256": "358cc31325cb88226a9d15908dab1693661ad2d9174aa348513ffbf9526ef557"
+          },
+          "B": {
+            "kind": "explicit",
+            "file": "/mnt/slurmfs-4090node1/homes/yguo704/CV_Project4/configs/splits/Dl3dv-2.json",
+            "sha256": "358cc31325cb88226a9d15908dab1693661ad2d9174aa348513ffbf9526ef557"
+          }
+        },
+        "source": {
+          "A": "/data/disk1/shared/aiaa3201/project4_3d/DL3DV-2",
+          "B": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/data/raw/DL3DV-2"
+        }
+      }
+    },
+    "Re10k-1": {
+      "status": "passed",
+      "frames": 279,
+      "train_frames": 244,
+      "test_frames": 35,
+      "frame_records_identical": true,
+      "all_A_RGB_hashes_match_B_manifest": true,
+      "split_hash": "ae78d5d5f785913ebbee3cfefe8155622867c82d27b3d23f978645270a0944a8",
+      "reference_arrays": {
+        "names": {
+          "array_equal": true,
+          "shape": [
+            279
+          ],
+          "dtype": "<U20",
+          "max_abs_difference": null
+        },
+        "c2w": {
+          "array_equal": false,
+          "shape": [
+            279,
+            4,
+            4
+          ],
+          "dtype": "float64",
+          "max_abs_difference": 1.6653345369377348e-16
+        },
+        "K": {
+          "array_equal": true,
+          "shape": [
+            279,
+            3,
+            3
+          ],
+          "dtype": "float64",
+          "max_abs_difference": 0.0
+        }
+      },
+      "reference_npz_bytes_equal": false,
+      "A_manifest_sha256": "a2baa55b092e7827e2d4eb092746bc4fc1296479b7259354254ac0817b5585ed",
+      "B_manifest_sha256": "c53ff3788d04d23a63ebfcd9d514d1de0e8f15f29b77210666d11f3f9d6a0df1",
+      "manifest_metadata_differences": {
+        "split_source": {
+          "A": {
+            "kind": "explicit",
+            "file": "/data/disk2/home/zguo400/CV_Project4/configs/splits/Re10k-1.json",
+            "sha256": "ecdac3265aeecf8e5c31b8f80614289c20fd4959245847b71b13aa4b5fc02c3e"
+          },
+          "B": {
+            "kind": "explicit",
+            "file": "/mnt/slurmfs-4090node1/homes/yguo704/CV_Project4/configs/splits/Re10k-1.json",
+            "sha256": "ecdac3265aeecf8e5c31b8f80614289c20fd4959245847b71b13aa4b5fc02c3e"
+          }
+        },
+        "source": {
+          "A": "/data/disk1/shared/aiaa3201/project4_3d/Re10k-1",
+          "B": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/data/raw/Re10k-1"
+        }
+      }
+    }
+  },
+  "case_audits": [
+    {
+      "scene": "Waymo-405841",
+      "method": "colmap",
+      "status": "passed",
+      "metadata_matches_training_manifest_and_scene": true,
+      "same_training_config": true,
+      "same_test_frames_and_image_metric_protocol": true,
+      "checkpoint_record_matches_render_record": true
+    },
+    {
+      "scene": "Waymo-405841",
+      "method": "vggt",
+      "status": "passed",
+      "metadata_matches_training_manifest_and_scene": true,
+      "same_training_config": true,
+      "same_test_frames_and_image_metric_protocol": true,
+      "checkpoint_record_matches_render_record": true
+    },
+    {
+      "scene": "Waymo-405841",
+      "method": "vggt-omega",
+      "status": "passed",
+      "metadata_matches_training_manifest_and_scene": true,
+      "same_training_config": true,
+      "same_test_frames_and_image_metric_protocol": true,
+      "checkpoint_record_matches_render_record": true
+    },
+    {
+      "scene": "Dl3dv-2",
+      "method": "colmap",
+      "status": "passed",
+      "metadata_matches_training_manifest_and_scene": true,
+      "same_training_config": true,
+      "same_test_frames_and_image_metric_protocol": true,
+      "checkpoint_record_matches_render_record": true
+    },
+    {
+      "scene": "Dl3dv-2",
+      "method": "vggt",
+      "status": "passed",
+      "metadata_matches_training_manifest_and_scene": true,
+      "same_training_config": true,
+      "same_test_frames_and_image_metric_protocol": true,
+      "checkpoint_record_matches_render_record": true
+    },
+    {
+      "scene": "Dl3dv-2",
+      "method": "vggt-omega",
+      "status": "passed",
+      "metadata_matches_training_manifest_and_scene": true,
+      "same_training_config": true,
+      "same_test_frames_and_image_metric_protocol": true,
+      "checkpoint_record_matches_render_record": true
+    },
+    {
+      "scene": "Re10k-1",
+      "method": "colmap",
+      "status": "passed",
+      "metadata_matches_training_manifest_and_scene": true,
+      "same_training_config": true,
+      "same_test_frames_and_image_metric_protocol": true,
+      "checkpoint_record_matches_render_record": true
+    },
+    {
+      "scene": "Re10k-1",
+      "method": "vggt",
+      "status": "passed",
+      "metadata_matches_training_manifest_and_scene": true,
+      "same_training_config": true,
+      "same_test_frames_and_image_metric_protocol": true,
+      "checkpoint_record_matches_render_record": true
+    },
+    {
+      "scene": "Re10k-1",
+      "method": "vggt-omega",
+      "status": "passed",
+      "metadata_matches_training_manifest_and_scene": true,
+      "same_training_config": true,
+      "same_test_frames_and_image_metric_protocol": true,
+      "checkpoint_record_matches_render_record": true
+    }
+  ],
+  "VGGT_full_camera_comparison": {
+    "Waymo-405841": {
+      "max_rotation_difference_degrees": 2.776439602913767e-05,
+      "max_camera_center_absolute_difference": 4.2305967771355535e-07,
+      "max_focal_relative_difference": 3.367508305072605e-07,
+      "B_full_minus_A_full_psnr": 0.05274940176264309
+    },
+    "Dl3dv-2": {
+      "max_rotation_difference_degrees": 1.5504127942960242e-05,
+      "max_camera_center_absolute_difference": 2.3314762254145194e-07,
+      "max_focal_relative_difference": 3.6522534622466125e-07,
+      "B_full_minus_A_full_psnr": -0.08867572823128711
+    },
+    "Re10k-1": {
+      "max_rotation_difference_degrees": 1.221126609722779e-05,
+      "max_camera_center_absolute_difference": 1.8170964299901726e-07,
+      "max_focal_relative_difference": 2.305423947834361e-07,
+      "B_full_minus_A_full_psnr": 0.015479486193500591
+    }
+  },
+  "large_checkpoints": [
+    {
+      "scene": "Waymo-405841",
+      "method": "colmap",
+      "iadc_path": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_colmap_waymo_fullblock/Waymo-405841/colmap/train/checkpoints/step_007000.pt",
+      "sha256": "17d4d8d910869558cf983b0da6b78fd523dd08c49e85e52b944927614b6a32b1",
+      "bytes": 504915074,
+      "original_run": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_colmap_waymo_fullblock/Waymo-405841/colmap",
+      "accessible_on_course_HPC": true,
+      "binary_sha256_verified_on_course_HPC": true,
+      "course_HPC_shared_path": "/data/disk2/home/yguo704/CV_Project4-merged/output/handoff/part1-checkpoints-901c5ae/Waymo-405841/colmap/step_007000.pt",
+      "course_HPC_copy_path": "/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints/Waymo-405841/colmap/step_007000.pt",
+      "original_IADC_path_mounted_on_course_HPC": false
+    },
+    {
+      "scene": "Waymo-405841",
+      "method": "vggt",
+      "iadc_path": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_offload/Waymo-405841/vggt/train/checkpoints/step_007000.pt",
+      "sha256": "14459e1c36a8609a9ffd6df573be2ea69b0a658a57c5f60e182ab1460fec661b",
+      "bytes": 348642434,
+      "original_run": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_offload/Waymo-405841/vggt",
+      "accessible_on_course_HPC": true,
+      "binary_sha256_verified_on_course_HPC": true,
+      "course_HPC_shared_path": "/data/disk2/home/yguo704/CV_Project4-merged/output/handoff/part1-checkpoints-901c5ae/Waymo-405841/vggt/step_007000.pt",
+      "course_HPC_copy_path": "/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints/Waymo-405841/vggt/step_007000.pt",
+      "original_IADC_path_mounted_on_course_HPC": false
+    },
+    {
+      "scene": "Waymo-405841",
+      "method": "vggt-omega",
+      "iadc_path": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_offload/Waymo-405841/vggt-omega/train/checkpoints/step_007000.pt",
+      "sha256": "86cad954e5eb358243d9b8f62c76b7bf989693378d2f8ee38b22f7de7efc959c",
+      "bytes": 486399874,
+      "original_run": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_offload/Waymo-405841/vggt-omega",
+      "accessible_on_course_HPC": true,
+      "binary_sha256_verified_on_course_HPC": true,
+      "course_HPC_shared_path": "/data/disk2/home/yguo704/CV_Project4-merged/output/handoff/part1-checkpoints-901c5ae/Waymo-405841/vggt-omega/step_007000.pt",
+      "course_HPC_copy_path": "/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints/Waymo-405841/vggt-omega/step_007000.pt",
+      "original_IADC_path_mounted_on_course_HPC": false
+    },
+    {
+      "scene": "Dl3dv-2",
+      "method": "colmap",
+      "iadc_path": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_offload/Dl3dv-2/colmap/train/checkpoints/step_007000.pt",
+      "sha256": "30c0098b914cc5df20797b7e02a30a7b317b7652feebd13ebe68be37b1c17ad7",
+      "bytes": 278882050,
+      "original_run": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_offload/Dl3dv-2/colmap",
+      "accessible_on_course_HPC": true,
+      "binary_sha256_verified_on_course_HPC": true,
+      "course_HPC_shared_path": "/data/disk2/home/yguo704/CV_Project4-merged/output/handoff/part1-checkpoints-901c5ae/Dl3dv-2/colmap/step_007000.pt",
+      "course_HPC_copy_path": "/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints/Dl3dv-2/colmap/step_007000.pt",
+      "original_IADC_path_mounted_on_course_HPC": false
+    },
+    {
+      "scene": "Dl3dv-2",
+      "method": "vggt",
+      "iadc_path": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_offload/Dl3dv-2/vggt/train/checkpoints/step_007000.pt",
+      "sha256": "90f1ea4106a09bbdf42b304da2e4ca29ab7ee734978f31904dc3b7b2aaabe2da",
+      "bytes": 393152642,
+      "original_run": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_offload/Dl3dv-2/vggt",
+      "accessible_on_course_HPC": true,
+      "binary_sha256_verified_on_course_HPC": true,
+      "course_HPC_shared_path": "/data/disk2/home/yguo704/CV_Project4-merged/output/handoff/part1-checkpoints-901c5ae/Dl3dv-2/vggt/step_007000.pt",
+      "course_HPC_copy_path": "/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints/Dl3dv-2/vggt/step_007000.pt",
+      "original_IADC_path_mounted_on_course_HPC": false
+    },
+    {
+      "scene": "Dl3dv-2",
+      "method": "vggt-omega",
+      "iadc_path": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_offload/Dl3dv-2/vggt-omega/train/checkpoints/step_007000.pt",
+      "sha256": "8815dd094f21703d31c554d95a6aa389b725531fec975be657964391ba584cca",
+      "bytes": 384441666,
+      "original_run": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_offload/Dl3dv-2/vggt-omega",
+      "accessible_on_course_HPC": true,
+      "binary_sha256_verified_on_course_HPC": true,
+      "course_HPC_shared_path": "/data/disk2/home/yguo704/CV_Project4-merged/output/handoff/part1-checkpoints-901c5ae/Dl3dv-2/vggt-omega/step_007000.pt",
+      "course_HPC_copy_path": "/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints/Dl3dv-2/vggt-omega/step_007000.pt",
+      "original_IADC_path_mounted_on_course_HPC": false
+    },
+    {
+      "scene": "Re10k-1",
+      "method": "colmap",
+      "iadc_path": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_colmap_shared/Re10k-1/colmap/train/checkpoints/step_007000.pt",
+      "sha256": "ef5a60dc421ef6f3b68897510edabf92b7a195ecfb6b53ead71856121149a94f",
+      "bytes": 319411650,
+      "original_run": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_colmap_shared/Re10k-1/colmap",
+      "accessible_on_course_HPC": true,
+      "binary_sha256_verified_on_course_HPC": true,
+      "course_HPC_shared_path": "/data/disk2/home/yguo704/CV_Project4-merged/output/handoff/part1-checkpoints-901c5ae/Re10k-1/colmap/step_007000.pt",
+      "course_HPC_copy_path": "/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints/Re10k-1/colmap/step_007000.pt",
+      "original_IADC_path_mounted_on_course_HPC": false
+    },
+    {
+      "scene": "Re10k-1",
+      "method": "vggt",
+      "iadc_path": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_offload/Re10k-1/vggt/train/checkpoints/step_007000.pt",
+      "sha256": "0e92758958fdd2fb1b8ce23a85ca7c91c195936c715e69bef9ade32de8090fbf",
+      "bytes": 516884418,
+      "original_run": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_offload/Re10k-1/vggt",
+      "accessible_on_course_HPC": true,
+      "binary_sha256_verified_on_course_HPC": true,
+      "course_HPC_shared_path": "/data/disk2/home/yguo704/CV_Project4-merged/output/handoff/part1-checkpoints-901c5ae/Re10k-1/vggt/step_007000.pt",
+      "course_HPC_copy_path": "/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints/Re10k-1/vggt/step_007000.pt",
+      "original_IADC_path_mounted_on_course_HPC": false
+    },
+    {
+      "scene": "Re10k-1",
+      "method": "vggt-omega",
+      "iadc_path": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_offload/Re10k-1/vggt-omega/train/checkpoints/step_007000.pt",
+      "sha256": "85b11551a9c0c56fb08261a4732d2f433cbd9aba6b79026cc05fe42b3ee21b13",
+      "bytes": 407259714,
+      "original_run": "/mnt/slurmfs-4090node3/user_data/yguo704/CV_Project4/runs/part1_offload/Re10k-1/vggt-omega",
+      "accessible_on_course_HPC": true,
+      "binary_sha256_verified_on_course_HPC": true,
+      "course_HPC_shared_path": "/data/disk2/home/yguo704/CV_Project4-merged/output/handoff/part1-checkpoints-901c5ae/Re10k-1/vggt-omega/step_007000.pt",
+      "course_HPC_copy_path": "/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints/Re10k-1/vggt-omega/step_007000.pt",
+      "original_IADC_path_mounted_on_course_HPC": false
+    }
+  ],
+  "checkpoint_binary_access": "Resolved: all nine shared checkpoint binaries were copied into zguo400's project and source/copy SHA256 values match the original Part 1 archive.",
+  "code_compatibility": "Part 1 source bde9244; Part 2 source digest c8b6722a...; merged main is for development, not transparent checkpoint resume.",
+  "ate_protocol": "Part 1 uses all training cameras; Part 2 paired ATE uses the same sparse training IDs in both conditions. Do not mix these ATE columns.",
+  "proxies_used": false,
+  "checkpoint_access_history": [
+    {
+      "state": "before_new_shared_directory",
+      "description": "Original paths are on IADC; no binary copied or hash-verified on the course HPC."
+    }
+  ],
+  "historical_checkpoint_search_before_transfer": {
+    "account_home": "/data/disk1/home/yguo704",
+    "resolved_home": "/data/disk2/home/yguo704",
+    "extended_search": "/data/disk2/home/zguo400/CV_Project4/results/hpc_setup/part1_handoff_901c5ae/yguo704_extended_checkpoint_search.json",
+    "accessible_candidates": 0,
+    "handoff_directory_mode": "0700",
+    "handoff_directory_owner": "yguo704"
+  },
+  "checkpoint_import": {
+    "status": "completed",
+    "receipt": "/data/disk2/home/zguo400/CV_Project4/results/hpc_setup/part1_handoff_901c5ae/checkpoint_import_receipt.json",
+    "verified": 9,
+    "bytes": 3639989522,
+    "destination": "/data/disk2/home/zguo400/CV_Project4/runs/part1_import_901c5ae/checkpoints",
+    "completed_at_utc": "2026-11-15T14:19:11.525619+00:00"
+  }
+}

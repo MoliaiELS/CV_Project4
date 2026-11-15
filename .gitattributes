@@ -7,3 +7,5 @@
 *.csv text eol=lf
 *.txt text eol=lf
 *.png binary
+
+results/part2_supplement_v1/figures/*.svg linguist-generated=true

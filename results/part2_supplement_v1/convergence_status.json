@@ -1,0 +1,1255 @@
+{
+  "status": "completed",
+  "source_sha256": "c8b6722a8b18deaecd6766279d8e69617e762ec9cb9add52300ba171424bf51c",
+  "steps": [
+    500,
+    1000,
+    2000,
+    4000,
+    7000
+  ],
+  "points": [
+    {
+      "scene": "Re10k-1",
+      "condition": "full",
+      "step": 500,
+      "psnr": 11.66428897895661,
+      "ssim": 0.3025718175638702,
+      "lpips": 0.5035820381981986,
+      "test_frames": 35,
+      "training_seconds": 28.92767995921895,
+      "num_gaussians": 100000,
+      "checkpoint_sha256": "93651a17ce8062dc666f305dbedd1dbc5011952ab61ad1ec3ec24e3b659b412e",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Re10k-1/full/step_000500/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Re10k-1",
+      "condition": "full",
+      "step": 1000,
+      "psnr": 11.427091461096632,
+      "ssim": 0.2941374665244269,
+      "lpips": 0.4367848839078631,
+      "test_frames": 35,
+      "training_seconds": 55.83530395105481,
+      "num_gaussians": 150710,
+      "checkpoint_sha256": "4b7761011d68c4659bc87f6a04f733936e9c6bac0a6f774b134aa084d8b7edb8",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Re10k-1/full/step_001000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Re10k-1",
+      "condition": "full",
+      "step": 2000,
+      "psnr": 11.417899918194102,
+      "ssim": 0.2931777028578734,
+      "lpips": 0.4087388387748173,
+      "test_frames": 35,
+      "training_seconds": 117.04138992819935,
+      "num_gaussians": 327351,
+      "checkpoint_sha256": "8333c3960fe86a85bbda41c9b76d4291bddbf528e03aad178def07bfe1a13ec3",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Re10k-1/full/step_002000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Re10k-1",
+      "condition": "full",
+      "step": 4000,
+      "psnr": 11.328045822361174,
+      "ssim": 0.2879394011672501,
+      "lpips": 0.3981921068259648,
+      "test_frames": 35,
+      "training_seconds": 270.9933309899643,
+      "num_gaussians": 534650,
+      "checkpoint_sha256": "7ec5534ed5f328807e2ca825cebcdede5b05d8983b47aa00712eaad73147e7af",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Re10k-1/full/step_004000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Re10k-1",
+      "condition": "full",
+      "step": 7000,
+      "psnr": 11.364302995051043,
+      "ssim": 0.29095039423879576,
+      "lpips": 0.3956530656133379,
+      "test_frames": 35,
+      "training_seconds": 474.75210932828486,
+      "num_gaussians": 720824,
+      "checkpoint_sha256": "faa86af8dcb5a6975ec9fe4c6ed9ff3b3dac868eba539dce3b072212bc1f8011",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/metrics.json",
+      "source": "preserved formal final"
+    },
+    {
+      "scene": "Re10k-1",
+      "condition": "sparse",
+      "step": 500,
+      "psnr": 11.608838126340842,
+      "ssim": 0.2957834487099257,
+      "lpips": 0.47720604028020586,
+      "test_frames": 35,
+      "training_seconds": 18.20233868714422,
+      "num_gaussians": 100000,
+      "checkpoint_sha256": "8c7168da24db9775609764b2fdaeddd8c264d1cd2523e9e8d5908dac1d3ddfc0",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_000500/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Re10k-1",
+      "condition": "sparse",
+      "step": 1000,
+      "psnr": 11.239511067304297,
+      "ssim": 0.2848432400070761,
+      "lpips": 0.4201723771435874,
+      "test_frames": 35,
+      "training_seconds": 35.624493123963475,
+      "num_gaussians": 154950,
+      "checkpoint_sha256": "e41d2400e3b86586a5e7a2e6707005c9624c64d5b01e682d7639464cd6049cd7",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_001000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Re10k-1",
+      "condition": "sparse",
+      "step": 2000,
+      "psnr": 11.190172586133002,
+      "ssim": 0.27883030059010117,
+      "lpips": 0.40775130902017864,
+      "test_frames": 35,
+      "training_seconds": 73.17971792118624,
+      "num_gaussians": 328787,
+      "checkpoint_sha256": "d167abd80dea9e222834ce855531e4068d623bc89b283c101b4ce9906c07e667",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_002000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Re10k-1",
+      "condition": "sparse",
+      "step": 4000,
+      "psnr": 11.212628408651296,
+      "ssim": 0.2767751045756371,
+      "lpips": 0.4026769646576473,
+      "test_frames": 35,
+      "training_seconds": 172.79991679731756,
+      "num_gaussians": 508265,
+      "checkpoint_sha256": "ba4401131b82f82e314d48f497b6962524ea2e7eae34b6a25f258c31c01365d7",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_004000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Re10k-1",
+      "condition": "sparse",
+      "step": 7000,
+      "psnr": 11.23416072917376,
+      "ssim": 0.27513227462124673,
+      "lpips": 0.4055099972656795,
+      "test_frames": 35,
+      "training_seconds": 321.9247302399017,
+      "num_gaussians": 626008,
+      "checkpoint_sha256": "281427b1936ecf598501b54d75b7ad39a99cac247abfb1335c885c7a252b6b49",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/metrics.json",
+      "source": "preserved formal final"
+    },
+    {
+      "scene": "Waymo-405841",
+      "condition": "full",
+      "step": 500,
+      "psnr": 16.79971978182078,
+      "ssim": 0.6675831311786717,
+      "lpips": 0.6647005581855774,
+      "test_frames": 25,
+      "training_seconds": 65.10181833570823,
+      "num_gaussians": 100000,
+      "checkpoint_sha256": "0cf500c7fc4227592d3acab204c2305528edfd2599f84ad97a3af908ff2c20fa",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Waymo-405841/full/step_000500/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Waymo-405841",
+      "condition": "full",
+      "step": 1000,
+      "psnr": 17.80771579039324,
+      "ssim": 0.6725940737763777,
+      "lpips": 0.6007734227180481,
+      "test_frames": 25,
+      "training_seconds": 105.57004586979747,
+      "num_gaussians": 115192,
+      "checkpoint_sha256": "6e5596e16e297a58381a674ea20f58dc694acfbc4c0bb780be12efa5190cf4b7",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Waymo-405841/full/step_001000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Waymo-405841",
+      "condition": "full",
+      "step": 2000,
+      "psnr": 17.655579392645393,
+      "ssim": 0.6652688238357501,
+      "lpips": 0.5705764031410218,
+      "test_frames": 25,
+      "training_seconds": 192.87377644283697,
+      "num_gaussians": 184591,
+      "checkpoint_sha256": "bbffeba1982313913a1d517f0a1e7cf2a8906b860165977183d3ec9110096baa",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Waymo-405841/full/step_002000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Waymo-405841",
+      "condition": "full",
+      "step": 4000,
+      "psnr": 17.659260277863588,
+      "ssim": 0.6601196859078873,
+      "lpips": 0.5457969355583191,
+      "test_frames": 25,
+      "training_seconds": 335.94017909513786,
+      "num_gaussians": 317420,
+      "checkpoint_sha256": "142af502c02515a06a70cd2344fb82de1a27a91f75e5dcc33b9a2fb1f5404c7d",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Waymo-405841/full/step_004000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Waymo-405841",
+      "condition": "full",
+      "step": 7000,
+      "psnr": 17.68943561211013,
+      "ssim": 0.6541511053170557,
+      "lpips": 0.5204238271713257,
+      "test_frames": 25,
+      "training_seconds": 563.8146296329796,
+      "num_gaussians": 484308,
+      "checkpoint_sha256": "d88db176cc0443538b11936fcffca2d86d9eff1f69060025403d53b812a6cc1f",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/metrics.json",
+      "source": "preserved formal final"
+    },
+    {
+      "scene": "Waymo-405841",
+      "condition": "sparse",
+      "step": 500,
+      "psnr": 16.674439333622335,
+      "ssim": 0.6542982222074295,
+      "lpips": 0.6444787073135376,
+      "test_frames": 25,
+      "training_seconds": 61.350952971726656,
+      "num_gaussians": 100000,
+      "checkpoint_sha256": "89dd1f191b7caaca87ad7b4236884a161eee679ff00049f58b7b448baa7f5a79",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_000500/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Waymo-405841",
+      "condition": "sparse",
+      "step": 1000,
+      "psnr": 17.120638378295645,
+      "ssim": 0.6479577878589473,
+      "lpips": 0.5766232228279113,
+      "test_frames": 25,
+      "training_seconds": 118.28690632805228,
+      "num_gaussians": 128203,
+      "checkpoint_sha256": "6558294fad5b72d5260a859764d9cb61be0d45ae908ceb4f9fb854d22950df7e",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_001000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Waymo-405841",
+      "condition": "sparse",
+      "step": 2000,
+      "psnr": 16.95523988526963,
+      "ssim": 0.6304992129652297,
+      "lpips": 0.5259053540229798,
+      "test_frames": 25,
+      "training_seconds": 225.28817649371922,
+      "num_gaussians": 260337,
+      "checkpoint_sha256": "7c36ee98b92c6223d833c8776d8c1168459161364e4b4d30c7ae7093b66203de",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_002000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Waymo-405841",
+      "condition": "sparse",
+      "step": 4000,
+      "psnr": 16.83557414555583,
+      "ssim": 0.6108017151494464,
+      "lpips": 0.47472179889678956,
+      "test_frames": 25,
+      "training_seconds": 421.71720158681273,
+      "num_gaussians": 569466,
+      "checkpoint_sha256": "0c5e7d47e75ea104e685e75264aa29f48b111f645814bb2ad35028ee662f5e41",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_004000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Waymo-405841",
+      "condition": "sparse",
+      "step": 7000,
+      "psnr": 16.726004886649665,
+      "ssim": 0.5971100157042106,
+      "lpips": 0.4573744237422943,
+      "test_frames": 25,
+      "training_seconds": 703.6577286017127,
+      "num_gaussians": 838939,
+      "checkpoint_sha256": "58d4e317001ad6807e54a47af74eee1c64b7eeb3519bf9aee620eeacdf43f4dd",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/metrics.json",
+      "source": "preserved formal final"
+    },
+    {
+      "scene": "Dl3dv-2",
+      "condition": "full",
+      "step": 500,
+      "psnr": 15.883219525496033,
+      "ssim": 0.5126469262970798,
+      "lpips": 0.424447482977158,
+      "test_frames": 39,
+      "training_seconds": 23.497271075844765,
+      "num_gaussians": 100000,
+      "checkpoint_sha256": "073a237b7f1fc32759f46f95d1fc5ecf47606cce66296e147aa9af12bbc25702",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_000500/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Dl3dv-2",
+      "condition": "full",
+      "step": 1000,
+      "psnr": 17.233381324747256,
+      "ssim": 0.5259350714784317,
+      "lpips": 0.3474637999748572,
+      "test_frames": 39,
+      "training_seconds": 42.22613631980494,
+      "num_gaussians": 135078,
+      "checkpoint_sha256": "e3e8f8e572aee0ddf0df54a14c601d9996f4f5b13a0b1ed168da2591b5de8bb5",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_001000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Dl3dv-2",
+      "condition": "full",
+      "step": 2000,
+      "psnr": 17.729284892293496,
+      "ssim": 0.5214190596820437,
+      "lpips": 0.2728251474790084,
+      "test_frames": 39,
+      "training_seconds": 81.19446037756279,
+      "num_gaussians": 244382,
+      "checkpoint_sha256": "554dfda2e5204c14cd6a78af0e15b613cedb9f84dcfce4eb0508de3ca4430a75",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_002000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Dl3dv-2",
+      "condition": "full",
+      "step": 4000,
+      "psnr": 18.15568346502262,
+      "ssim": 0.5152423078337274,
+      "lpips": 0.2144113561281791,
+      "test_frames": 39,
+      "training_seconds": 169.34250306291506,
+      "num_gaussians": 410563,
+      "checkpoint_sha256": "bc029dd87566963d2dc92745f9962c296cb3e88747c1fa2d0d475efdea409005",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_004000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Dl3dv-2",
+      "condition": "full",
+      "step": 7000,
+      "psnr": 18.608707600145117,
+      "ssim": 0.5142183021537603,
+      "lpips": 0.18431517233451208,
+      "test_frames": 39,
+      "training_seconds": 308.0536060365848,
+      "num_gaussians": 557395,
+      "checkpoint_sha256": "c8dfb1c80d3054ef2dbb85711a9ef53c3188423210c16e99b634816dc95f1671",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/metrics.json",
+      "source": "preserved formal final"
+    },
+    {
+      "scene": "Dl3dv-2",
+      "condition": "sparse",
+      "step": 500,
+      "psnr": 14.83289682662893,
+      "ssim": 0.5131867233294866,
+      "lpips": 0.4354133850488907,
+      "test_frames": 39,
+      "training_seconds": 13.445051215123385,
+      "num_gaussians": 100000,
+      "checkpoint_sha256": "bc083cb6a56769bde6a983721c7d2d430ce8df341a89b7914eabea69ae2fff5e",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_000500/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Dl3dv-2",
+      "condition": "sparse",
+      "step": 1000,
+      "psnr": 16.1051552872191,
+      "ssim": 0.5153662339302065,
+      "lpips": 0.35100392309518963,
+      "test_frames": 39,
+      "training_seconds": 24.189349630381912,
+      "num_gaussians": 140594,
+      "checkpoint_sha256": "f10b0b57a8ccde50e0f8f111037778429d644ba9e632c73138065cc518cd38d8",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_001000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Dl3dv-2",
+      "condition": "sparse",
+      "step": 2000,
+      "psnr": 15.709049160060605,
+      "ssim": 0.4710704178648935,
+      "lpips": 0.2708433408003587,
+      "test_frames": 39,
+      "training_seconds": 46.96946192206815,
+      "num_gaussians": 265984,
+      "checkpoint_sha256": "ad7afa6ab9b7706d61a8e9c3c299f76ad81747eb2796aa48bbce1e3e1be3b53e",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_002000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Dl3dv-2",
+      "condition": "sparse",
+      "step": 4000,
+      "psnr": 15.574509462819014,
+      "ssim": 0.46309660094839955,
+      "lpips": 0.25510564484657383,
+      "test_frames": 39,
+      "training_seconds": 94.22351121623069,
+      "num_gaussians": 394022,
+      "checkpoint_sha256": "f401b9f78a303f0de5141fac2b945536d46186c5c50a7e300008937d0e1ab9a9",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_004000/metrics.json",
+      "source": "new evaluation of preserved checkpoint"
+    },
+    {
+      "scene": "Dl3dv-2",
+      "condition": "sparse",
+      "step": 7000,
+      "psnr": 15.478618005356376,
+      "ssim": 0.455907305074555,
+      "lpips": 0.2571776499732947,
+      "test_frames": 39,
+      "training_seconds": 160.01188976410776,
+      "num_gaussians": 444252,
+      "checkpoint_sha256": "dff20b805c714bb0cc63334bfbdaa93f52018597d2db6e2f46ed3dac1ffa7eb3",
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/metrics.json",
+      "source": "preserved formal final"
+    }
+  ],
+  "stages": [
+    {
+      "name": "Re10k-1_full_000500_render",
+      "returncode": 0,
+      "seconds": 21.78575185406953,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/prepared/Re10k-1",
+        "--scene",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/train/checkpoints/step_000500.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/full/step_000500/renders"
+      ]
+    },
+    {
+      "name": "Re10k-1_full_000500_evaluate",
+      "returncode": 0,
+      "seconds": 34.45795422093943,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/prepared/Re10k-1",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Re10k-1/full/step_000500/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/full/step_000500/metrics.json"
+      ]
+    },
+    {
+      "name": "Re10k-1_full_001000_render",
+      "returncode": 0,
+      "seconds": 9.677742918021977,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/prepared/Re10k-1",
+        "--scene",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/train/checkpoints/step_001000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/full/step_001000/renders"
+      ]
+    },
+    {
+      "name": "Re10k-1_full_001000_evaluate",
+      "returncode": 0,
+      "seconds": 27.54137635231018,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/prepared/Re10k-1",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Re10k-1/full/step_001000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/full/step_001000/metrics.json"
+      ]
+    },
+    {
+      "name": "Re10k-1_full_002000_render",
+      "returncode": 0,
+      "seconds": 12.699192659929395,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/prepared/Re10k-1",
+        "--scene",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/train/checkpoints/step_002000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/full/step_002000/renders"
+      ]
+    },
+    {
+      "name": "Re10k-1_full_002000_evaluate",
+      "returncode": 0,
+      "seconds": 27.899060050025582,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/prepared/Re10k-1",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Re10k-1/full/step_002000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/full/step_002000/metrics.json"
+      ]
+    },
+    {
+      "name": "Re10k-1_full_004000_render",
+      "returncode": 0,
+      "seconds": 13.6135307950899,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/prepared/Re10k-1",
+        "--scene",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/train/checkpoints/step_004000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/full/step_004000/renders"
+      ]
+    },
+    {
+      "name": "Re10k-1_full_004000_evaluate",
+      "returncode": 0,
+      "seconds": 30.961286501027644,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/prepared/Re10k-1",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Re10k-1/full/step_004000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/full/step_004000/metrics.json"
+      ]
+    },
+    {
+      "name": "Re10k-1_sparse_000500_render",
+      "returncode": 0,
+      "seconds": 11.279456666205078,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/part2_sparse/Re10k-1",
+        "--scene",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/train/checkpoints/step_000500.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_000500/renders"
+      ]
+    },
+    {
+      "name": "Re10k-1_sparse_000500_evaluate",
+      "returncode": 0,
+      "seconds": 29.623580833431333,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/part2_sparse/Re10k-1",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_000500/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_000500/metrics.json"
+      ]
+    },
+    {
+      "name": "Re10k-1_sparse_001000_render",
+      "returncode": 0,
+      "seconds": 11.864453643094748,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/part2_sparse/Re10k-1",
+        "--scene",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/train/checkpoints/step_001000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_001000/renders"
+      ]
+    },
+    {
+      "name": "Re10k-1_sparse_001000_evaluate",
+      "returncode": 0,
+      "seconds": 28.561383507680148,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/part2_sparse/Re10k-1",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_001000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_001000/metrics.json"
+      ]
+    },
+    {
+      "name": "Re10k-1_sparse_002000_render",
+      "returncode": 0,
+      "seconds": 12.813429058063775,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/part2_sparse/Re10k-1",
+        "--scene",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/train/checkpoints/step_002000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_002000/renders"
+      ]
+    },
+    {
+      "name": "Re10k-1_sparse_002000_evaluate",
+      "returncode": 0,
+      "seconds": 28.11061907513067,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/part2_sparse/Re10k-1",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_002000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_002000/metrics.json"
+      ]
+    },
+    {
+      "name": "Re10k-1_sparse_004000_render",
+      "returncode": 0,
+      "seconds": 13.133760889992118,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/part2_sparse/Re10k-1",
+        "--scene",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/train/checkpoints/step_004000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_004000/renders"
+      ]
+    },
+    {
+      "name": "Re10k-1_sparse_004000_evaluate",
+      "returncode": 0,
+      "seconds": 27.182310826145113,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/part2_sparse/Re10k-1",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_004000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Re10k-1/sparse/step_004000/metrics.json"
+      ]
+    },
+    {
+      "name": "Waymo-405841_full_000500_render",
+      "returncode": 0,
+      "seconds": 18.56418715789914,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/prepared/Waymo-405841",
+        "--scene",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/train/checkpoints/step_000500.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/full/step_000500/renders"
+      ]
+    },
+    {
+      "name": "Waymo-405841_full_000500_evaluate",
+      "returncode": 0,
+      "seconds": 49.265100916381925,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/prepared/Waymo-405841",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/full/step_000500/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/full/step_000500/metrics.json"
+      ]
+    },
+    {
+      "name": "Waymo-405841_full_001000_render",
+      "returncode": 0,
+      "seconds": 14.233897272963077,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/prepared/Waymo-405841",
+        "--scene",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/train/checkpoints/step_001000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/full/step_001000/renders"
+      ]
+    },
+    {
+      "name": "Waymo-405841_full_001000_evaluate",
+      "returncode": 0,
+      "seconds": 47.03984400164336,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/prepared/Waymo-405841",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/full/step_001000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/full/step_001000/metrics.json"
+      ]
+    },
+    {
+      "name": "Waymo-405841_full_002000_render",
+      "returncode": 0,
+      "seconds": 12.895447069779038,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/prepared/Waymo-405841",
+        "--scene",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/train/checkpoints/step_002000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/full/step_002000/renders"
+      ]
+    },
+    {
+      "name": "Waymo-405841_full_002000_evaluate",
+      "returncode": 0,
+      "seconds": 63.92416504304856,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/prepared/Waymo-405841",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/full/step_002000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/full/step_002000/metrics.json"
+      ]
+    },
+    {
+      "name": "Waymo-405841_full_004000_render",
+      "returncode": 0,
+      "seconds": 18.34781811805442,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/prepared/Waymo-405841",
+        "--scene",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/train/checkpoints/step_004000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/full/step_004000/renders"
+      ]
+    },
+    {
+      "name": "Waymo-405841_full_004000_evaluate",
+      "returncode": 0,
+      "seconds": 66.18611128395423,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/prepared/Waymo-405841",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/full/step_004000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/full/step_004000/metrics.json"
+      ]
+    },
+    {
+      "name": "Waymo-405841_sparse_000500_render",
+      "returncode": 0,
+      "seconds": 17.848641973920166,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/part2_sparse/Waymo-405841",
+        "--scene",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/train/checkpoints/step_000500.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_000500/renders"
+      ]
+    },
+    {
+      "name": "Waymo-405841_sparse_000500_evaluate",
+      "returncode": 0,
+      "seconds": 70.1748074600473,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/part2_sparse/Waymo-405841",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_000500/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_000500/metrics.json"
+      ]
+    },
+    {
+      "name": "Waymo-405841_sparse_001000_render",
+      "returncode": 0,
+      "seconds": 19.27402616571635,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/part2_sparse/Waymo-405841",
+        "--scene",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/train/checkpoints/step_001000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_001000/renders"
+      ]
+    },
+    {
+      "name": "Waymo-405841_sparse_001000_evaluate",
+      "returncode": 0,
+      "seconds": 71.76806674199179,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/part2_sparse/Waymo-405841",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_001000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_001000/metrics.json"
+      ]
+    },
+    {
+      "name": "Waymo-405841_sparse_002000_render",
+      "returncode": 0,
+      "seconds": 22.057517522014678,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/part2_sparse/Waymo-405841",
+        "--scene",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/train/checkpoints/step_002000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_002000/renders"
+      ]
+    },
+    {
+      "name": "Waymo-405841_sparse_002000_evaluate",
+      "returncode": 0,
+      "seconds": 64.52034660428762,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/part2_sparse/Waymo-405841",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_002000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_002000/metrics.json"
+      ]
+    },
+    {
+      "name": "Waymo-405841_sparse_004000_render",
+      "returncode": 0,
+      "seconds": 23.636790234595537,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/part2_sparse/Waymo-405841",
+        "--scene",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/train/checkpoints/step_004000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_004000/renders"
+      ]
+    },
+    {
+      "name": "Waymo-405841_sparse_004000_evaluate",
+      "returncode": 0,
+      "seconds": 71.16644125338644,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/part2_sparse/Waymo-405841",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_004000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Waymo-405841/sparse/step_004000/metrics.json"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_full_000500_render",
+      "returncode": 0,
+      "seconds": 13.032583166845143,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/prepared/Dl3dv-2",
+        "--scene",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/train/checkpoints/step_000500.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_000500/renders"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_full_000500_evaluate",
+      "returncode": 0,
+      "seconds": 32.59791004285216,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/prepared/Dl3dv-2",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_000500/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_000500/metrics.json"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_full_001000_render",
+      "returncode": 0,
+      "seconds": 9.918997379951179,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/prepared/Dl3dv-2",
+        "--scene",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/train/checkpoints/step_001000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_001000/renders"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_full_001000_evaluate",
+      "returncode": 0,
+      "seconds": 28.891309487633407,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/prepared/Dl3dv-2",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_001000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_001000/metrics.json"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_full_002000_render",
+      "returncode": 0,
+      "seconds": 13.027713106945157,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/prepared/Dl3dv-2",
+        "--scene",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/train/checkpoints/step_002000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_002000/renders"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_full_002000_evaluate",
+      "returncode": 0,
+      "seconds": 31.232946290634573,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/prepared/Dl3dv-2",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_002000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_002000/metrics.json"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_full_004000_render",
+      "returncode": 0,
+      "seconds": 11.108067031018436,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/prepared/Dl3dv-2",
+        "--scene",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/train/checkpoints/step_004000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_004000/renders"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_full_004000_evaluate",
+      "returncode": 0,
+      "seconds": 32.115644766017795,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/prepared/Dl3dv-2",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_004000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/full/step_004000/metrics.json"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_sparse_000500_render",
+      "returncode": 0,
+      "seconds": 15.848633865825832,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/part2_sparse/Dl3dv-2",
+        "--scene",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/train/checkpoints/step_000500.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_000500/renders"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_sparse_000500_evaluate",
+      "returncode": 0,
+      "seconds": 41.08614829275757,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/part2_sparse/Dl3dv-2",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_000500/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_000500/metrics.json"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_sparse_001000_render",
+      "returncode": 0,
+      "seconds": 14.758702623192221,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/part2_sparse/Dl3dv-2",
+        "--scene",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/train/checkpoints/step_001000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_001000/renders"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_sparse_001000_evaluate",
+      "returncode": 0,
+      "seconds": 29.546308550983667,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/part2_sparse/Dl3dv-2",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_001000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_001000/metrics.json"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_sparse_002000_render",
+      "returncode": 0,
+      "seconds": 10.810114429797977,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/part2_sparse/Dl3dv-2",
+        "--scene",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/train/checkpoints/step_002000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_002000/renders"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_sparse_002000_evaluate",
+      "returncode": 0,
+      "seconds": 18.840676011051983,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/part2_sparse/Dl3dv-2",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_002000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_002000/metrics.json"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_sparse_004000_render",
+      "returncode": 0,
+      "seconds": 9.129850406665355,
+      "command": [
+        "-m",
+        "p4.train",
+        "render",
+        "--dataset",
+        "data/part2_sparse/Dl3dv-2",
+        "--scene",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/init/scene.npz",
+        "--checkpoint",
+        "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/train/checkpoints/step_004000.pt",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_004000/renders"
+      ]
+    },
+    {
+      "name": "Dl3dv-2_sparse_004000_evaluate",
+      "returncode": 0,
+      "seconds": 17.008042580913752,
+      "command": [
+        "-m",
+        "p4.evaluate",
+        "renders",
+        "--dataset",
+        "data/part2_sparse/Dl3dv-2",
+        "--render-dir",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_004000/renders",
+        "--output",
+        "runs/part2_supplement_v1/convergence/Dl3dv-2/sparse/step_004000/metrics.json"
+      ]
+    }
+  ],
+  "proxy_environment": {},
+  "new_evaluation_points": 24,
+  "preserved_final_points": 6,
+  "total_per_frame_evaluations": 990
+}

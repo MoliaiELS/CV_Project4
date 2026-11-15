@@ -1,5 +1,8 @@
 # Project 4 · Part 1 + Part 2
 
+> 最新 Part 2 交付：三个场景 Full / Sparse 7000 步及补充评估均已完成。入口见 [代码、结果与 HPC 复现说明](docs/part2_handoff.md)。
+
+
 AIAA 3201 Project 4 的 Part 1 比较 COLMAP、VGGT 和 VGGT-Ω 的相机与点云初始化。三个课程场景的 **9 项正式比较已完成**。每项使用同一套 3D Gaussian Splatting 训练器和同场景固定的测试视角。
 
 - [最终指标](results/part1-final/coverage.csv)包含 PSNR、SSIM、LPIPS、对齐后的 ATE 和各阶段耗时。

@@ -1,0 +1,73 @@
+{
+  "status": "completed",
+  "training_commit": "bde9244f692cc497355a307826ce1ca25f39cd99",
+  "package_sha256": "fba9b9a1b9d91d72f1d4455e0b56f4b95b2d09c05aa81b1a16e06e7fdce66bff",
+  "rows": [
+    {
+      "scene": "Re10k-1",
+      "test_frames": 35,
+      "checkpoint_sha256": "0e92758958fdd2fb1b8ce23a85ca7c91c195936c715e69bef9ade32de8090fbf",
+      "original_metrics": {
+        "psnr": 11.379782481244543,
+        "ssim": 0.2905229027114555,
+        "lpips": 0.39826839310782297
+      },
+      "replayed_metrics": {
+        "psnr": 11.379782481244543,
+        "ssim": 0.2905229027114557,
+        "lpips": 0.39826839481081283
+      },
+      "replay_minus_original": {
+        "psnr": 0.0,
+        "ssim": 2.220446049250313e-16,
+        "lpips": 1.7029898602416438e-09
+      },
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/part1_replay/Re10k-1/metrics.json",
+      "same_original_package_and_manifest": true
+    },
+    {
+      "scene": "Waymo-405841",
+      "test_frames": 25,
+      "checkpoint_sha256": "14459e1c36a8609a9ffd6df573be2ea69b0a658a57c5f60e182ab1460fec661b",
+      "original_metrics": {
+        "psnr": 17.742185013872774,
+        "ssim": 0.6548413286169495,
+        "lpips": 0.5210559058189392
+      },
+      "replayed_metrics": {
+        "psnr": 17.742185013872774,
+        "ssim": 0.6548413286169489,
+        "lpips": 0.5210558700561524
+      },
+      "replay_minus_original": {
+        "psnr": 0.0,
+        "ssim": -6.661338147750939e-16,
+        "lpips": -3.5762786843029915e-08
+      },
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/part1_replay/Waymo-405841/metrics.json",
+      "same_original_package_and_manifest": true
+    },
+    {
+      "scene": "Dl3dv-2",
+      "test_frames": 39,
+      "checkpoint_sha256": "90f1ea4106a09bbdf42b304da2e4ca29ab7ee734978f31904dc3b7b2aaabe2da",
+      "original_metrics": {
+        "psnr": 18.52003187191383,
+        "ssim": 0.5131725126583448,
+        "lpips": 0.19512698551019034
+      },
+      "replayed_metrics": {
+        "psnr": 18.52003187191383,
+        "ssim": 0.5131725126583417,
+        "lpips": 0.19512698359978506
+      },
+      "replay_minus_original": {
+        "psnr": 0.0,
+        "ssim": -3.1086244689504383e-15,
+        "lpips": -1.9104052784157943e-09
+      },
+      "metrics_path": "/data/disk2/home/zguo400/CV_Project4/runs/part2_supplement_v1/part1_replay/Dl3dv-2/metrics.json",
+      "same_original_package_and_manifest": true
+    }
+  ]
+}

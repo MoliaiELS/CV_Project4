@@ -1,0 +1,107 @@
+{
+  "status": "passed",
+  "reference_frames_checked": 279,
+  "reference_interpretation": "xyzw quaternion, OpenCV c2w, normalized intrinsics multiply width/height",
+  "source_reference_max_abs_error": {
+    "rotation": 4.440892098500626e-16,
+    "translation": 0.0,
+    "intrinsics": 0.0
+  },
+  "official_vggt_padding_resize_matches": true,
+  "opencv_projection_max_abs_error_px": 1.1187737470663706e-05,
+  "training_normalization_projection_max_abs_error_px": 5.490002868668853e-05,
+  "train_only_feature_pairs": [
+    {
+      "a": "images/00001.png.png",
+      "b": "images/00031.png.png",
+      "inliers": 106,
+      "median_sampson_px": {
+        "reference": 0.13230387304940328,
+        "vggt": 0.3060337437616793,
+        "train_image_ransac": 0.13985589241516164
+      }
+    },
+    {
+      "a": "images/00031.png.png",
+      "b": "images/00061.png.png",
+      "inliers": 112,
+      "median_sampson_px": {
+        "reference": 0.17412773235785853,
+        "vggt": 0.3951805505510454,
+        "train_image_ransac": 0.16181894395444582
+      }
+    },
+    {
+      "a": "images/00061.png.png",
+      "b": "images/00091.png.png",
+      "inliers": 125,
+      "median_sampson_px": {
+        "reference": 0.14479690169352818,
+        "vggt": 0.22435962063050247,
+        "train_image_ransac": 0.1456239758629459
+      }
+    },
+    {
+      "a": "images/00091.png.png",
+      "b": "images/00121.png.png",
+      "inliers": 143,
+      "median_sampson_px": {
+        "reference": 0.11935764500987302,
+        "vggt": 0.26660781133155526,
+        "train_image_ransac": 0.12188944869419042
+      }
+    },
+    {
+      "a": "images/00121.png.png",
+      "b": "images/00151.png.png",
+      "inliers": 152,
+      "median_sampson_px": {
+        "reference": 0.12266010992150436,
+        "vggt": 0.2576510457383272,
+        "train_image_ransac": 0.12335369405369934
+      }
+    },
+    {
+      "a": "images/00151.png.png",
+      "b": "images/00181.png.png",
+      "inliers": 152,
+      "median_sampson_px": {
+        "reference": 0.12769742191044628,
+        "vggt": 0.2180300346394264,
+        "train_image_ransac": 0.15659060460392027
+      }
+    },
+    {
+      "a": "images/00181.png.png",
+      "b": "images/00211.png.png",
+      "inliers": 137,
+      "median_sampson_px": {
+        "reference": 0.10964409800373866,
+        "vggt": 0.16187511669924468,
+        "train_image_ransac": 0.10321476644738141
+      }
+    },
+    {
+      "a": "images/00211.png.png",
+      "b": "images/00241.png.png",
+      "inliers": 115,
+      "median_sampson_px": {
+        "reference": 0.11251732337913538,
+        "vggt": 0.5353199364703533,
+        "train_image_ransac": 0.15346337209800356
+      }
+    },
+    {
+      "a": "images/00241.png.png",
+      "b": "images/00271.png.png",
+      "inliers": 95,
+      "median_sampson_px": {
+        "reference": 0.16118261703963524,
+        "vggt": 0.4526067885576023,
+        "train_image_ransac": 0.28401730464628494
+      }
+    }
+  ],
+  "conclusion": "No coordinate, intrinsic resize, frame-order or projection implementation error found. VGGT camera errors are retained as model-estimation error; no reference cameras are substituted into initialization/training.",
+  "parameters_or_test_alignment_changed": false
+}

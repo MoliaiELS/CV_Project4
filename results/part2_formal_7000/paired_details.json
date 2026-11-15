@@ -1,0 +1,38 @@
+{
+  "Re10k-1": {
+    "full_minus_sparse_mean": {
+      "psnr": 0.13014226587728217,
+      "ssim": 0.01581811961754903,
+      "lpips": -0.009856931652341583,
+      "paired_ate_rmse": 0.002590068595719957
+    },
+    "test_frame_count": 35,
+    "full_higher_psnr_frames": 26,
+    "sparse_lower_lpips_frames": 4,
+    "sparse_fraction_of_full_train_views": 0.040983606557377046
+  },
+  "Waymo-405841": {
+    "full_minus_sparse_mean": {
+      "psnr": 0.9634307254604657,
+      "ssim": 0.05704108961284504,
+      "lpips": 0.06304940342903143,
+      "paired_ate_rmse": 0.22712336988325543
+    },
+    "test_frame_count": 25,
+    "full_higher_psnr_frames": 24,
+    "sparse_lower_lpips_frames": 25,
+    "sparse_fraction_of_full_train_views": 0.11494252873563218
+  },
+  "Dl3dv-2": {
+    "full_minus_sparse_mean": {
+      "psnr": 3.130089594788741,
+      "ssim": 0.058310997079205285,
+      "lpips": -0.07286247763878259,
+      "paired_ate_rmse": 0.008871352341220398
+    },
+    "test_frame_count": 39,
+    "full_higher_psnr_frames": 34,
+    "sparse_lower_lpips_frames": 8,
+    "sparse_fraction_of_full_train_views": 0.04119850187265917
+  }
+}
