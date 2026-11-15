@@ -152,7 +152,9 @@ def _repo_info(repo, method):
 
 
 def _run_neural(dataset, output, frames, method, repo, weights, seed,
-                max_points, confidence_quantile):
+                max_points, confidence_quantile, neural_backend="native"):
+    if neural_backend not in {"native", "offload"} or (neural_backend == "offload" and method != "vggt"):
+        raise ValueError("Offload backend supports pinned VGGT only")
     repo, revision = _repo_info(repo, method)
     if not weights or not Path(weights).is_file():
         raise ValueError("An explicit local --weights file is required; see README for downloads/access")
@@ -191,22 +193,28 @@ def _run_neural(dataset, output, frames, method, repo, weights, seed,
         images = load_and_preprocess_images(paths, image_resolution=416, mode="balanced")
     if tuple(images.shape[-2:]) != shape:
         raise ValueError(f"Official preprocessing shape {images.shape[-2:]} differs from geometry {shape}")
-    checkpoint = torch.load(str(weights), map_location="cpu", weights_only=True)
+    checkpoint = torch.load(str(weights), map_location="cpu", weights_only=True, mmap=neural_backend == "offload")
     model.load_state_dict(checkpoint, strict=True)
     del checkpoint
     if method == "vggt":
         # These prediction heads do not contribute to camera/depth inference.
         model.point_head = None
         model.track_head = None
-    model = model.eval().to("cuda")
-    images = images.to("cuda")
+    model = model.eval()
+    if neural_backend == "native":
+        model = model.to("cuda")
+        images = images.to("cuda")
     torch.cuda.synchronize()
     load_seconds = time.perf_counter() - started
     inference_start = time.perf_counter()
     dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
     try:
         with torch.inference_mode(), torch.autocast(device_type="cuda", dtype=dtype):
-            predictions = model(images)
+            if neural_backend == "offload":
+                from p4.vggt_offload import forward
+                predictions = forward(model, images, output / "offload_cache")
+            else:
+                predictions = model(images)
         with torch.inference_mode(), torch.autocast(device_type="cuda", enabled=False):
             ext, kin = decoder(predictions["pose_enc"].float(), images.shape[-2:])
         torch.cuda.synchronize()
@@ -231,6 +239,7 @@ def _run_neural(dataset, output, frames, method, repo, weights, seed,
     np.savez_compressed(output / "scene.npz", names=np.array([f["image"] for f in frames]),
                         c2w=np.linalg.inv(w2c), K=canonical_k, points=points, colors=colors)
     return {
+        "neural_backend": neural_backend, "all_training_views_joint": True,
         "source_commit": revision, "weights_file": Path(weights).name, "weights_sha256": _sha256(weights),
         "model_resolution": 518 if method == "vggt" else 416, "model_input_hw": list(shape),
         "preprocessing": "square_pad_bicubic518" if method == "vggt" else "official_balanced416_crop_and_pad",
@@ -351,7 +360,8 @@ def _run_colmap(dataset, output, frames, seed, matcher, colmap):
 
 
 def run_initializer(dataset, output, method, repo=None, weights=None, seed=42,
-                    max_points=100000, confidence_quantile=.5, matcher="exhaustive", colmap="colmap"):
+                    max_points=100000, confidence_quantile=.5, matcher="exhaustive", colmap="colmap",
+                    neural_backend="native"):
     """Create scene.npz and provenance scene.json, preserving failed-run evidence."""
     if method not in ("colmap", *MODEL_COMMITS):
         raise ValueError(f"Unknown initializer: {method}")
@@ -369,7 +379,7 @@ def run_initializer(dataset, output, method, repo=None, weights=None, seed=42,
         if method == "colmap":
             result = _run_colmap(dataset, output, frames, seed, matcher, colmap)
         else:
-            result = _run_neural(dataset, output, frames, method, repo, weights, seed, max_points, confidence_quantile)
+            result = _run_neural(dataset, output, frames, method, repo, weights, seed, max_points, confidence_quantile, neural_backend)
         metadata.update(result)
         metadata["status"] = "completed"
     except Exception as e:
@@ -386,6 +396,7 @@ def main():
     p.add_argument("--dataset", required=True)
     p.add_argument("--output", required=True)
     p.add_argument("--method", choices=("colmap", *MODEL_COMMITS), required=True)
+    p.add_argument("--neural-backend", choices=("native", "offload"), default="native")
     p.add_argument("--repo")
     p.add_argument("--weights")
     p.add_argument("--seed", type=int, default=42)
