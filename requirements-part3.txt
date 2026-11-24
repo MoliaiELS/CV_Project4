@@ -1,0 +1,12 @@
+# Difix3D's inference stack. Install in a separate --target directory with
+# --no-deps and prepend it to PYTHONPATH only for Part 3. The course environment
+# provides torch, torchvision, safetensors, Pillow, NumPy, and einops.
+accelerate==0.27.2
+diffusers==0.25.1
+huggingface-hub==0.25.1
+importlib-metadata==8.6.1
+peft==0.9.0
+regex==2024.11.6
+tokenizers==0.15.2
+transformers==4.38.0
+zipp==3.21.0
