@@ -334,11 +334,12 @@ def summarize(run_root, output, *, assets_root=None, supplemental=None, selected
     figures = output / "figures"
     figures.mkdir(parents=True, exist_ok=True)
     with (output / "comparison.csv").open("w", newline="", encoding="utf-8") as stream:
-        writer = csv.DictWriter(stream, fieldnames=fields)
+        writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
     with (output / "per_frame_metrics.csv").open("w", newline="", encoding="utf-8") as stream:
-        writer = csv.DictWriter(stream, fieldnames=["scene", "arm", "round", "id", "image", *METRICS])
+        writer = csv.DictWriter(stream, fieldnames=["scene", "arm", "round", "id", "image", *METRICS],
+                                lineterminator="\n")
         writer.writeheader()
         for (scene, arm, step), stage in stages.items():
             for frame in stage.metrics["per_frame"]:

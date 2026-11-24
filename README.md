@@ -9,7 +9,7 @@ AIAA 3201 Project 4 的 Part 1 比较 COLMAP、VGGT 和 VGGT-Ω 的相机与点�
 - [收敛曲线](results/part1-final/convergence.png)比较五个固定迭代点的测试视角质量。
 - [Part 1 报告与复现记录](docs/part1_report.md)、[CVPR LaTeX 正文与编译方法](report/README.md)。
 - [Part 2 最终结果与复现说明](docs/part2_results.md)记录三个场景的 **6 项 Full/Sparse 正式实验**。[报告正文](report/part2.tex)与[课程服务器交接说明](docs/integration_handoff.md)。
-- [Part 3 闭环实验](docs/part3.md)提供 Difix-ref 权重、运行命令、留出集评价、对照与复现协议。
+- [Part 3 闭环结果](results/part3/)包含两轮生成前后的三项指标、留出视角比较、主动视角轨迹和失败案例。[Difix-ref 权重、运行与复现](docs/part3.md)
 
 如果你不了解旧项目，先读 [旧仓库说明与复用审计](docs/reuse_audit.md)。旧仓库是 VGGT + ORB-SLAM3 / ROS2 的 SLAM 原型，并非现成的 3DGS 项目。本实现复用其 VGGT 技术路线，使用固定官方模型源码；不需要安装旧 ROS 环境。
 
