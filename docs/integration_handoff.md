@@ -16,8 +16,8 @@
 
 - [Part 1 最终汇总](../results/part1-final/)记录全部 9 项正式实验与 45 个收敛评估点。[Part 1 正文](../report/part1.tex)可并入课程报告。
 - 组内交接的 `part1-combined-20261115-211003.zip` 保存九项运行的评估、日志、抽样渲染和 7,000 步 checkpoint 清单。其 SHA-256 为 `d38e5431f7e3a0cccb00bc12bdbffa66ccd9c9c6edddd35ede10783a06bcf54c`。课程服务器的副本与 `part1-report.pdf` 位于合并工作树的 `output/handoff/`。
-- `output/handoff/part2-snapshot-20261115-200104.zip` 有组员提交前的 17 个代码和文档文件的 SHA-256，以及归档时的 Part 2 日志和指标。Re10k-1 的配对已完成，Waymo 的 Full 已评估，Sparse 当时在训练。
-- 归档包含采集时的状态。后续实验的实时状态以两台服务器原运行目录为准。
+- [Part 2 正式结果](part2_results.md)包含 6 项 Full/Sparse 实验、30 个固定步数的评估点和 990 条逐帧指标。课程服务器上原合并工作树的 `output/handoff/part2-final/` 保留原始归档、含课程 RGB 的失败案例和源码快照。
+- `output/handoff/part2-snapshot-20261115-200104.zip` 记录较早的交接阶段。课程服务器整理提交 `9cc063d` 已并入 Git 历史，报告和脚本统一引用主分支的正式结果及补充分析。
 
 三场景的 dense split hash 在当前 IADC 与组员 Part 2 中一致。Part 2 已有的 Full 是组员在课程服务器训练的，位姿 ATE 也按 sparse 的共同原始帧另外计算，因此保留原配对。Part 1 的正式结果仍可独立用于三初始化比较。
 

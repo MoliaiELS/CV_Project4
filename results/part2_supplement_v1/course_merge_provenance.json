@@ -1,0 +1,27 @@
+{
+  "formal_cases": 6,
+  "training_steps": 7000,
+  "seed": 42,
+  "evaluation_steps": [
+    500,
+    1000,
+    2000,
+    4000,
+    7000
+  ],
+  "convergence_points": 30,
+  "per_frame_evaluations": 990,
+  "test_renders_at_final_step": 198,
+  "part2_training_snapshot_commit": "bd2e3ecae209df5de315fcddb258accf15a57592",
+  "part2_training_source_sha256": "c8b6722a8b18deaecd6766279d8e69617e762ec9cb9add52300ba171424bf51c",
+  "part2_initializer_weights_sha256": "d15bf50a8615c8225ed48b51ea5cac673d82442ec0309036df555a053253afe0",
+  "part1_training_commit": "bde9244f692cc497355a307826ce1ca25f39cd99",
+  "part1_checkpoints_imported": 9,
+  "part1_checkpoint_replays": 3,
+  "part1_replayed_vggt_full_psnr_max_abs_difference_db": 0,
+  "part2_full_baseline": "independent Full and Sparse runs, paired within Part 2",
+  "source_archives": {
+    "summary_bundle.zip": "4f06678ebe7243dfa6f18cade1140828d203f77ab6afad5972efa9f1bb5192b0",
+    "part2_enhanced_bundle.zip": "7ae58b601eccdb21ae9853a5555471b9f4506d2bf3972c78d0b5b10e48fb96ca"
+  }
+}
