@@ -1,0 +1,48 @@
+{
+  "scene": "Dl3dv-2",
+  "split_hash": "8e4064e6fafc649deb06cb372038871c9f0d3be7140febb849b665161a35f309",
+  "source_commit": "cab1e355336a2ab634423f3037e67f9a02c98699",
+  "implementation_sha256": "efcd25d0adcc492e529c2fe40cc0facc849f9613b747fce380a2d5edc2832ccb",
+  "sparse_checkpoint_sha256": "dff20b805c714bb0cc63334bfbdaa93f52018597d2db6e2f46ed3dac1ffa7eb3",
+  "train_frames": 11,
+  "heldout_frames": 39,
+  "rounds": 2,
+  "updates_per_round": 3000,
+  "targets_per_round": 8,
+  "seed": 42,
+  "verification": {
+    "scene_states_per_weight": 5,
+    "raw_renders_per_weight": 195,
+    "pseudo_view_digests_per_weight": 32,
+    "matched_logged_real_view_draws_per_branch": 60,
+    "retained_final_sampler_verified": true,
+    "identical_ordered_heldout_ids_and_alignment": true,
+    "same_training_frames_and_published_m0": true
+  },
+  "weight_0_2": {
+    "gated_round_2_sha256": "bcae228ec4621799974ed261bbd3ece815c9cc477818107d6ff2e03f5e292ebd",
+    "same_target_lists_between_arms_by_round": [true, true],
+    "real_reprojection_percent_by_round": [71.8832, 71.3774],
+    "diffusion_completion_percent_by_round": [8.2838, 8.0879],
+    "paired_psnr_improved_frames": 32,
+    "paired_psnr_declined_frames": 7,
+    "paired_psnr_median_change_db": 0.053600874
+  },
+  "weight_0_4": {
+    "gated_round_2_sha256": "c21428dcc72ea4a07e27f2068af6a1f32068b54f4667bb56c03438f43d73cd8d",
+    "same_target_lists_between_arms_by_round": [true, false],
+    "real_reprojection_percent_by_round": [71.8832, 71.5158],
+    "diffusion_completion_percent_by_round": [8.2838, 8.0215],
+    "paired_psnr_improved_frames": 34,
+    "paired_psnr_declined_frames": 5,
+    "paired_psnr_median_change_db": 0.063285858,
+    "paired_psnr_mean_change_db": 0.104711344,
+    "descriptive_95_percent_block_bootstrap_db": {
+      "block_length_4": [0.047616, 0.166106],
+      "block_length_5": [0.044038, 0.165841],
+      "resamples": 20000,
+      "comparison": "published original gated round two, matched by image and frame ID",
+      "scope": "within one sequence and one seed"
+    }
+  }
+}

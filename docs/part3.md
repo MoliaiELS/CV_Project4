@@ -95,3 +95,5 @@ python -m scripts.part3_progressive --assets-root "$assets" --model-dir "$model"
   --scene Dl3dv-2 --arms warp_only warp_gated --views 8 --steps 3000 \
   --output runs/part3_warp_3000 --keep-checkpoints gated
 ```
+
+加 `--synthetic-weight 0.4` 并改用新输出目录复现 DL3DV 的高权重对照。0.2 和 0.4 两项均使用原稀疏 M0、39 个测试视角以及两轮各 3,000 步。在两项对照中，每轮选取八个目标相机，扩散分支每个相机调用两次 Difix。 [两轮数据与定性比较](../results/part3_progressive/README.md)

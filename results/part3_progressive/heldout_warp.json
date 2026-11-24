@@ -1,0 +1,64 @@
+{
+  "scene": "Dl3dv-2",
+  "round": 2,
+  "synthetic_weight": 0.4,
+  "test_frames": 39,
+  "examples": [
+    {
+      "selection": "Median change",
+      "id": "frame_00153.png",
+      "image": "images/frame_00153.png.png",
+      "psnr_change_from_original_gated": 0.06328585801790965,
+      "metrics": {
+        "Sparse baseline": {
+          "psnr": 19.197523620590896,
+          "ssim": 0.5203738322677077,
+          "lpips": 0.10119371861219406
+        },
+        "Original gated": {
+          "psnr": 19.18160374252381,
+          "ssim": 0.5210285130909179,
+          "lpips": 0.10140169411897659
+        },
+        "Reprojection only": {
+          "psnr": 19.233503246805366,
+          "ssim": 0.524685657180842,
+          "lpips": 0.10053261369466782
+        },
+        "Reprojection + Difix": {
+          "psnr": 19.24488960054172,
+          "ssim": 0.5251609868715742,
+          "lpips": 0.10021381080150604
+        }
+      }
+    },
+    {
+      "selection": "Lowest change",
+      "id": "frame_00241.png",
+      "image": "images/frame_00241.png.png",
+      "psnr_change_from_original_gated": -0.12773487972740227,
+      "metrics": {
+        "Sparse baseline": {
+          "psnr": 18.766628225803295,
+          "ssim": 0.6047025154509108,
+          "lpips": 0.10649342834949493
+        },
+        "Original gated": {
+          "psnr": 18.97509534534641,
+          "ssim": 0.6041046708131915,
+          "lpips": 0.10473659634590149
+        },
+        "Reprojection only": {
+          "psnr": 18.84421847105695,
+          "ssim": 0.6062618685625006,
+          "lpips": 0.10342861711978912
+        },
+        "Reprojection + Difix": {
+          "psnr": 18.84736046561901,
+          "ssim": 0.6059393768586475,
+          "lpips": 0.1024903953075409
+        }
+      }
+    }
+  ]
+}

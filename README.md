@@ -10,6 +10,7 @@ AIAA 3201 Project 4 的 Part 1 比较 COLMAP、VGGT 和 VGGT-Ω 的相机与点�
 - [Part 1 报告与复现记录](docs/part1_report.md)、[CVPR LaTeX 正文与编译方法](report/README.md)。
 - [Part 2 最终结果与复现说明](docs/part2_results.md)记录三个场景的 **6 项 Full/Sparse 正式实验**。[报告正文](report/part2.tex)与[课程服务器交接说明](docs/integration_handoff.md)。
 - [Part 3 闭环结果](results/part3/)包含两轮生成前后的三项指标、留出视角比较、主动视角轨迹和失败案例。[Difix-ref 权重、运行与复现](docs/part3.md)
+- [Part 3 补充结果](results/part3_progressive/)记录真实纹理投影与扩散补洞的对照。DL3DV 在同一测试集上的 PSNR 从原闭环的 15.5009 提升到 15.6056 dB。
 - [最终 CVPR 报告源文件和编译方法](report/README.md)汇总 Part 1–3，并包含 Mip-NeRF 360 Bonsai 加测结果。
 
 ```bash
