@@ -1,0 +1,411 @@
+{
+  "scene": "Re10k-1",
+  "split_hash": "0887b21ad76890c530a6bd428cbe4ce7085d501d0639997dc0e48164ba81a74c",
+  "method": "train_rgb_track_ba",
+  "reference_data_used": false,
+  "parent_initializer_sha256": "7803e718bffcaac905e386853608b1d448886c201054e2d0789a9cc43eb3d508",
+  "scene_sha256": "584bee5c818d4fc4f865cd4cd4b8c5b7c39e7ea9004aee3f36ed05024db0d47b",
+  "seed_points_preserved": 100000,
+  "source": {
+    "git_commit": "7f5ee33ffffa8ffee5ce4c4162a0cb4c979c7d03",
+    "git_dirty": false,
+    "package_source_sha256": "0e2a75ba924cc167b47f4c89fbec95550b6b8a7250d0edfa91fc66b3358b8140",
+    "python": "3.10.22",
+    "platform": "Linux-5.15.0-186-generic-x86_64-with-glibc2.35"
+  },
+  "script_sha256": "50a7fd03e9a294a16554f9e3455acad306ac4ff78a6dda6c3a44e037eb33c36b",
+  "elapsed_seconds": 6.030507594812661,
+  "training_ids": [
+    "images/00001.png.png",
+    "images/00031.png.png",
+    "images/00061.png.png",
+    "images/00091.png.png",
+    "images/00121.png.png",
+    "images/00151.png.png",
+    "images/00181.png.png",
+    "images/00211.png.png",
+    "images/00241.png.png",
+    "images/00271.png.png"
+  ],
+  "accepted_pair_matches": [
+    {
+      "frames": [
+        0,
+        1
+      ],
+      "matches": 115,
+      "inliers": 111
+    },
+    {
+      "frames": [
+        0,
+        2
+      ],
+      "matches": 58,
+      "inliers": 56
+    },
+    {
+      "frames": [
+        0,
+        3
+      ],
+      "matches": 34,
+      "inliers": 31
+    },
+    {
+      "frames": [
+        0,
+        4
+      ],
+      "matches": 25,
+      "inliers": 23
+    },
+    {
+      "frames": [
+        0,
+        5
+      ],
+      "matches": 19,
+      "inliers": 16
+    },
+    {
+      "frames": [
+        1,
+        2
+      ],
+      "matches": 119,
+      "inliers": 115
+    },
+    {
+      "frames": [
+        1,
+        3
+      ],
+      "matches": 78,
+      "inliers": 73
+    },
+    {
+      "frames": [
+        1,
+        4
+      ],
+      "matches": 54,
+      "inliers": 50
+    },
+    {
+      "frames": [
+        1,
+        5
+      ],
+      "matches": 41,
+      "inliers": 37
+    },
+    {
+      "frames": [
+        1,
+        6
+      ],
+      "matches": 17,
+      "inliers": 16
+    },
+    {
+      "frames": [
+        1,
+        7
+      ],
+      "matches": 18,
+      "inliers": 16
+    },
+    {
+      "frames": [
+        2,
+        3
+      ],
+      "matches": 137,
+      "inliers": 135
+    },
+    {
+      "frames": [
+        2,
+        4
+      ],
+      "matches": 80,
+      "inliers": 78
+    },
+    {
+      "frames": [
+        2,
+        5
+      ],
+      "matches": 50,
+      "inliers": 47
+    },
+    {
+      "frames": [
+        2,
+        6
+      ],
+      "matches": 32,
+      "inliers": 30
+    },
+    {
+      "frames": [
+        2,
+        7
+      ],
+      "matches": 19,
+      "inliers": 18
+    },
+    {
+      "frames": [
+        2,
+        8
+      ],
+      "matches": 14,
+      "inliers": 12
+    },
+    {
+      "frames": [
+        3,
+        4
+      ],
+      "matches": 143,
+      "inliers": 140
+    },
+    {
+      "frames": [
+        3,
+        5
+      ],
+      "matches": 80,
+      "inliers": 77
+    },
+    {
+      "frames": [
+        3,
+        6
+      ],
+      "matches": 46,
+      "inliers": 40
+    },
+    {
+      "frames": [
+        3,
+        7
+      ],
+      "matches": 29,
+      "inliers": 25
+    },
+    {
+      "frames": [
+        3,
+        8
+      ],
+      "matches": 21,
+      "inliers": 17
+    },
+    {
+      "frames": [
+        4,
+        5
+      ],
+      "matches": 161,
+      "inliers": 152
+    },
+    {
+      "frames": [
+        4,
+        6
+      ],
+      "matches": 75,
+      "inliers": 67
+    },
+    {
+      "frames": [
+        4,
+        7
+      ],
+      "matches": 43,
+      "inliers": 39
+    },
+    {
+      "frames": [
+        4,
+        8
+      ],
+      "matches": 29,
+      "inliers": 24
+    },
+    {
+      "frames": [
+        4,
+        9
+      ],
+      "matches": 25,
+      "inliers": 17
+    },
+    {
+      "frames": [
+        5,
+        6
+      ],
+      "matches": 162,
+      "inliers": 151
+    },
+    {
+      "frames": [
+        5,
+        7
+      ],
+      "matches": 83,
+      "inliers": 75
+    },
+    {
+      "frames": [
+        5,
+        8
+      ],
+      "matches": 39,
+      "inliers": 35
+    },
+    {
+      "frames": [
+        5,
+        9
+      ],
+      "matches": 28,
+      "inliers": 22
+    },
+    {
+      "frames": [
+        6,
+        7
+      ],
+      "matches": 151,
+      "inliers": 145
+    },
+    {
+      "frames": [
+        6,
+        8
+      ],
+      "matches": 60,
+      "inliers": 58
+    },
+    {
+      "frames": [
+        6,
+        9
+      ],
+      "matches": 38,
+      "inliers": 35
+    },
+    {
+      "frames": [
+        7,
+        8
+      ],
+      "matches": 119,
+      "inliers": 114
+    },
+    {
+      "frames": [
+        7,
+        9
+      ],
+      "matches": 62,
+      "inliers": 58
+    },
+    {
+      "frames": [
+        8,
+        9
+      ],
+      "matches": 99,
+      "inliers": 95
+    }
+  ],
+  "fitted_tracks": 559,
+  "seed": 42,
+  "gauge_anchor_ids": [
+    "images/00001.png.png",
+    "images/00271.png.png"
+  ],
+  "error_cap_px": 30.0,
+  "camera_rotation_change_degrees": [
+    3.0857636242741486e-15,
+    0.14997918499799362,
+    0.4292498717171022,
+    0.4873359674278345,
+    0.5238812749946725,
+    0.5809751956169881,
+    0.8407512431935766,
+    1.0657875451602277,
+    1.841222339528908,
+    2.390020622663552
+  ],
+  "center_change_over_anchor_baseline": [
+    0.0,
+    0.0029812453003776264,
+    0.000965602987668882,
+    0.005112413751741477,
+    0.004104794913946851,
+    0.0033482452838950686,
+    0.0030240386884689157,
+    0.004418895864653982,
+    0.010297778407572447,
+    0.0
+  ],
+  "bundle_adjustment": {
+    "observations_per_camera": [
+      105,
+      147,
+      158,
+      185,
+      194,
+      221,
+      204,
+      186,
+      152,
+      97
+    ],
+    "focal_multiplier": 1.0479984266745044,
+    "active_camera_parameter_bounds": 0,
+    "optimizer_status": 2,
+    "optimizer_message": "`ftol` termination condition is satisfied.",
+    "function_evaluations": 53,
+    "final_robust_cost": 228.61499993169832,
+    "original": {
+      "observations": 1649,
+      "invalid": 0,
+      "median_px": 0.42613893271439324,
+      "p90_px": 1.2335729571096636,
+      "rmse_px": 1.055717044171582
+    },
+    "refined": {
+      "observations": 1649,
+      "invalid": 0,
+      "median_px": 0.22387823569880738,
+      "p90_px": 0.6907736680211162,
+      "rmse_px": 0.6441913965174116
+    }
+  },
+  "reserved_tracks": {
+    "tracks": 65,
+    "original": {
+      "observations": 153,
+      "invalid": 0,
+      "median_px": 0.7945647386527045,
+      "p90_px": 2.4649550402670504,
+      "rmse_px": 1.4388533272898043
+    },
+    "refined": {
+      "observations": 153,
+      "invalid": 0,
+      "median_px": 0.42437142823113116,
+      "p90_px": 1.060575247237776,
+      "rmse_px": 0.9854087432712441
+    },
+    "protocol": "Track-disjoint from BA; re-triangulate the same two anchor observations and score others"
+  }
+}

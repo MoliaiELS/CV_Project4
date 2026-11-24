@@ -55,3 +55,43 @@ Bonsai 取自 Mip-NeRF 360。脚本从固定版本的输入数据镜像获取 49
 主动规划在训练相机之间插值平移、朝向和内参，用低分辨率投影 alpha 找到缺少支持的视角。门控使用当前 3DGS 的期望深度，将目标像素重投影到相邻真实训练视图，检查参考视图遮挡和颜色一致性。无可靠重投影的像素保留较小权重。留出相机和图像只在评价中读取，按 Part 2 的 train-only Sim(3) 协议渲染并计算 PSNR、SSIM、LPIPS。测试视角的报告预览用 3DGS 原始渲染。
 
 Difix-ref 预训练资料包含 DL3DV-10K。课程 DL3DV 场景是否与公开预训练样本完全独立尚未核实。项目内的参考图、训练和视角规划均遵守固定划分。
+
+## 补充实验
+
+渐进规划第一轮在相邻训练相机之间的 20% 和 80% 位置生成候选，第二轮进入 1/3、1/2 和 2/3 位置。每轮优先挑选低覆盖且能重投影到真实训练图的区域，每个相机区间最多选一个候选。生成分支分别用左右真实图调用 Difix-ref，再依据深度、颜色和两次生成的一致性给编辑区域加权。原始回放分支使用相同的候选策略、视角数和优化预算，第二轮从各分支自己的状态重新规划。方法参考了 Difix3D+ 的渐进采样和 BRPO 的跨参考一致性思路，使用本项目的 3DGS 与 Difix-ref 权重。 [Difix3D+ 补充材料](https://openaccess.thecvf.com/content/CVPR2025/supplemental/Wu_DIFIX3D_Improving_3D_CVPR_2025_supplemental.pdf) · [BRPO](https://arxiv.org/html/2602.21535v1)
+
+```bash
+python -m scripts.part3_progressive --assets-root "$assets" --model-dir "$model" \
+  --scene Dl3dv-2 --scene Re10k-1 --arms progressive_raw progressive_gated \
+  --views 8 --steps 3000 --output runs/part3_progressive_3000 --keep-checkpoints gated
+```
+
+将场景改为 `Re10k-1`，仅运行 `progressive_gated`，并加 `--synthetic-weight 1.0`，可复现回灌权重对照。使用独立的输出目录。 [补充实验指标](../results/part3_progressive/README.md)
+
+Re10k 的另一项实验用真实稀疏训练图的 SIFT 特征轨迹优化原 VGGT 相机和共享焦距比例。保留首相机、尺度锚点和 VGGT 初始点云，用独立的一组训练图特征轨迹检查重投影误差。按相同的 7,000 步 3DGS 配置重建后，分别进行两轮仅真实图像续训和两轮渐进生成回灌。测试相机及图像沿用课程固定划分和训练相机 Sim(3) 对齐协议。 [VGGT 的 COLMAP 与束调整示例](https://github.com/facebookresearch/vggt/blob/main/demo_colmap.py)
+
+```bash
+dataset="$assets/data/part2_sparse/Re10k-1"
+sparse="$assets/runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse"
+root=runs/part3_re10k_calibrated
+python -m scripts.refine_sparse_cameras --dataset "$dataset" \
+  --initializer "$sparse/init/scene.npz" --output "$root/initializer"
+python -m p4.train train --dataset "$dataset" --scene "$root/initializer/scene.npz" \
+  --config "$sparse/train/config.json" --output "$root/train"
+```
+
+沿用加测场景的方式制作 M0 JSON，使用校准后的 `scene.npz` 和新训练的 `step_007000.pt`。训练时可将 `save_steps` 改为仅保存第 7,000 步，节省磁盘空间。
+
+```bash
+python -m scripts.part3_progressive --supplemental "$root/m0.json" --model-dir "$model" \
+  --arms real_only progressive_gated --views 8 --steps 3000 \
+  --output "$root/closed_loop" --keep-checkpoints gated
+```
+
+真实颜色重投影实验用两张相邻训练图及其深度向目标相机进行正向投影。先通过 z-buffer 处理遮挡，再用两侧的颜色和深度一致性筛选观测。`warp_only` 只回灌通过筛选的投影像素。`warp_gated` 保留这些像素，另用双参考 Difix 给周围无投影支持且两次修复一致的空洞补充低权重观测。两个分支均从自己的第一轮 checkpoint 重新选点。 [FWD](https://arxiv.org/abs/2206.08355) · [MVPGS](https://arxiv.org/abs/2409.14316)
+
+```bash
+python -m scripts.part3_progressive --assets-root "$assets" --model-dir "$model" \
+  --scene Dl3dv-2 --arms warp_only warp_gated --views 8 --steps 3000 \
+  --output runs/part3_warp_3000 --keep-checkpoints gated
+```
