@@ -27,6 +27,12 @@ CAMERA_FILES = ("cameras.bin", "images.bin")
 SOURCE_VIEWS = 292
 TRAIN_VIEWS = 12
 TEST_STRIDE = 8
+# SHA-256 of the canonical selected-file manifest, after matching each payload
+# against the official ZIP member's uncompressed byte length and CRC-32.
+OFFICIAL_SELECTION_HASHES = {
+    4: "d06fccfd9048edd5a5a29d03e3e4b46cd1b4adb98da4fe43ee28a5ec37559022",
+    8: "d97fbbbfb87f1ce3da20b8e5fd5c4b2475b6a6202a0cf3061967e36832b1387a",
+}
 
 
 def fetch(url):
@@ -34,7 +40,7 @@ def fetch(url):
         try:
             with urlopen(url, timeout=75) as response:
                 return response.read()
-        except URLError:
+        except (URLError, TimeoutError):
             if attempt == 2:
                 raise
 
@@ -55,7 +61,10 @@ def listing(endpoint, folder):
 
 
 def cache_file(endpoint, cache, entry):
-    relative = entry["path"].removeprefix(f"{MIRROR_SCENE}/")
+    prefix = f"{MIRROR_SCENE}/"
+    relative = Path(entry["path"].removeprefix(prefix))
+    if not entry["path"].startswith(prefix) or relative.is_absolute() or relative.drive or ".." in relative.parts:
+        raise ValueError(f"Invalid mirror member path: {entry['path']}")
     path = cache / relative
     data = path.read_bytes() if path.is_file() else b""
     if not matching_blob(data, entry):
@@ -67,7 +76,7 @@ def cache_file(endpoint, cache, entry):
         temporary = path.with_suffix(path.suffix + ".tmp")
         temporary.write_bytes(data)
         temporary.replace(path)
-    return relative, {"bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()}
+    return relative.as_posix(), {"bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()}
 
 
 def frozen_split(names):
@@ -119,6 +128,10 @@ def prepare(cache, output, endpoint, level=4, max_size=512):
     print(f"Staging {len(split['train'])} training views, {len(split['test'])} test views, and released cameras", flush=True)
     with ThreadPoolExecutor(max_workers=8) as executor:
         inputs = dict(executor.map(lambda entry: cache_file(endpoint, cache, entry), required))
+    canonical_inputs = json.dumps(inputs, sort_keys=True, separators=(",", ":"))
+    source_hash = hashlib.sha256(canonical_inputs.encode("utf-8")).hexdigest()
+    if source_hash != OFFICIAL_SELECTION_HASHES[level]:
+        raise ValueError("The selected source files differ from the verified official release")
 
     output.parent.mkdir(parents=True, exist_ok=True)
     with TemporaryDirectory(dir=output.parent, prefix=".bonsai-") as temporary:
@@ -142,6 +155,8 @@ def prepare(cache, output, endpoint, level=4, max_size=512):
         write_json(prepared / "source_receipt.json", {
             "dataset": "Mip-NeRF 360", "scene": SCENE,
             "official_project": OFFICIAL_PAGE, "official_archive": OFFICIAL_ARCHIVE,
+            "official_archive_generation": "1704838090071815",
+            "official_selection_sha256": source_hash,
             "input_mirror_repository": MIRROR_REPO, "input_mirror_revision": MIRROR_REVISION,
             "input_mirror_endpoint": endpoint, "input_mirror_scene": MIRROR_SCENE,
             "source_level": image_folder, "source_files": inputs,
