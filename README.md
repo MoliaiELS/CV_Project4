@@ -1,6 +1,6 @@
-# Project 4 · Part 1 + Part 2
+# Project 4 · Generative Sparse-View 3D Reconstruction
 
-> 最新 Part 2 交付：三个场景 Full / Sparse 7000 步及补充评估均已完成。入口见 [代码、结果与 HPC 复现说明](docs/part2_handoff.md)。
+本项目比较稠密重建的三种几何初始化，测量未知位姿下的稀疏重建退化，并在稀疏 3DGS 上实验两轮扩散修复与回灌。
 
 
 AIAA 3201 Project 4 的 Part 1 比较 COLMAP、VGGT 和 VGGT-Ω 的相机与点云初始化。三个课程场景的 **9 项正式比较已完成**。每项使用同一套 3D Gaussian Splatting 训练器和同场景固定的测试视角。
@@ -9,6 +9,7 @@ AIAA 3201 Project 4 的 Part 1 比较 COLMAP、VGGT 和 VGGT-Ω 的相机与点�
 - [收敛曲线](results/part1-final/convergence.png)比较五个固定迭代点的测试视角质量。
 - [Part 1 报告与复现记录](docs/part1_report.md)、[CVPR LaTeX 正文与编译方法](report/README.md)。
 - [Part 2 最终结果与复现说明](docs/part2_results.md)记录三个场景的 **6 项 Full/Sparse 正式实验**。[报告正文](report/part2.tex)与[课程服务器交接说明](docs/integration_handoff.md)。
+- [Part 3 闭环实验](docs/part3.md)提供 Difix-ref 权重、运行命令、留出集评价、对照与复现协议。
 
 如果你不了解旧项目，先读 [旧仓库说明与复用审计](docs/reuse_audit.md)。旧仓库是 VGGT + ORB-SLAM3 / ROS2 的 SLAM 原型，并非现成的 3DGS 项目。本实现复用其 VGGT 技术路线，使用固定官方模型源码；不需要安装旧 ROS 环境。
 
