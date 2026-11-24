@@ -1,6 +1,7 @@
 import numpy as np
 import pytest
 
+from scripts.part3_progressive import _complete_warp
 from scripts.part3_progressive_views import fuse_restorations, progressive_candidates, select_progressive_views
 from scripts.part3_views import Camera, Candidate
 
@@ -83,3 +84,27 @@ def test_single_anchor_has_limited_confidence_and_unsupported_pixels_stay_raw():
     np.testing.assert_allclose(enhanced, 0.5)
     np.testing.assert_array_equal(confidence, 0.)
     assert stats["verified_fraction"] == 0.
+
+
+def test_warp_completion_preserves_real_colors_and_rejects_disputed_or_remote_pixels():
+    raw = np.full((64, 64, 3), 0.5, dtype=np.float32)
+    rgb = np.full_like(raw, 0.8)
+    confidence = np.zeros(raw.shape[:2], dtype=np.float32)
+    confidence[30, 30] = 0.7
+    support = np.zeros_like(confidence, dtype=np.uint8)
+    support[30, 30] = 2
+    support[30, 31] = 2  # A disputed projection is not an empty hole.
+    left = np.full_like(raw, 0.2)
+    right = np.full_like(raw, 0.22)
+    right[31, 30] = 0.9
+
+    result, weights, stats = _complete_warp(raw, {"rgb": rgb, "confidence": confidence,
+                                                  "support_count": support, "stats": {}}, (left, right))
+    np.testing.assert_array_equal(result[30, 30], rgb[30, 30])
+    assert weights[30, 30] == pytest.approx(0.7)
+    np.testing.assert_allclose(result[29, 30], 0.21)
+    assert weights[29, 30] == pytest.approx(0.15)
+    for row, col in [(30, 31), (31, 30), (35, 30)]:
+        np.testing.assert_array_equal(result[row, col], raw[row, col])
+        assert weights[row, col] == 0.
+    assert stats["real_warp_fraction"] == pytest.approx(1 / 64 ** 2)

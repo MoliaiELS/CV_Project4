@@ -7,6 +7,7 @@ from pathlib import Path
 import time
 
 import numpy as np
+from scipy.ndimage import distance_transform_edt
 
 from p4.common import sha256_file, source_version, write_json
 from p4.data import load_manifest
@@ -17,14 +18,17 @@ from scripts.part3_progressive_views import (fuse_restorations, progressive_cand
                                              select_progressive_views)
 from scripts.part3_restore import DifixRestorer, MODEL_ID, MODEL_REVISION, PRECISIONS
 from scripts.part3_views import read_rgb, save_rgb, training_cameras
+from scripts.part3_warp_views import warp_real_prior
 
 
 ARMS = {"real_only": "real_only", "progressive_raw": "raw_replay", "progressive_gated": "gated"}
+WARP_ARMS = {"warp_only": "gated", "warp_gated": "gated"}
 
 
 def _implementation_sha256():
     digest = hashlib.sha256(bytes.fromhex(_source_hash()))
-    for path in (Path(__file__), Path(__file__).with_name("part3_progressive_views.py")):
+    for path in (Path(__file__), Path(__file__).with_name("part3_progressive_views.py"),
+                 Path(__file__).with_name("part3_warp_views.py")):
         digest.update(bytes.fromhex(sha256_file(path)))
     return digest.hexdigest()
 
@@ -60,7 +64,29 @@ def _observation_from_cache(folder, record):
                                            arrays["raw"], arrays["enhanced"], arrays["confidence"])
 
 
-def _generate_view(model, target, dataset, folder, restorer, seeds):
+def _complete_warp(raw_rgb, prior, restorations):
+    real = prior["confidence"] > 0.
+    enhanced = np.where(real[..., None], prior["rgb"], raw_rgb).astype(np.float32)
+    confidence = prior["confidence"].copy()
+    completion = np.zeros_like(real)
+    if restorations and np.any(real):
+        left, right = restorations
+        difference = np.abs(left - right).mean(axis=-1)
+        proposed = 0.5 * (left + right)
+        edit = np.abs(proposed - raw_rgb).mean(axis=-1)
+        near_real = distance_transform_edt(~real) <= 0.04 * min(real.shape)
+        completion = (prior["support_count"] == 0) & near_real & (difference < 0.08) & (edit > 0.02)
+        enhanced[completion] = proposed[completion]
+        confidence[completion] = 0.20 * (1. - difference[completion] / 0.08)
+    stats = {**prior["stats"], "real_warp_fraction": float(real.mean()),
+             "diffusion_completion_fraction": float(completion.mean()),
+             "mean_confidence": float(confidence.mean()),
+             "mean_edit": float(np.abs(enhanced - raw_rgb).mean()),
+             "edit_fraction": float((confidence > 0).mean())}
+    return enhanced, confidence, stats
+
+
+def _generate_view(model, target, dataset, folder, restorer, seeds, arm):
     camera = target.camera
     raw = _render(model, camera)
     save_rgb(folder / "raw.png", raw["rgb"])
@@ -68,19 +94,30 @@ def _generate_view(model, target, dataset, folder, restorer, seeds):
     anchor_rgb = [read_rgb(dataset / anchor.name) for anchor in target.anchors]
     for side, image in zip(("left", "right"), anchor_rgb):
         save_rgb(folder / f"reference_{side}.png", image)
-    if restorer is None:
+    if arm == "progressive_raw":
         enhanced, confidence, stats = raw["rgb"], np.ones_like(raw["alpha"]), {}
     else:
+        anchor_inputs = [(anchor, _render(model, anchor), pixels)
+                         for anchor, pixels in zip(target.anchors, anchor_rgb)]
+        prior = None
+        input_image = folder / "raw.png"
+        if arm in WARP_ARMS:
+            prior = warp_real_prior(target, anchor_inputs, model.normalization["radius"])
+            input_image = folder / "warp_prior.png"
+            conditioned = np.where(prior["confidence"][..., None] > 0., prior["rgb"], raw["rgb"])
+            save_rgb(input_image, conditioned)
+            save_rgb(folder / "warp_confidence.png", prior["confidence"])
         restored = []
         for side, anchor, seed in zip(("left", "right"), target.anchors, seeds):
-            image = restorer.restore(folder / "raw.png", dataset / anchor.name, seed=seed)
+            image = restorer.restore(input_image, dataset / anchor.name, seed=seed)
             pixels = np.asarray(image, dtype=np.float32) / 255.
             save_rgb(folder / f"restored_{side}.png", pixels)
             restored.append(pixels)
-        anchor_inputs = [(anchor, _render(model, anchor), pixels)
-                         for anchor, pixels in zip(target.anchors, anchor_rgb)]
-        enhanced, confidence, stats = fuse_restorations(
-            target, raw, tuple(restored), anchor_inputs, model.normalization["radius"])
+        if prior is None:
+            enhanced, confidence, stats = fuse_restorations(
+                target, raw, tuple(restored), anchor_inputs, model.normalization["radius"])
+        else:
+            enhanced, confidence, stats = _complete_warp(raw["rgb"], prior, restored)
     save_rgb(folder / "enhanced.png", enhanced)
     save_rgb(folder / "confidence.png", confidence)
     arrays = folder / "training_arrays.npz"
@@ -112,7 +149,7 @@ def _setup_round(model, cameras, dataset, output, arm, round_index, args):
         target_dir = output / target.camera.name
         receipt = target_dir / "observation.json"
         seed = args.seed + round_index * 1000 + 2 * index
-        seeds = (seed, seed + 1) if arm == "progressive_gated" else ()
+        seeds = (seed, seed + 1) if arm in {"progressive_gated", "warp_gated"} else ()
         if receipt.exists():
             item = _read_json(receipt)
             if (item["target"] != target.camera.name or item["parent_checkpoint_sha256"] != model.checkpoint_sha256
@@ -123,7 +160,7 @@ def _setup_round(model, cameras, dataset, output, arm, round_index, args):
                 restorer = DifixRestorer(model_dir=args.model_dir, dtype=args.precision,
                                          max_edge=args.max_edge, seed=args.seed)
             tick = time.perf_counter()
-            item = _generate_view(model, target, dataset, target_dir, restorer, seeds)
+            item = _generate_view(model, target, dataset, target_dir, restorer, seeds, arm)
             item.update(arm=arm, generation_seconds=time.perf_counter() - tick,
                         difix=restorer.provenance() if restorer is not None else None)
             write_json(receipt, item)
@@ -183,7 +220,8 @@ def _run_scene(args, name, dataset, scene, checkpoint, expected_sha256=None):
                 print(f"{name} {arm} round {round_index} starting", flush=True)
                 start = time.perf_counter()
                 observations, receipt = _setup_round(model, cameras, dataset, output, arm, round_index, args)
-                model = fusion.fine_tune(model, dataset, scene, output, ARMS[arm], observations, config)
+                model = fusion.fine_tune(model, dataset, scene, output, (ARMS | WARP_ARMS)[arm],
+                                         observations, config)
                 metrics = _evaluate(model, dataset, scene, output)
                 metrics["train_frames"] = len(cameras)
                 write_json(stage, _stage_record(name, arm, round_index, metrics, output, args.output,
@@ -193,7 +231,8 @@ def _run_scene(args, name, dataset, scene, checkpoint, expected_sha256=None):
                       f"SSIM {metrics['ssim']:.4f} LPIPS {metrics['lpips']:.4f}", flush=True)
         if args.keep_checkpoints != "all":
             (root / "round1/checkpoint.pt").unlink(missing_ok=True)
-        if args.keep_checkpoints == "none" or (args.keep_checkpoints == "gated" and arm != "progressive_gated"):
+        if args.keep_checkpoints == "none" or (args.keep_checkpoints == "gated"
+                                               and arm not in {"progressive_gated", "warp_gated"}):
             (root / "round2/checkpoint.pt").unlink(missing_ok=True)
 
 
@@ -204,7 +243,7 @@ def main():
     parser.add_argument("--supplemental", type=Path, help="JSON describing an independently trained M0")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--model-dir", type=Path)
-    parser.add_argument("--arms", choices=tuple(ARMS), nargs="+", default=list(ARMS))
+    parser.add_argument("--arms", choices=tuple(ARMS | WARP_ARMS), nargs="+", default=list(ARMS))
     parser.add_argument("--steps", type=int, default=3000)
     parser.add_argument("--views", type=int, default=8)
     parser.add_argument("--synthetic-weight", type=float, default=0.2)
