@@ -86,7 +86,7 @@ def _complete_warp(raw_rgb, prior, restorations):
     return enhanced, confidence, stats
 
 
-def _generate_view(model, target, dataset, folder, restorer, seeds, arm):
+def _generate_view(model, target, dataset, folder, restorer, seeds, arm, warp_depth):
     camera = target.camera
     raw = _render(model, camera)
     save_rgb(folder / "raw.png", raw["rgb"])
@@ -97,12 +97,19 @@ def _generate_view(model, target, dataset, folder, restorer, seeds, arm):
     if arm == "progressive_raw":
         enhanced, confidence, stats = raw["rgb"], np.ones_like(raw["alpha"]), {}
     else:
-        anchor_inputs = [(anchor, _render(model, anchor), pixels)
-                         for anchor, pixels in zip(target.anchors, anchor_rgb)]
         prior = None
         input_image = folder / "raw.png"
+        radius = model.normalization["radius"]
+        anchor_inputs = []
+        for anchor, pixels in zip(target.anchors, anchor_rgb):
+            if warp_depth is not None and arm in WARP_ARMS:
+                depth, alpha = warp_depth[anchor.name]
+                geometry = {"depth": depth / radius, "alpha": alpha}
+            else:
+                geometry = _render(model, anchor)
+            anchor_inputs.append((anchor, geometry, pixels))
         if arm in WARP_ARMS:
-            prior = warp_real_prior(target, anchor_inputs, model.normalization["radius"])
+            prior = warp_real_prior(target, anchor_inputs, radius)
             input_image = folder / "warp_prior.png"
             conditioned = np.where(prior["confidence"][..., None] > 0., prior["rgb"], raw["rgb"])
             save_rgb(input_image, conditioned)
@@ -131,7 +138,7 @@ def _generate_view(model, target, dataset, folder, restorer, seeds, arm):
             "seeds": list(seeds), "training_arrays_sha256": sha256_file(arrays), **stats}
 
 
-def _setup_round(model, cameras, dataset, output, arm, round_index, args):
+def _setup_round(model, cameras, dataset, output, arm, round_index, args, warp_depth):
     if arm == "real_only":
         return [], {"planning_seconds": 0., "generation_seconds": 0., "diffix": None, "observations": []}
     chosen, plan = _round_plan(model, cameras, output, round_index, args.views)
@@ -160,7 +167,7 @@ def _setup_round(model, cameras, dataset, output, arm, round_index, args):
                 restorer = DifixRestorer(model_dir=args.model_dir, dtype=args.precision,
                                          max_edge=args.max_edge, seed=args.seed)
             tick = time.perf_counter()
-            item = _generate_view(model, target, dataset, target_dir, restorer, seeds, arm)
+            item = _generate_view(model, target, dataset, target_dir, restorer, seeds, arm, warp_depth)
             item.update(arm=arm, generation_seconds=time.perf_counter() - tick,
                         difix=restorer.provenance() if restorer is not None else None)
             write_json(receipt, item)
@@ -178,6 +185,34 @@ def _setup_round(model, cameras, dataset, output, arm, round_index, args):
     return observations, record
 
 
+def _load_warp_depth(path, cameras, dataset, initializer):
+    manifest = load_manifest(dataset)
+    with np.load(path, allow_pickle=False) as archive:
+        if (archive["split_hash"].item() != manifest["split_hash"]
+                or archive["camera_initializer_sha256"].item() != sha256_file(initializer)):
+            raise ValueError("Warp depths must match the sparse split and camera initializer")
+        names = archive["names"].astype(str).tolist()
+        cameras_by_name = {camera.name: camera for camera in cameras}
+        depth, confidence = archive["depth"], archive["confidence"]
+        if sorted(names) != sorted(cameras_by_name) or depth.shape != confidence.shape or len(depth) != len(names):
+            raise ValueError("Warp depths must supply exactly one depth and confidence map per train camera")
+    geometry = {}
+    for name, z, weight in zip(names, depth, confidence):
+        camera = cameras_by_name[name]
+        if z.shape != (camera.height, camera.width):
+            raise ValueError(f"Warp depth dimensions do not match the prepared RGB: {name}")
+        valid = np.isfinite(z) & (z > 0.) & np.isfinite(weight)
+        if not np.any(valid):
+            raise ValueError(f"No finite positive warp depths: {name}")
+        weak, strong = np.quantile(weight[valid], (0.10, 0.50))
+        if strong > weak:
+            alpha = np.where(valid, np.clip((weight - weak) / (strong - weak), 0., 1.), 0.)
+        else:
+            alpha = (valid & (weight >= strong)).astype(np.float32)
+        geometry[name] = np.where(valid, z, 0.).astype(np.float32), alpha.astype(np.float32)
+    return geometry
+
+
 def _run_scene(args, name, dataset, scene, checkpoint, expected_sha256=None):
     scene_root = args.output / name
     cameras = training_cameras(dataset, scene)
@@ -186,6 +221,10 @@ def _run_scene(args, name, dataset, scene, checkpoint, expected_sha256=None):
     run = {**asdict(config), "views": args.views, "precision": args.precision, "max_edge": args.max_edge,
            "policy": "progressive", "implementation_sha256": _implementation_sha256(),
            "difix_model": MODEL_ID, "difix_revision": MODEL_REVISION}
+    warp_depth = None
+    if args.warp_depth is not None:
+        warp_depth = _load_warp_depth(args.warp_depth, cameras, dataset, scene)
+        run["warp_depth_sha256"] = sha256_file(args.warp_depth)
     spec = scene_root / "protocol.json"
     if spec.exists():
         if {key: value for key, value in _read_json(spec).items() if key != "source"} != run:
@@ -219,7 +258,8 @@ def _run_scene(args, name, dataset, scene, checkpoint, expected_sha256=None):
                     continue
                 print(f"{name} {arm} round {round_index} starting", flush=True)
                 start = time.perf_counter()
-                observations, receipt = _setup_round(model, cameras, dataset, output, arm, round_index, args)
+                observations, receipt = _setup_round(model, cameras, dataset, output, arm, round_index,
+                                                     args, warp_depth)
                 model = fusion.fine_tune(model, dataset, scene, output, (ARMS | WARP_ARMS)[arm],
                                          observations, config)
                 metrics = _evaluate(model, dataset, scene, output)
@@ -243,6 +283,7 @@ def main():
     parser.add_argument("--supplemental", type=Path, help="JSON describing an independently trained M0")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--model-dir", type=Path)
+    parser.add_argument("--warp-depth", type=Path, help="Train-only depth archive matched to one scene initializer")
     parser.add_argument("--arms", choices=tuple(ARMS | WARP_ARMS), nargs="+", default=list(ARMS))
     parser.add_argument("--steps", type=int, default=3000)
     parser.add_argument("--views", type=int, default=8)
@@ -257,6 +298,10 @@ def main():
         parser.error("provide --assets-root or --supplemental")
     if args.views < 1 or args.max_edge < 8:
         parser.error("--views must be positive and --max-edge must be at least 8")
+    if args.warp_depth is not None and (not set(args.arms) & WARP_ARMS.keys()
+                                        or (args.assets_root is not None
+                                            and (args.supplemental is not None or len(args.scene or ()) != 1))):
+        parser.error("--warp-depth requires warp_only or warp_gated and exactly one scene")
     if args.assets_root is not None:
         for name in args.scene or COURSE_SCENES:
             case = args.assets_root / "runs/part2_formal" / name / "full_sparse_7000_v1/sparse"

@@ -1,7 +1,8 @@
 import numpy as np
 import pytest
 
-from scripts.part3_progressive import _complete_warp
+from p4.common import sha256_file
+from scripts.part3_progressive import _complete_warp, _load_warp_depth
 from scripts.part3_progressive_views import fuse_restorations, progressive_candidates, select_progressive_views
 from scripts.part3_views import Camera, Candidate
 
@@ -108,3 +109,24 @@ def test_warp_completion_preserves_real_colors_and_rejects_disputed_or_remote_pi
         np.testing.assert_array_equal(result[row, col], raw[row, col])
         assert weights[row, col] == 0.
     assert stats["real_warp_fraction"] == pytest.approx(1 / 64 ** 2)
+
+
+def test_independent_depth_binds_to_split_initializer_and_camera_dimensions(tmp_path, monkeypatch):
+    target = camera("real")
+    initializer = tmp_path / "scene.npz"
+    initializer.write_bytes(b"sparse training cameras")
+    monkeypatch.setattr("scripts.part3_progressive.load_manifest", lambda _: {"split_hash": "sparse-train"})
+    archive = tmp_path / "depth_maps.npz"
+    depth = np.ones((1, 8, 8), dtype=np.float32)
+    depth[0, 0, 0] = np.nan
+    confidence = np.linspace(1., 2., 64, dtype=np.float32).reshape(depth.shape)
+    np.savez(archive, names=np.array(["real"]), depth=depth, confidence=confidence,
+             split_hash="sparse-train", camera_initializer_sha256=sha256_file(initializer))
+    z, alpha = _load_warp_depth(archive, [target], tmp_path, initializer)["real"]
+    assert z[0, 0] == alpha[0, 0] == 0.
+    assert z[-1, -1] == alpha[-1, -1] == 1.
+    with pytest.raises(ValueError, match="dimensions"):
+        _load_warp_depth(archive, [Camera(target.name, target.c2w, target.K, 7, 8)], tmp_path, initializer)
+    initializer.write_bytes(b"other cameras")
+    with pytest.raises(ValueError, match="camera initializer"):
+        _load_warp_depth(archive, [target], tmp_path, initializer)
