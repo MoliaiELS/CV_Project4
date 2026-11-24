@@ -1,6 +1,7 @@
 """Restore a rendered view with NVIDIA Difix-ref and a training-view reference."""
 
 import argparse
+from importlib.metadata import version
 import os
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -57,7 +58,7 @@ def model_directory(model_dir=None, cache_dir=None):
 
 def _asset_valid(path, expected_size, expected_sha256):
     return (path.is_file()
-            and (expected_size is None or path.stat().st_size == expected_size)
+            and path.stat().st_size == expected_size
             and sha256_file(path) == expected_sha256)
 
 
@@ -169,6 +170,8 @@ class DifixRestorer:
             "precision": self.dtype,
             "max_edge": self.max_edge,
             "seed": self.seed,
+            "software": {package: version(package) for package in
+                         ("torch", "diffusers", "transformers", "huggingface-hub", "peft", "accelerate")},
             "image_transform": "Aspect-preserving input resize, reference resized to input, edge-pad to 8, crop and restore original dimensions",
         }
 

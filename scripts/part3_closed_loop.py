@@ -60,7 +60,9 @@ def _plan_and_generate(model, candidates, dataset, output, arm, round_index, arg
             anchor_inputs = [(anchor, _render(model, anchor), read_rgb(dataset / anchor.name))
                              for anchor in target.anchors]
             confidence, stats = confidence_map(target, raw, enhanced, anchor_inputs, model.normalization["radius"])
-        observation = fusion.SyntheticObservation(camera.name, camera.c2w, camera.K, raw["rgb"], enhanced, confidence)
+        observation = fusion.SyntheticObservation(
+            camera.name, np.asarray(camera.c2w, dtype=np.float64), np.asarray(camera.K, dtype=np.float64),
+            raw["rgb"], enhanced, confidence)
         observations.append(observation)
         save_rgb(folder / "raw.png", observation.raw_rgb)
         save_rgb(folder / "enhanced.png", observation.enhanced_rgb)

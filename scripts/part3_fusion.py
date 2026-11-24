@@ -1,6 +1,7 @@
 """Continue a verified Part 2 3DGS model with real and optional pseudo views."""
 
 from dataclasses import asdict, dataclass
+from functools import lru_cache
 import hashlib
 import json
 from pathlib import Path, PurePosixPath
@@ -84,7 +85,7 @@ def _verified_checkpoint(path, expected_sha256):
         for block in iter(lambda: stream.read(8 * 1024 * 1024), b""):
             digest.update(block)
         if digest.hexdigest() != expected_sha256:
-            raise ValueError(f"Historical Part 2 checkpoint SHA-256 mismatch: {path}")
+            raise ValueError(f"Initial checkpoint SHA-256 mismatch: {path}")
         stream.seek(0)
         return torch.load(stream, map_location="cpu", weights_only=False)
 
@@ -281,7 +282,7 @@ def _load_training_state(model, mode, run, path):
         if sha256_file(model.checkpoint_path) != model.checkpoint_sha256:
             raise ValueError("Part 3 parent checkpoint changed since load")
         parent = _read_fusion_payload(model.checkpoint_path)
-        return {**parent, "round_step": 0, "training_seconds": 0.0, "synthetic_sampler": None}
+        return {**parent, "round_step": 0, "training_seconds": 0.0, "peak_cuda_gib": 0.0, "synthetic_sampler": None}
     historical = _verified_checkpoint(model.checkpoint_path, model.provenance["training_checkpoint_sha256"])
     numpy_rng = historical["numpy_rng"]
     return {"splats": historical["splats"], "optimizers": historical["optimizers"],
@@ -374,8 +375,12 @@ def fine_tune(model, dataset, scene_path, output, mode, observations=(), config=
     state = _load_training_state(model, mode, run, checkpoint)
     start, elapsed = state["round_step"], state["training_seconds"]
     if start == cfg.steps:
+        receipt = json.loads(provenance.read_text(encoding="utf-8"))
+        write_json(provenance, {**receipt, "status": "completed", "round_steps_completed": start,
+                               "training_seconds": elapsed, "peak_cuda_gib": state["peak_cuda_gib"]})
         return _fusion_model(checkpoint, sha256_file(checkpoint), state,
                              {key: tensor.cuda() for key, tensor in state["splats"].items()})
+    peak_cuda_gib = state.get("peak_cuda_gib", 0.0)
     historical_state = state["historical_state"]
     splats = torch.nn.ParameterDict({key: torch.nn.Parameter(tensor.cuda())
                                      for key, tensor in state["splats"].items()})
@@ -390,10 +395,11 @@ def fine_tune(model, dataset, scene_path, output, mode, observations=(), config=
                                    seed=cfg.seed + model.fusion_steps)
     del state
     ssim_weight = historical_state["ssim_lambda"]
-    write_json(provenance, {"run": run, "densification": "frozen", "scheduler": "terminal Part 2 rates held fixed",
-                           "lr": {key: opt.param_groups[0]["lr"] for key, opt in optimizers.items()},
-                           "source": source_version(), "torch": torch.__version__, "gsplat": "1.5.3",
-                           "gpu": torch.cuda.get_device_name(), "test_data_used_in_fit": False})
+    receipt = {"run": run, "densification": "frozen", "scheduler": "terminal Part 2 rates held fixed",
+               "lr": {key: opt.param_groups[0]["lr"] for key, opt in optimizers.items()},
+               "source": source_version(), "torch": torch.__version__, "gsplat": "1.5.3",
+               "gpu": torch.cuda.get_device_name(), "test_data_used_in_fit": False}
+    write_json(provenance, {**receipt, "status": "in_progress"})
     log_path = output / "train.jsonl"
     _train_log_start(log_path, start)
     real_poses = torch.as_tensor(_normalized_poses(scene["c2w"], model.normalization), device="cuda")
@@ -401,12 +407,13 @@ def fine_tune(model, dataset, scene_path, output, mode, observations=(), config=
     if synthetic is not None:
         synthetic_poses = torch.as_tensor(_normalized_poses([v.c2w for v in observations], model.normalization), device="cuda")
         synthetic_intrinsics = torch.as_tensor(np.stack([v.K for v in observations]), dtype=torch.float32, device="cuda")
+    training_rgb = lru_cache(maxsize=24)(_rgb)
     torch.cuda.reset_peak_memory_stats()
     torch.cuda.synchronize()
     tick = time.perf_counter()
     for step in range(start + 1, cfg.steps + 1):
         index = real.next()
-        target = _rgb(dataset / str(scene["names"][index]))
+        target = training_rgb(dataset / str(scene["names"][index]))
         height, width = target.shape[:2]
         pixels = torch.as_tensor(target, device="cuda")[None]
         rgb, _, _ = _rasterize(splats, real_poses[index], real_intrinsics[index], width, height, model.sh_degree)
@@ -436,24 +443,28 @@ def fine_tune(model, dataset, scene_path, output, mode, observations=(), config=
             optimizer.zero_grad(set_to_none=True)
         if step % cfg.log_every == 0 or step == cfg.steps:
             torch.cuda.synchronize()
+            peak_cuda_gib = max(peak_cuda_gib, torch.cuda.max_memory_allocated() / 1024**3)
             row = {"step": step, "fusion_step": model.fusion_steps + step,
                    "real_loss": real_loss.item(), "real_view": str(scene["names"][index]),
                    "synthetic_loss": None if synthetic_loss is None else synthetic_loss.item(),
                    "synthetic_view": None if synthetic_loss is None else view.name,
                    "num_gaussians": len(splats["means"]), "training_seconds": elapsed + time.perf_counter() - tick,
-                   "peak_cuda_gib": torch.cuda.max_memory_allocated() / 1024**3}
+                   "peak_cuda_gib": peak_cuda_gib}
             with log_path.open("a", encoding="utf-8") as log:
                 log.write(json.dumps(row, allow_nan=False) + "\n")
             print(json.dumps(row, allow_nan=False), flush=True)
         if step % cfg.checkpoint_every == 0 or step == cfg.steps:
             torch.cuda.synchronize()
+            peak_cuda_gib = max(peak_cuda_gib, torch.cuda.max_memory_allocated() / 1024**3)
             payload = {"schema_version": 1, "format": "p4_part3_fusion", "run": run, "round_step": step,
                        "training_seconds": elapsed + time.perf_counter() - tick, "normalization": model.normalization,
-                       "sh_degree": model.sh_degree, "splats": splats.state_dict(),
+                       "peak_cuda_gib": peak_cuda_gib, "sh_degree": model.sh_degree, "splats": splats.state_dict(),
                        "optimizers": {key: opt.state_dict() for key, opt in optimizers.items()},
                        "real_sampler": real.state(), "synthetic_sampler": None if synthetic is None else synthetic.state(),
                        "historical_state": historical_state}
             _save_checkpoint(checkpoint, payload)
+    write_json(provenance, {**receipt, "status": "completed", "round_steps_completed": cfg.steps,
+                           "training_seconds": payload["training_seconds"], "peak_cuda_gib": peak_cuda_gib})
     return _fusion_model(checkpoint, sha256_file(checkpoint), payload, splats.state_dict())
 
 
@@ -496,4 +507,6 @@ def evaluate_model(model, dataset, scene_path, output, lpips=True):
                     "checkpoint_sha256": model.checkpoint_sha256, "initial": model.provenance,
                     "render_seconds": render_record["render_seconds"]})
     write_json(output / "metrics.json", metrics)
+    if lpips and not metrics["complete"]:
+        raise RuntimeError(f"The requested held-out LPIPS evaluation is incomplete: {metrics['lpips_status']}")
     return metrics
