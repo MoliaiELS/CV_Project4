@@ -106,35 +106,62 @@ def _scene_inputs(scenes, assets, supplemental):
     return inputs
 
 
+def _plot_metric(ax, stages, scene, metric, *, change=False):
+    handles = {}
+    baseline = stages[scene, "sparse", 0].metrics[metric]
+    for arm, (name, color, style, marker) in ARMS.items():
+        if (scene, arm, 2) not in stages:
+            continue
+        values = np.asarray([baseline, *(stages[scene, arm, step].metrics[metric] for step in (1, 2))])
+        if change:
+            values -= baseline
+        handles[arm], = ax.plot((0, 1, 2), values, color=color, linestyle=style, marker=marker,
+                                label=name, linewidth=1.25, markersize=3.8)
+    ax.set(xlim=(-.12, 2.12), xticks=[0, 1, 2], xticklabels=["M0", "R1", "R2"])
+    ax.tick_params(axis="both", labelsize=7, length=2, color="#9aa2a7")
+    ax.grid(axis="y", color="#e3e6e8", linewidth=.5)
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.spines[["left", "bottom"]].set_color("#9aa2a7")
+    ax.ticklabel_format(axis="y", style="plain", useOffset=False)
+    return handles
+
+
+def _metric_legend(figure, handles):
+    figure.legend([handles[key] for key in ARMS if key in handles],
+                  [handles[key].get_label() for key in ARMS if key in handles],
+                  loc="upper center", bbox_to_anchor=(0.52, .993), ncols=len(handles),
+                  fontsize=7.5, frameon=False, handletextpad=.5, columnspacing=1.2)
+
+
 def _closed_loop(stages, scenes, destination):
     figure, axes = plt.subplots(len(scenes), 3, figsize=(7.1, 1.46 * len(scenes) + 0.7), squeeze=False)
     handles = {}
     for row, scene in enumerate(scenes):
         for col, (metric, label) in enumerate(zip(METRICS, ("PSNR (dB) ↑", "SSIM ↑", "LPIPS ↓"))):
             ax = axes[row, col]
-            baseline = stages[scene, "sparse", 0].metrics[metric]
-            for arm, (name, color, style, marker) in ARMS.items():
-                if (scene, arm, 2) not in stages:
-                    continue
-                values = [baseline, *(stages[scene, arm, step].metrics[metric] for step in (1, 2))]
-                line, = ax.plot((0, 1, 2), values, color=color, linestyle=style, marker=marker,
-                                label=name, linewidth=1.25, markersize=3.8)
-                handles[arm] = line
+            handles.update(_plot_metric(ax, stages, scene, metric))
             if row == 0:
                 ax.set_title(label, fontsize=8.8, fontweight="bold", pad=4)
             if col == 0:
                 ax.text(-0.38, 0.5, scene, rotation=90, transform=ax.transAxes, ha="center", va="center", fontsize=8)
-            ax.set(xlim=(-.12, 2.12), xticks=[0, 1, 2], xticklabels=["M0", "R1", "R2"])
-            ax.tick_params(axis="both", labelsize=7, length=2, color="#9aa2a7")
-            ax.grid(axis="y", color="#e3e6e8", linewidth=.5)
-            ax.spines[["top", "right"]].set_visible(False)
-            ax.spines[["left", "bottom"]].set_color("#9aa2a7")
-            ax.ticklabel_format(axis="y", style="plain", useOffset=False)
-    figure.legend([handles[key] for key in ARMS if key in handles],
-                  [handles[key].get_label() for key in ARMS if key in handles],
-                  loc="upper center", bbox_to_anchor=(0.52, .993), ncols=len(handles),
-                  fontsize=7.5, frameon=False, handletextpad=.5, columnspacing=1.2)
-    figure.subplots_adjust(left=.13, right=.99, bottom=.065, top=1 - .57 / figure.get_figheight(), wspace=.44, hspace=.39)
+    _metric_legend(figure, handles)
+    height = figure.get_figheight()
+    figure.subplots_adjust(left=.13, right=.99, bottom=max(.065, .26 / height), top=1 - .57 / height,
+                           wspace=.44, hspace=.39)
+    figure.savefig(destination, dpi=184, facecolor="white")
+    plt.close(figure)
+
+
+def _closed_loop_psnr(stages, scenes, destination):
+    figure, axes = plt.subplots(1, len(scenes), figsize=(7.1, 1.98), squeeze=False)
+    handles = {}
+    for ax, scene in zip(axes[0], scenes):
+        handles.update(_plot_metric(ax, stages, scene, "psnr", change=True))
+        ax.axhline(0, color="#acb4ba", linewidth=.7, zorder=0)
+        ax.set_title(scene, fontsize=8.5, fontweight="bold", pad=3)
+    axes[0, 0].set_ylabel("Δ PSNR (dB)", fontsize=8)
+    _metric_legend(figure, handles)
+    figure.subplots_adjust(left=.125, right=.99, bottom=.16, top=.74, wspace=.46)
     figure.savefig(destination, dpi=184, facecolor="white")
     plt.close(figure)
 
@@ -317,6 +344,8 @@ def summarize(run_root, output, *, assets_root=None, supplemental=None, selected
             for frame in stage.metrics["per_frame"]:
                 writer.writerow({"scene": scene, "arm": arm, "round": step, **frame})
     _closed_loop(stages, scenes, figures / "closed_loop.png")
+    _closed_loop_psnr(stages, [scene for scene in scenes if scene in COURSE_SCENES] or scenes,
+                      figures / "closed_loop_psnr.png")
     examples = _frame_examples(stages, scenes)
     course_examples = [item for item in examples if item["scene"] in COURSE_SCENES] or examples
     extrema = [course_examples[-1], course_examples[0]] if len(course_examples) > 1 else course_examples
@@ -342,6 +371,7 @@ def summarize(run_root, output, *, assets_root=None, supplemental=None, selected
             videos.append(path)
     write_json(output / "visual_evidence.json", {
         "scene_order": scenes,
+        "compact_psnr": "Held-out mean PSNR change relative to M0. The scene panels use independent y-axis limits.",
         "heldout_selection": "Largest and smallest Gated R2 minus M0 per-frame PSNR; use the course scenes for the main figure when available. For illustration after evaluation only.",
         "heldout_examples": extrema, "heldout_per_scene": scene_extrema,
         "pseudo_selection": "First scene, most reprojected target support in R1 and least in R2. Confidence color scale is fixed to [0,1].",

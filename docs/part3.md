@@ -32,6 +32,8 @@ python -m scripts.summarize_part3 --run-root runs/part3_formal --assets-root "$a
 
 套件默认按场景串行运行四个分支。可以用重复的 `--scene` 缩小场景范围，`--arms` 缩小分支范围，后续再用同一协议和输出目录补齐。中断时用相同参数继续，控制器校验代码、训练协议、父 checkpoint 和伪观测指纹。正式运行每轮 3,000 次更新、四个新视角，固定随机种子 42 和伪图像权重 0.2。使用 `--keep-checkpoints all` 可保留全部中间和最终训练状态，`gated` 保留门控分支的最终 checkpoint。阶段指标、生成图像、置信度、训练日志和哈希都写入运行目录。
 
+为汇总命令加 `--videos-output output/part3_videos` 可导出逐场景和合并 MP4。需系统 FFmpeg 或 Python 的 `imageio-ffmpeg`。每帧对齐留出真值、初始稀疏模型、仅真实观测续训及门控分支的原始渲染。
+
 | 分支 | 使用的额外观测 |
 | --- | --- |
 | `real_only` | 同样的真实训练帧序列与同样的更新预算 |
