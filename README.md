@@ -12,8 +12,6 @@ AIAA 3201 Project 4 的 Part 1 比较 COLMAP、VGGT 和 VGGT-Ω 的相机与点�
 - [Part 3 闭环结果](results/part3/)包含两轮生成前后的三项指标、留出视角比较、主动视角轨迹和失败案例。[Difix-ref 权重、运行与复现](docs/part3.md)
 - [最终 CVPR 报告源文件和编译方法](report/README.md)汇总 Part 1–3，并包含 Mip-NeRF 360 Bonsai 加测结果。
 
-如果你不了解旧项目，先读 [旧仓库说明与复用审计](docs/reuse_audit.md)。旧仓库是 VGGT + ORB-SLAM3 / ROS2 的 SLAM 原型，并非现成的 3DGS 项目。本实现复用其 VGGT 技术路线，使用固定官方模型源码；不需要安装旧 ROS 环境。
-
 ```bash
 git clone https://github.com/MoliaiELS/CV_Project4.git
 cd CV_Project4
@@ -144,7 +142,7 @@ python -m p4.train train --dataset data/prepared/Re10k-1 --scene runs/part1_repr
 
 已发布的 [9 项指标与 45 个评价点](results/part1-final/)来自 IADC 完成的正式运行。生成命令分别保存覆盖表、各场景测试曲线与同视角的参考图和各方法渲染。
 
-- [资源预估](docs/resources.md)、[验证记录](docs/validation.md)、[来源与 AI 使用记录](docs/sources_and_prompts.md)。
+- [资源预估](docs/resources.md) · [验证记录](docs/validation.md)
 
 ```bash
 python -m pytest -q

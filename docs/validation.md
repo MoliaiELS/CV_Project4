@@ -27,7 +27,7 @@
 
 ## 实际数据与文档检查
 
-两份 PDF 均提取全文，并渲染/目视核对 Part 1 与数据相关页。旧仓库和官方模型/后端代码做过静态核查，固定源码提交与来源见 README 和 `docs/sources_and_prompts.md`。
+已核对课程要求、数据说明以及官方模型和训练后端的源码。固定版本和权重来源见 [项目 README](../README.md)。
 
 早期网络下载只到17,714,945字节后中止；之后用户提供了完整 `project4_3d.zip`。全包 CRC 通过，已解包、读取并标准化三个场景的全部784张正式RGB，核对完整相机、图像hash、SO(3)和训练轨迹非退化条件。Waymo实际去畸变后变为960×640，另两个场景保留256×256。包无显式官方split，已公开本组每8帧测试1帧的列表。实际 train/test：174/25、267/39、244/35。详见 `docs/local_data_audit.md` 和 `results/data_audit/preparation.json`。
 

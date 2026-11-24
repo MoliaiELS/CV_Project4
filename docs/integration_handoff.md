@@ -8,7 +8,7 @@
 | 实验 | 原始源码 | VGGT 初始化参数 |
 | --- | --- | --- |
 | Part 1 三种初始化比较 | `bde9244f692cc497355a307826ce1ca25f39cd99` | IADC 配置的 `vggt_offload_features=true` 通过矩阵入口转成 `--vggt-offload-features` |
-| Part 2 VGGT full/sparse | `codex/part2-snapshot`，快照提交 `bd2e3ec` | 正式 runner 使用 `--neural-backend offload` |
+| Part 2 VGGT full/sparse | `bd2e3ecae209df5de315fcddb258accf15a57592` | 正式 runner 使用 `--neural-backend offload` |
 
 前一个选项将预测头特征放到 CPU，后一个选项逐层使用 CPU 和磁盘卸载。两种方式都保留完整的输入视角。按原实验选用对应选项。
 
