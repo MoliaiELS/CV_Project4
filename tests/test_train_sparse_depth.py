@@ -1,9 +1,12 @@
 import json
 
 import numpy as np
+from PIL import Image
 import pytest
 
 from p4.common import sha256_file
+from scripts.part3_views import Camera
+from scripts.sparse_warp_teacher import build_warp_teacher, warp_teacher_loss
 from scripts.train_sparse_depth import _depth_target, _load_depth_maps, depth_losses
 
 
@@ -66,3 +69,37 @@ def test_depth_loss_has_global_scale_and_patch_relative_gradients():
     (global_loss + local_loss).backward()
     assert torch.isfinite(perturbation.grad).all()
     assert perturbation.grad[0, 0].item() == 0.
+
+
+def test_warp_teacher_covers_each_train_gap_and_records_deterministic_labels(tmp_path):
+    names = ["left.png", "center.png", "right.png"]
+    cameras = []
+    for name, offset in zip(names, (-.02, 0., .02)):
+        Image.new("RGB", (16, 16), (120, 80, 40)).save(tmp_path / name)
+        pose = np.eye(4)
+        pose[0, 3] = offset
+        camera_K = np.array([[8., 0., 8.], [0., 8., 8.], [0., 0., 1.]])
+        cameras.append(Camera(name, pose, camera_K, 16, 16))
+    z = np.full((3, 16, 16), 2., dtype=np.float32)
+    confidence = np.ones_like(z)
+    views, receipt = build_warp_teacher(tmp_path, cameras, names[::-1], z, confidence, 1.)
+    assert [view.camera.name for view in views] == [f"interval_{g:03d}_{f}" for g in range(2) for f in (33, 50, 67)]
+    assert receipt["views"] == 6 and receipt["mean_coverage"] > .95
+    assert receipt["per_view"][4]["anchors"] == names[1:]
+    np.testing.assert_allclose(views[4].rgb[8, 8], np.asarray([120, 80, 40]) / 255., atol=1e-6)
+    _, replay = build_warp_teacher(tmp_path, cameras, names, z, confidence, 1.)
+    assert replay["teacher_sha256"] == receipt["teacher_sha256"]
+    with pytest.raises(ValueError, match="each real training camera"):
+        build_warp_teacher(tmp_path, cameras, [*names[:2], "heldout.png"], z, confidence, 1.)
+
+
+def test_warp_teacher_loss_downweights_tiny_confidence_support():
+    torch = pytest.importorskip("torch")
+    rgb = torch.ones(4, 4, 3, requires_grad=True)
+    target = torch.zeros_like(rgb)
+    confidence = torch.zeros(4, 4)
+    confidence[0, 0] = .5
+    loss = warp_teacher_loss(rgb, target, confidence)
+    assert loss.item() == pytest.approx(.5 * .95 / (0.25 * 16))
+    loss.backward()
+    assert torch.count_nonzero(rgb.grad).item() == 3

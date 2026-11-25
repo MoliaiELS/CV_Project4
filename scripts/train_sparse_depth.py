@@ -15,7 +15,10 @@ from p4.common import sha256_file, source_version, write_json
 from p4.data import load_manifest, load_scene
 from p4.train import (TrainConfig, _new_parameters, _optimizers, _rasterize, cuda_dependencies,
                       normalized_geometry, ssim_loss_value, training_fingerprint)
-from scripts.part3_fusion import _CameraSampler, _save_checkpoint, _train_log_start
+from scripts.part3_fusion import _CameraSampler, _normalized_poses, _save_checkpoint, _train_log_start
+
+
+LEGACY_DEPTH_ADAPTER_SHA256 = "f750c958a947bc7465054b9a9eaef1cfd8e54f4d946c6520692e576598a7d0d3"
 
 
 def _load_depth_maps(path, receipt_path, manifest, scene, fingerprint):
@@ -109,10 +112,12 @@ def _rgb(path):
 
 
 def train(dataset, scene_path, depth_path, receipt_path, output, cfg, *, depth_weight=.15, depth_edge=192,
-          depth_start=200, resume=None, stop_after=None):
+          depth_start=200, teacher_weight=0., teacher_start=400, teacher_ramp=600, resume=None, stop_after=None):
     cfg.validate()
     if not np.isfinite(depth_weight) or depth_weight < 0 or depth_edge < 8 or depth_start < 0:
         raise ValueError("Invalid depth weight, maximum render dimension, or warm-up length")
+    if not np.isfinite(teacher_weight) or teacher_weight < 0 or teacher_start < 0 or teacher_ramp < 1:
+        raise ValueError("Invalid warp teacher weight, start, or ramp length")
     dataset, scene_path, depth_path, receipt_path, output = map(Path, (dataset, scene_path, depth_path, receipt_path, output))
     manifest, scene = load_manifest(dataset), load_scene(scene_path)
     allowed = {frame["image"] for frame in manifest["frames"] if frame["split"] == "train"}
@@ -124,6 +129,18 @@ def train(dataset, scene_path, depth_path, receipt_path, output, cfg, *, depth_w
     recipe = {"depth_weight": depth_weight, "depth_start": depth_start, "depth_max_edge": depth_edge,
               "depth_maps_sha256": depth_sha, "depth_receipt_sha256": sha256_file(receipt_path),
               "adapter_sha256": sha256_file(__file__), "local_weight": .25, "depth_gradients": "means only"}
+    teacher_views, teacher_record = [], None
+    if teacher_weight:
+        from scripts import sparse_warp_teacher
+        from scripts.part3_views import training_cameras
+
+        teacher_views, teacher_record = sparse_warp_teacher.build_warp_teacher(
+            dataset, training_cameras(dataset, scene_path), scene["names"].tolist(), depth, confidence,
+            normalization["radius"])
+        warp_teacher_loss = sparse_warp_teacher.warp_teacher_loss
+        recipe["warp_teacher"] = {"weight": teacher_weight, "start": teacher_start, "ramp": teacher_ramp,
+                                  "teacher_sha256": teacher_record["teacher_sha256"], "views": len(teacher_views),
+                                  "helper_sha256": sha256_file(sparse_warp_teacher.__file__)}
     checkpoint_config = {**asdict(cfg), "depth_supervision": recipe}
     stop = cfg.steps if stop_after is None else min(cfg.steps, stop_after)
     if stop < 1 or (resume is None and (output / "config.json").exists()):
@@ -138,8 +155,12 @@ def train(dataset, scene_path, depth_path, receipt_path, output, cfg, *, depth_w
     torch.manual_seed(cfg.seed)
     torch.cuda.manual_seed(cfg.seed)
     saved = torch.load(resume, map_location="cpu", weights_only=False) if resume else None
+    accepted_configs = [checkpoint_config]
+    if not teacher_weight:
+        accepted_configs.append({**checkpoint_config, "depth_supervision": {
+            **recipe, "adapter_sha256": LEGACY_DEPTH_ADAPTER_SHA256}})
     if saved and (saved["schema_version"] != 1 or saved["fingerprint"] != fingerprint
-                  or saved["config"] != checkpoint_config or saved["step"] > stop):
+                  or saved["config"] not in accepted_configs or saved["step"] > stop):
         raise ValueError("Resume mismatch: training protocol, inputs, implementation, or stop step differs")
     splats = (_new_parameters(points, scene["colors"], cfg.sh_degree, "cuda") if saved is None else
               torch.nn.ParameterDict({key: torch.nn.Parameter(value.cuda()) for key, value in saved["splats"].items()}))
@@ -150,6 +171,10 @@ def train(dataset, scene_path, depth_path, receipt_path, output, cfg, *, depth_w
     strategy.check_sanity(splats, optimizers)
     state = strategy.initialize_state(scene_scale=1.1)
     sampler = _CameraSampler(len(poses), seed=cfg.seed)
+    teacher_sampler = None
+    if teacher_views:
+        teacher_sampler = _CameraSampler(len(teacher_views), saved["teacher_sampler"] if saved else None,
+                                         seed=cfg.seed + 1000)
     start, elapsed = 0, 0.
     if saved:
         for key, optimizer in optimizers.items():
@@ -170,11 +195,19 @@ def train(dataset, scene_path, depth_path, receipt_path, output, cfg, *, depth_w
     targets = [(torch.as_tensor(z, device="cuda"), torch.as_tensor(c, device="cuda")) for z, c, _ in targets]
     poses = torch.as_tensor(poses, device="cuda")
     Ks = torch.as_tensor(scene["K"], dtype=torch.float32, device="cuda")
+    teacher_tensors = []
+    for view in teacher_views:
+        teacher_tensors.append((torch.as_tensor(_normalized_poses(view.camera.c2w, normalization), device="cuda"),
+                                torch.as_tensor(view.camera.K, dtype=torch.float32, device="cuda"),
+                                torch.as_tensor(view.rgb, device="cuda"),
+                                torch.as_tensor(view.confidence, device="cuda")))
     training_rgb = lru_cache(maxsize=24)(_rgb)
     output.mkdir(parents=True, exist_ok=True)
     write_json(output / "config.json", checkpoint_config)
     write_json(output / "provenance.json", {**source_version(), **fingerprint, **recipe, "normalization": normalization,
                "train_only": True, "torch": torch.__version__, "gsplat": "1.5.3", "gpu": torch.cuda.get_device_name()})
+    if teacher_record is not None:
+        write_json(output / "warp_teacher.json", {**teacher_record, **recipe["warp_teacher"]})
     log_path = output / "train.jsonl"
     _train_log_start(log_path, start)
     torch.cuda.reset_peak_memory_stats()
@@ -200,7 +233,19 @@ def train(dataset, scene_path, depth_path, receipt_path, output, cfg, *, depth_w
             z, alpha = _render_depth(splats, poses[index], depth_Ks[index], depth_w, depth_h)
             global_loss, local_loss, support = depth_losses(z, alpha, target_z, target_confidence)
             (depth_weight * (global_loss + recipe["local_weight"] * local_loss)).backward()
-        if not torch.isfinite(photo + global_loss + local_loss).item():
+        teacher_loss, applied_weight, teacher_name = None, 0., None
+        total_loss = photo + global_loss + local_loss
+        if teacher_sampler is not None and step >= teacher_start:
+            teacher_index = teacher_sampler.next()
+            pose, K, color, mask = teacher_tensors[teacher_index]
+            virtual_h, virtual_w = mask.shape
+            rendered, _, _ = _rasterize(splats, pose, K, virtual_w, virtual_h, degree)
+            teacher_loss = warp_teacher_loss(rendered[0], color, mask)
+            applied_weight = teacher_weight * min(1., (step - teacher_start + 1) / teacher_ramp)
+            (applied_weight * teacher_loss).backward()
+            total_loss = total_loss + teacher_loss
+            teacher_name = teacher_views[teacher_index].camera.name
+        if not torch.isfinite(total_loss).item():
             raise RuntimeError(f"Nonfinite loss at step {step + 1}")
         for optimizer in optimizers.values():
             optimizer.step()
@@ -218,6 +263,9 @@ def train(dataset, scene_path, depth_path, receipt_path, output, cfg, *, depth_w
                       "depth_local": local_loss.item(), "depth_support": support.item(), "num_gaussians": len(splats["means"]),
                       "training_seconds": elapsed + time.perf_counter() - tick,
                       "peak_cuda_gib": torch.cuda.max_memory_allocated() / 1024**3}
+            if teacher_sampler is not None:
+                record.update(teacher_weight=applied_weight, teacher_view=teacher_name,
+                              teacher_loss=None if teacher_loss is None else teacher_loss.item())
             with log_path.open("a", encoding="utf-8") as stream:
                 stream.write(json.dumps(record, allow_nan=False) + "\n")
             print(json.dumps(record, allow_nan=False), flush=True)
@@ -231,6 +279,8 @@ def train(dataset, scene_path, depth_path, receipt_path, output, cfg, *, depth_w
                        "python_rng": random.getstate(), "numpy_rng": np.random.get_state(),
                        "torch_rng": torch.get_rng_state(), "cuda_rng": [torch.cuda.get_rng_state()],
                        "training_seconds": elapsed + time.perf_counter() - tick, "sh_degree_active": degree}
+            if teacher_sampler is not None:
+                payload["teacher_sampler"] = teacher_sampler.state()
             checkpoint = output / "checkpoints" / f"step_{completed:06d}.pt"
             checkpoint.parent.mkdir(exist_ok=True)
             _save_checkpoint(checkpoint, payload)
@@ -246,13 +296,17 @@ def main():
     parser.add_argument("--depth-weight", type=float, default=.15)
     parser.add_argument("--depth-edge", type=int, default=192)
     parser.add_argument("--depth-start", type=int, default=200)
+    parser.add_argument("--teacher-weight", type=float, default=0., help="Enable fixed train RGB/DPT warp supervision")
+    parser.add_argument("--teacher-start", type=int, default=400, help="Zero-based step when warp supervision begins")
+    parser.add_argument("--teacher-ramp", type=int, default=600, help="Length of the linear teacher weight ramp")
     parser.add_argument("--stop-after", type=int)
     parser.add_argument("--resume", type=Path, help="Resume one of your own depth-training checkpoints")
     args = parser.parse_args()
     data = json.loads(args.config.read_text(encoding="utf-8"))
     train(args.dataset, args.scene, args.depth_maps, args.depth_receipt or args.depth_maps.with_name("depth_receipt.json"),
           args.output, TrainConfig(**data.get("training", data)), depth_weight=args.depth_weight,
-          depth_edge=args.depth_edge, depth_start=args.depth_start, resume=args.resume, stop_after=args.stop_after)
+          depth_edge=args.depth_edge, depth_start=args.depth_start, teacher_weight=args.teacher_weight,
+          teacher_start=args.teacher_start, teacher_ramp=args.teacher_ramp, resume=args.resume, stop_after=args.stop_after)
 
 
 if __name__ == "__main__":
