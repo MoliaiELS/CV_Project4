@@ -97,3 +97,83 @@ python -m scripts.part3_progressive --assets-root "$assets" --model-dir "$model"
 ```
 
 加 `--synthetic-weight 0.4` 并改用新输出目录复现 DL3DV 的高权重对照。0.2 和 0.4 两项均使用原稀疏 M0、39 个测试视角以及两轮各 3,000 步。在两项对照中，每轮选取八个目标相机，扩散分支每个相机调用两次 Difix。 [两轮数据与定性比较](../results/part3_progressive/README.md)
+
+## 从跨视角一致的种子点重建 DL3DV
+
+使用原有 11 张训练图和 VGGT 估计的相机。PyCOLMAP 提取训练图的匹配并保存经两视图几何验证的数据库。用固定 VGGT 相机三角化这些匹配，再从训练图的 VGGT 深度中选取通过邻帧深度与颜色验证的点。新种子限制为 100,000 个，测试 RGB 和参考相机仅用于最后评价。
+
+```bash
+dataset="$assets/data/part2_sparse/Dl3dv-2"
+sparse="$assets/runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse"
+run=runs/part3_mse30/Dl3dv-2
+python -m scripts.extract_vggt_depth_cache --dataset "$dataset" --initializer "$sparse/init/scene.npz" \
+  --repo "$assets/third_party/vggt" --weights "$assets/weights/vggt/model.pt" --output "$run/frozen_depth"
+python -m scripts.init_pycolmap_sparse --dataset "$dataset" --output "$run/pycolmap/init" --matches-only
+```
+
+PyCOLMAP 需要 3.11.1。匹配模式保存 `database.db` 及其哈希。种子脚本读取数据库中的几何验证匹配和原 VGGT 相机。多线程匹配的几何验证可能有小幅变化。复跑同一组训练图的匹配模式得到 1,432 个内点，归档库为 1,418 个，重合 1,398 个。使用课程工作区保留的 `pycolmap/init/database.db` 和 `frozen_depth/depth_maps.npz`，已复跑并得到与[种子收据](../results/part3_mse30/seed_receipt.json)完全相同的种子和过滤后深度哈希。运行以下训练、生成和评价命令前应选用空输出目录。
+
+```bash
+case_root="$run/vggt_matched_seeds"
+python -m scripts.seed_sparse_colmap_depth --dataset "$dataset" --camera-initializer "$sparse/init/scene.npz" \
+  --matches-database "$run/pycolmap/init/database.db" --depth-maps "$run/frozen_depth/depth_maps.npz" \
+  --output "$case_root/init"
+python -m p4.train train --dataset "$dataset" --scene "$case_root/init/scene.npz" \
+  --config results/part3_mse30/train_config.json --output "$case_root/train"
+```
+
+为闭环写入 M0 收据，绑定新 `scene.npz` 和第 7,000 步 checkpoint。两场景使用同一收据函数。闭环各分支都在各自场景的同一 M0 上继续两轮，每轮各 3,000 步。
+
+```bash
+write_m0_receipt() {
+  python - "$1" "$2" <<'PY'
+import sys
+from pathlib import Path
+from p4.common import sha256_file, write_json
+
+dataset, case_root = (Path(item).resolve() for item in sys.argv[1:])
+initializer = case_root / "init/scene.npz"
+checkpoint = case_root / "train/checkpoints/step_007000.pt"
+write_json(case_root / "m0.json", {
+    "dataset": str(dataset),
+    "initializer": str(initializer),
+    "checkpoint": str(checkpoint),
+    "checkpoint_sha256": sha256_file(checkpoint),
+})
+PY
+}
+
+write_m0_receipt "$dataset" "$case_root"
+python -m scripts.part3_progressive --supplemental "$case_root/m0.json" --model-dir "$model" \
+  --arms warp_gated real_only warp_only --views 8 --steps 3000 --synthetic-weight 0.4 \
+  --keep-checkpoints gated --output "$case_root/closed_loop"
+python -m scripts.compare_sparse_quality --dataset "$dataset" \
+  --baseline runs/part3_warp_3000_weight04/Dl3dv-2/warp_gated/round2/metrics.json \
+  --candidate "$case_root/closed_loop/Dl3dv-2/warp_gated/round2/metrics.json" \
+  --output "$case_root/improvement.json"
+```
+
+这项比较检查相同且顺序一致的留出帧。逐帧平均 PSNR 的差值对应逐帧 MSE 的几何均值变化。汇总像素 MSE 按每帧的像素数加权，两项分别计算并报告。
+
+## Re10k 的 DA3-Large 初始化
+
+从固定划分的 10 张训练图联合估计相机与深度。使用 DA3 的射线位姿分支和 504 像素处理分辨率，按置信度生成 100,000 个初始点，再沿用 7,000 步 3DGS 训练。训练图的相机参数由模型估计。参考相机在评价中按现有训练视图 Sim(3) 协议使用。 [固定 DA3 源码](https://github.com/ByteDance-Seed/Depth-Anything-3/tree/3d835ec1a5802d64a8b8b15f817a1ab54809bfe4) · [固定 DA3-Large-1.1 权重](https://huggingface.co/depth-anything/DA3-LARGE-1.1/tree/0e109ae307c5982f319a67cf6f9f99ccdc0ec97c)
+
+```bash
+dataset="$assets/data/part2_sparse/Re10k-1"
+case_root=runs/part3_mse30/Re10k-1/da3_large
+python -m scripts.init_da3_sparse --dataset "$dataset" --repo "$da3_repo" \
+  --model-dir "$da3_large_weights" --model-release da3-large-1.1 --output "$case_root/init"
+python -m p4.train train --dataset "$dataset" --scene "$case_root/init/scene.npz" \
+  --config results/part3_mse30/train_config.json --output "$case_root/train"
+write_m0_receipt "$dataset" "$case_root"
+python -m scripts.part3_progressive --supplemental "$case_root/m0.json" --model-dir "$model" \
+  --arms warp_gated real_only --views 8 --steps 3000 --synthetic-weight 0.4 \
+  --keep-checkpoints gated --output "$case_root/closed_loop"
+python -m scripts.compare_sparse_quality --dataset "$dataset" \
+  --baseline runs/part3_progressive_re10k_weight1/Re10k-1/progressive_gated/round2/metrics.json \
+  --candidate "$case_root/closed_loop/Re10k-1/warp_gated/round2/metrics.json" \
+  --output "$case_root/improvement.json"
+```
+
+[起点和两轮实验记录](../results/part3_mse30/README.md)

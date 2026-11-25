@@ -1,0 +1,44 @@
+[
+  {
+    "scene": "Dl3dv-2",
+    "selection_by_new_R2_vs_prior_R2_psnr": "median",
+    "frame_id": "frame_00201.png",
+    "image": "images/frame_00201.png.png",
+    "psnr_delta_db": 1.695030846320675,
+    "psnr_db": {
+      "Prior sparse M0": 12.769051270829785,
+      "Prior Part 3 R2": 12.722955410563923,
+      "New sparse M0": 14.30423772684902,
+      "Real-only R2": 14.363434784531249,
+      "New Part 3 R2": 14.417986256884598
+    }
+  },
+  {
+    "scene": "Dl3dv-2",
+    "selection_by_new_R2_vs_prior_R2_psnr": "lowest",
+    "frame_id": "frame_00001.png",
+    "image": "images/frame_00001.png.png",
+    "psnr_delta_db": -0.14110039601822422,
+    "psnr_db": {
+      "Prior sparse M0": 19.838122237265875,
+      "Prior Part 3 R2": 20.108189411491587,
+      "New sparse M0": 19.924591958838686,
+      "Real-only R2": 19.931012587937758,
+      "New Part 3 R2": 19.967089015473363
+    }
+  },
+  {
+    "scene": "Re10k-1",
+    "selection_by_new_R2_vs_prior_R2_psnr": "median",
+    "frame_id": "00200.png",
+    "image": "images/00200.png.png",
+    "psnr_delta_db": 4.635526082401617,
+    "psnr_db": {
+      "Prior sparse M0": 11.18556012499675,
+      "Prior Part 3 R2": 11.206442178469317,
+      "New sparse M0": 15.756560546327918,
+      "Real-only R2": 15.744351251176642,
+      "New Part 3 R2": 15.841968260870933
+    }
+  }
+]

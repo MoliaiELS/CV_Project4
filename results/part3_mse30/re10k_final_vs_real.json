@@ -1,0 +1,29 @@
+{
+  "scene": "Re10k-1",
+  "split_hash": "0887b21ad76890c530a6bd428cbe4ce7085d501d0639997dc0e48164ba81a74c",
+  "test_frames": 35,
+  "baseline": {
+    "mean_frame_psnr_db": 15.823204466801712,
+    "geometric_mean_frame_mse": 0.026162518793696743,
+    "pooled_rgb_mse": 0.02693924496786306,
+    "ssim": 0.5071162582055658,
+    "lpips": 0.11394825130701065
+  },
+  "candidate": {
+    "mean_frame_psnr_db": 15.918981920193394,
+    "geometric_mean_frame_mse": 0.025591857448530025,
+    "pooled_rgb_mse": 0.02629318223951396,
+    "ssim": 0.5132139697954221,
+    "lpips": 0.10970231933253152
+  },
+  "psnr_improvement_db": 0.09577745339168153,
+  "improved_frames": 34,
+  "geometric_mse_reduction_percent": 2.1812171437568417,
+  "pooled_mse_reduction_percent": 2.3982213648519712,
+  "target_reduction_percent": 30.0,
+  "mean_psnr_target_db": 17.372224066659143,
+  "geometric_mse_target_met": false,
+  "pooled_mse_target_met": false,
+  "baseline_metrics_sha256": "90fa238bc332698e2092f66ca4ae62f330925c939cc2b1ac4676f96923bcf263",
+  "candidate_metrics_sha256": "434f4986701eec7fd484e213f4c22e44769da613c1f86e9f99a1465b2a18b18b"
+}
