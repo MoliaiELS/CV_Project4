@@ -54,8 +54,10 @@ def test_pair_geometry_is_estimated_and_only_verified_edges_reach_mapper(tmp_pat
     )
     ledger = _populate_database(pycolmap, *paths, names, range(3), points,
                                 lambda i, j: matches if i == 0 else matches[:0])
-    assert calls[0] == ("import", str(paths[0]), str(paths[1]), 1, names, "PINHOLE")
-    assert calls[2:5] == [("points", i, 20) for i in range(1, 4)]
+    assert calls[:4] == [("open", str(paths[0])), ("close",),
+                         ("import", str(paths[0]), str(paths[1]), 1, names, "PINHOLE"),
+                         ("open", str(paths[0]))]
+    assert calls[4:7] == [("points", i, 20) for i in range(1, 4)]
     assert [call for call in calls if call[0] == "geometry"] == [("geometry", 1, 2, MIN_INLIERS)]
     assert ledger == [{"names": names[:2], "matches": 20, "inliers": MIN_INLIERS, "geometry_config": 2},
                       {"names": [names[0], names[2]], "matches": 20, "inliers": MIN_INLIERS - 1,

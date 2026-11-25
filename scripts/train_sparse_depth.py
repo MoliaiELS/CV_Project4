@@ -1,4 +1,4 @@
-"""Train sparse 3DGS with cached VGGT depth supervision on the real training views."""
+"""Train sparse 3DGS with geometry supervision or structural regularization."""
 
 import argparse
 from dataclasses import asdict
@@ -19,6 +19,7 @@ from scripts.part3_fusion import _CameraSampler, _normalized_poses, _save_checkp
 
 
 LEGACY_DEPTH_ADAPTER_SHA256 = "f750c958a947bc7465054b9a9eaef1cfd8e54f4d946c6520692e576598a7d0d3"
+LEGACY_TEACHER_ADAPTER_SHA256 = "d7fe24a5b2674bc3526c2a61a0e2aa2e29e35baa7b738da8eb42be7e599591f1"
 
 
 def _load_depth_maps(path, receipt_path, manifest, scene, fingerprint):
@@ -111,24 +112,42 @@ def _rgb(path):
         return np.asarray(image.convert("RGB"), dtype=np.float32) / 255.
 
 
+def _with_opacity_dropout(splats, probability):
+    import torch
+    from torch.nn.functional import dropout
+
+    opacity = dropout(splats["opacities"].sigmoid(), p=probability, training=True)
+    return {**splats, "opacities": torch.logit(opacity, eps=1e-7)}
+
+
 def train(dataset, scene_path, depth_path, receipt_path, output, cfg, *, depth_weight=.15, depth_edge=192,
-          depth_start=200, teacher_weight=0., teacher_start=400, teacher_ramp=600, resume=None, stop_after=None):
+          depth_start=200, teacher_weight=0., teacher_start=400, teacher_ramp=600, dropout_max=0.,
+          resume=None, stop_after=None):
     cfg.validate()
     if not np.isfinite(depth_weight) or depth_weight < 0 or depth_edge < 8 or depth_start < 0:
         raise ValueError("Invalid depth weight, maximum render dimension, or warm-up length")
     if not np.isfinite(teacher_weight) or teacher_weight < 0 or teacher_start < 0 or teacher_ramp < 1:
         raise ValueError("Invalid warp teacher weight, start, or ramp length")
-    dataset, scene_path, depth_path, receipt_path, output = map(Path, (dataset, scene_path, depth_path, receipt_path, output))
+    if not 0. <= dropout_max < 1. or not (depth_weight or teacher_weight or dropout_max):
+        raise ValueError("Enable a sparse training regularizer and set opacity dropout to a rate in [0, 1)")
+    if (depth_weight or teacher_weight) and (depth_path is None or receipt_path is None):
+        raise ValueError("Depth and teacher supervision require a verified depth archive and receipt")
+    dataset, scene_path, output = map(Path, (dataset, scene_path, output))
     manifest, scene = load_manifest(dataset), load_scene(scene_path)
     allowed = {frame["image"] for frame in manifest["frames"] if frame["split"] == "train"}
     if set(scene["names"].tolist()) != allowed or len(scene["points"]) < 4:
         raise ValueError("Initialize at least four Gaussians from exactly the sparse training cameras")
     fingerprint = training_fingerprint(dataset, scene_path, manifest)
-    depth, confidence, depth_sha = _load_depth_maps(depth_path, receipt_path, manifest, scene, fingerprint)
     poses, points, normalization = normalized_geometry(scene)
     recipe = {"depth_weight": depth_weight, "depth_start": depth_start, "depth_max_edge": depth_edge,
-              "depth_maps_sha256": depth_sha, "depth_receipt_sha256": sha256_file(receipt_path),
+              "depth_maps_sha256": None, "depth_receipt_sha256": None,
               "adapter_sha256": sha256_file(__file__), "local_weight": .25, "depth_gradients": "means only"}
+    if depth_weight or teacher_weight:
+        depth, confidence, depth_sha = _load_depth_maps(Path(depth_path), Path(receipt_path), manifest, scene, fingerprint)
+        recipe.update(depth_maps_sha256=depth_sha, depth_receipt_sha256=sha256_file(receipt_path))
+    if dropout_max:
+        recipe["opacity_dropout"] = {"max_probability": dropout_max, "schedule": "linear through training",
+                                     "compensation": "kept opacity divided by keep probability"}
     teacher_views, teacher_record = [], None
     if teacher_weight:
         from scripts import sparse_warp_teacher
@@ -156,7 +175,10 @@ def train(dataset, scene_path, depth_path, receipt_path, output, cfg, *, depth_w
     torch.cuda.manual_seed(cfg.seed)
     saved = torch.load(resume, map_location="cpu", weights_only=False) if resume else None
     accepted_configs = [checkpoint_config]
-    if not teacher_weight:
+    if not dropout_max:
+        accepted_configs.append({**checkpoint_config, "depth_supervision": {
+            **recipe, "adapter_sha256": LEGACY_TEACHER_ADAPTER_SHA256}})
+    if not dropout_max and not teacher_weight:
         accepted_configs.append({**checkpoint_config, "depth_supervision": {
             **recipe, "adapter_sha256": LEGACY_DEPTH_ADAPTER_SHA256}})
     if saved and (saved["schema_version"] != 1 or saved["fingerprint"] != fingerprint
@@ -189,10 +211,11 @@ def train(dataset, scene_path, depth_path, receipt_path, output, cfg, *, depth_w
         torch.cuda.set_rng_state(saved["cuda_rng"][0])
     del saved
 
-    targets = [_depth_target(z, c, normalization["radius"], depth_edge) for z, c in zip(depth, confidence)]
-    depth_Ks = torch.as_tensor(np.stack([target[2] @ K for target, K in zip(targets, scene["K"])]),
-                               dtype=torch.float32, device="cuda")
-    targets = [(torch.as_tensor(z, device="cuda"), torch.as_tensor(c, device="cuda")) for z, c, _ in targets]
+    if depth_weight:
+        targets = [_depth_target(z, c, normalization["radius"], depth_edge) for z, c in zip(depth, confidence)]
+        depth_Ks = torch.as_tensor(np.stack([target[2] @ K for target, K in zip(targets, scene["K"])]),
+                                   dtype=torch.float32, device="cuda")
+        targets = [(torch.as_tensor(z, device="cuda"), torch.as_tensor(c, device="cuda")) for z, c, _ in targets]
     poses = torch.as_tensor(poses, device="cuda")
     Ks = torch.as_tensor(scene["K"], dtype=torch.float32, device="cuda")
     teacher_tensors = []
@@ -221,7 +244,9 @@ def train(dataset, scene_path, depth_path, receipt_path, output, cfg, *, depth_w
             raise ValueError("Training images must be at least 11 pixels on both axes for SSIM")
         pixels = torch.as_tensor(target, device="cuda")[None]
         degree = min(step // cfg.sh_degree_interval, cfg.sh_degree)
-        rgb, _, info = _rasterize(splats, poses[index], Ks[index], width, height, degree)
+        dropout_probability = dropout_max * ((step + 1) / cfg.steps)
+        photo_splats = _with_opacity_dropout(splats, dropout_probability) if dropout_probability else splats
+        rgb, _, info = _rasterize(photo_splats, poses[index], Ks[index], width, height, degree)
         strategy.step_pre_backward(splats, optimizers, state, step, info)
         photo = (1 - cfg.ssim_lambda) * (rgb - pixels).abs().mean()
         photo = photo + cfg.ssim_lambda * (1 - ssim_loss_value(rgb.permute(0, 3, 1, 2), pixels.permute(0, 3, 1, 2)))
@@ -266,6 +291,8 @@ def train(dataset, scene_path, depth_path, receipt_path, output, cfg, *, depth_w
             if teacher_sampler is not None:
                 record.update(teacher_weight=applied_weight, teacher_view=teacher_name,
                               teacher_loss=None if teacher_loss is None else teacher_loss.item())
+            if dropout_max:
+                record["opacity_dropout_probability"] = dropout_probability
             with log_path.open("a", encoding="utf-8") as stream:
                 stream.write(json.dumps(record, allow_nan=False) + "\n")
             print(json.dumps(record, allow_nan=False), flush=True)
@@ -289,8 +316,9 @@ def train(dataset, scene_path, depth_path, receipt_path, output, cfg, *, depth_w
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    for option in ("dataset", "scene", "depth-maps", "output"):
+    for option in ("dataset", "scene", "output"):
         parser.add_argument("--" + option, type=Path, required=True)
+    parser.add_argument("--depth-maps", type=Path)
     parser.add_argument("--depth-receipt", type=Path)
     parser.add_argument("--config", type=Path, default=Path("configs/part1.json"))
     parser.add_argument("--depth-weight", type=float, default=.15)
@@ -299,14 +327,19 @@ def main():
     parser.add_argument("--teacher-weight", type=float, default=0., help="Enable fixed train RGB/DPT warp supervision")
     parser.add_argument("--teacher-start", type=int, default=400, help="Zero-based step when warp supervision begins")
     parser.add_argument("--teacher-ramp", type=int, default=600, help="Length of the linear teacher weight ramp")
+    parser.add_argument("--dropout-max", type=float, default=0., help="Maximum progressive opacity dropout probability")
     parser.add_argument("--stop-after", type=int)
     parser.add_argument("--resume", type=Path, help="Resume one of your own depth-training checkpoints")
     args = parser.parse_args()
     data = json.loads(args.config.read_text(encoding="utf-8"))
-    train(args.dataset, args.scene, args.depth_maps, args.depth_receipt or args.depth_maps.with_name("depth_receipt.json"),
+    receipt = args.depth_receipt
+    if receipt is None and args.depth_maps is not None:
+        receipt = args.depth_maps.with_name("depth_receipt.json")
+    train(args.dataset, args.scene, args.depth_maps, receipt,
           args.output, TrainConfig(**data.get("training", data)), depth_weight=args.depth_weight,
           depth_edge=args.depth_edge, depth_start=args.depth_start, teacher_weight=args.teacher_weight,
-          teacher_start=args.teacher_start, teacher_ramp=args.teacher_ramp, resume=args.resume, stop_after=args.stop_after)
+          teacher_start=args.teacher_start, teacher_ramp=args.teacher_ramp, dropout_max=args.dropout_max,
+          resume=args.resume, stop_after=args.stop_after)
 
 
 if __name__ == "__main__":

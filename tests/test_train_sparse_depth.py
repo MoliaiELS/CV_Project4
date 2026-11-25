@@ -103,3 +103,20 @@ def test_warp_teacher_loss_downweights_tiny_confidence_support():
     assert loss.item() == pytest.approx(.5 * .95 / (0.25 * 16))
     loss.backward()
     assert torch.count_nonzero(rgb.grad).item() == 3
+def test_dropout_rescales_retained_opacity_without_changing_stored_parameters():
+    torch = pytest.importorskip("torch")
+    from scripts.train_sparse_depth import _with_opacity_dropout
+
+    torch.manual_seed(42)
+    logits = torch.full((200,), -1.5, requires_grad=True)
+    means = torch.zeros((200, 3))
+    modified = _with_opacity_dropout({"opacities": logits, "means": means}, 0.2)
+    alpha = modified["opacities"].sigmoid()
+    kept = alpha > 0.01
+    assert kept.any() and not kept.all()
+    assert modified["means"] is means
+    torch.testing.assert_close(alpha[kept], logits.sigmoid()[kept] / 0.8)
+    torch.testing.assert_close(logits, torch.full_like(logits, -1.5))
+    alpha.sum().backward()
+    assert torch.all(logits.grad[~kept] == 0)
+    assert torch.all(logits.grad[kept] > 0)

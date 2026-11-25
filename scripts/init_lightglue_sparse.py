@@ -94,9 +94,11 @@ def _match_pair(model, left, right, model_size):
 
 
 def _populate_database(pycolmap, database_path, image_root, names, features, keypoints, match):
+    database = pycolmap.Database()
+    database.open(str(database_path))
+    database.close()
     options = pycolmap.ImageReaderOptions(camera_model="PINHOLE")
     pycolmap.import_images(str(database_path), str(image_root), pycolmap.CameraMode.SINGLE, names, options)
-    database = pycolmap.Database()
     database.open(str(database_path))
     try:
         images = {image.name: image for image in database.read_all_images()}
