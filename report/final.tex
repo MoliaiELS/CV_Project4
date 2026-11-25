@@ -38,7 +38,7 @@ We evaluate the rendered scene directly on fixed held-out photographs. For each 
 3D Gaussian Splatting~\cite{kerbl2023gaussians} represents a scene with explicit anisotropic primitives and reconstructs images by differentiable alpha compositing. Scaffold-GS~\cite{lu2024scaffold} uses anchor-organized, view-adaptive Gaussians, while Wavelet-GS~\cite{zhao2025wavelet} uses wavelet decomposition to separate image frequencies. We use the standard representation across all conditions to hold the reconstruction backend fixed.
 
 \paragraph{Camera and geometry estimation.}
-Classical large-scale SfM~\cite{agarwal2011rome,schonberger2016sfm} uses local feature correspondence, triangulation, and bundle adjustment. VGGT~\cite{wang2025vggt} predicts cameras and dense geometry jointly, and VGGT-$\Omega$~\cite{wang2026vggtomega} extends the training and design of this feed-forward approach. Depth Anything 3~\cite{lin2025da3} recovers geometry across varying view counts, while LingBot-Map and HorizonStream~\cite{chen2026lingbot,cheng2026horizon} study persistent context and efficient streaming reconstruction. They motivate the question of whether learned geometry can replace costly per-scene optimization for our sequences.
+Classical large-scale SfM~\cite{agarwal2011rome,schonberger2016sfm} uses local feature correspondence, triangulation, and bundle adjustment. VGGT~\cite{wang2025vggt} and VGGT-$\Omega$~\cite{wang2026vggtomega} predict cameras and geometry jointly. Depth Anything 3~\cite{lin2025da3} supports varying view counts, $\pi^3$~\cite{wang2025pi3} removes the fixed reference view, and LingBot-Map and HorizonStream~\cite{chen2026lingbot,cheng2026horizon} study streaming reconstruction. They motivate testing learned geometry as an initialization for per-scene fitting.
 
 \paragraph{Unposed sparse reconstruction.}
 i3dgs~\cite{meuleman2026i3dgs} reconstructs Gaussians from unordered images with a globally consistent pipeline. HI-SLAM2~\cite{zhang2025hislam} couples monocular tracking and Gaussian mapping using geometric priors, and S3PO-GS~\cite{cheng2025s3po} uses a scale-consistent Gaussian pointmap for outdoor tracking and mapping. We vary the number of input views while estimating all training cameras and fitting them with the same batch pipeline.
@@ -50,11 +50,11 @@ Difix3D+~\cite{wu2025difix} uses single-step diffusion to repair rendered novel 
 \input{final_experiments}
 
 \section{Discussion and conclusion}
-Feed-forward geometry shortens dense initialization, with quality gains that vary by scene. Under sparse input, aligned center error captures only part of the camera problem. Orientation, intrinsics, and visibility also affect held-out rendering. The closed loop provides extra supervision between real views and can propagate incompatible edits into the scene.
+Feed-forward geometry shortens dense initialization, with scene-dependent quality gains. Camera orientation, intrinsics, and visibility also affect sparse rendering quality. Generative feedback adds supervision between real views and can propagate inconsistent edits.
 
 \ifpartthreeevidence\partthreeconclusion\fi
 
-The small scene set and one seed per condition limit generalization. Difix was trained using scenes from the DL3DV benchmark~\cite{wu2025difix}. Our split excludes held-out images from optimization and conditioning. Overlap between the supplied Dl3dv-2 sequence and the prior's training corpus remains unverified. Fixed cameras and Gaussian topology limit recovery from inaccurate initialization. Projected alpha measures visibility support and can be high on incorrect geometry. Future work could combine uncertainty-aware color and depth checks over more real views and test the same safeguards with a temporally coherent video prior.
+The small scene set and one seed per condition limit generalization. DL3DV data were used to train Difix and DA3~\cite{wu2025difix,lin2025da3}. Exact overlap between course scenes and pretrained model corpora is unknown. The project split reserves held-out images for evaluation. Fixed cameras and Gaussian topology limit geometric recovery, and opaque errors can still score high on alpha. Future tests could measure geometry on Tanks and Temples~\cite{knapitsch2017tanks} and assess temporally coherent completion with video diffusion caches~\cite{liu2025teacache,haghighi2026sencache}.
 
 % Reset the two-column page after flushing wide figures.
 \onecolumn

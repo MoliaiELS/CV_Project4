@@ -1,0 +1,21 @@
+{
+  "scene": "Re10k-1",
+  "split_hash": "0887b21ad76890c530a6bd428cbe4ce7085d501d0639997dc0e48164ba81a74c",
+  "train_frames": 10,
+  "alignment": "One Sim(3) fitted on shared training camera centers. ATE uses reference-trajectory units.",
+  "reference_sha256": "144b18f97b0e25308634ef36d0795991d9437496f514d0cff976df42aa05d15b",
+  "original_vggt": {
+    "initializer_sha256": "7803e718bffcaac905e386853608b1d448886c201054e2d0789a9cc43eb3d508",
+    "ate_rmse": 0.026431858126685425,
+    "mean_rotation_error_degrees": 3.853491566558449,
+    "median_focal_ratio_fx": 1.2083303828174774,
+    "median_focal_ratio_fy": 1.1981296698859667
+  },
+  "da3_large_1_1": {
+    "initializer_sha256": "6d12b107dee853ecd0dcf41648fe5e1e6a113b5a202416d191b1b75b877c941f",
+    "ate_rmse": 0.007359999371360321,
+    "mean_rotation_error_degrees": 0.8207633444167388,
+    "median_focal_ratio_fx": 0.9764438737992553,
+    "median_focal_ratio_fy": 0.9766304253725702
+  }
+}

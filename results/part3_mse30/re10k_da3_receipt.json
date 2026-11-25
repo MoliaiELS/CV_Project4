@@ -1,0 +1,79 @@
+{
+  "git_commit": "ea604b41239cbadeefb10d73356584797a1da354",
+  "git_dirty": false,
+  "package_source_sha256": "0e2a75ba924cc167b47f4c89fbec95550b6b8a7250d0edfa91fc66b3358b8140",
+  "python": "3.10.22",
+  "platform": "Linux-5.15.0-186-generic-x86_64-with-glibc2.35",
+  "confidence_threshold": 3.582409381866455,
+  "valid_points_before_cap": 1270080,
+  "registered_frames": 10,
+  "initial_points": 100000,
+  "canonical_image_wh": [
+    256,
+    256
+  ],
+  "processed_image_wh": [
+    504,
+    504
+  ],
+  "canonical_to_model": [
+    [
+      1.96875,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.96875,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "camera_center_singular_values": [
+    1.5370996948850117,
+    0.10251653098453935,
+    0.007932188906620221
+  ],
+  "schema_version": 1,
+  "scene": "Re10k-1",
+  "method": "da3-large-1.1",
+  "model_id": "depth-anything/DA3-LARGE-1.1",
+  "model_revision": "0e109ae307c5982f319a67cf6f9f99ccdc0ec97c",
+  "model_config_sha256": "744dcaf53859490ed92fc6cb98d68d3daf624b8c54533aaf604bdb53f06321f5",
+  "weights_sha256": "739905c423cf0d6ccaf9e61a8401d82ba1ac32d7f4d3ee6dca8f92b377633f64",
+  "upstream_commit": "3d835ec1a5802d64a8b8b15f817a1ab54809bfe4",
+  "upstream_package_sha256": "5d33078424ffb1e51c34429ef7aac64c1298c632347aaaa3a97b3f8125a00be5",
+  "manifest_sha256": "129d78dbe6cffcc112e2e56ec74a7d7a7988649ad9c4ded8c8872cf0283cbeaa",
+  "split_hash": "0887b21ad76890c530a6bd428cbe4ce7085d501d0639997dc0e48164ba81a74c",
+  "train_images": [
+    "images/00001.png.png",
+    "images/00031.png.png",
+    "images/00061.png.png",
+    "images/00091.png.png",
+    "images/00121.png.png",
+    "images/00151.png.png",
+    "images/00181.png.png",
+    "images/00211.png.png",
+    "images/00241.png.png",
+    "images/00271.png.png"
+  ],
+  "train_only_inputs": true,
+  "all_training_views_joint": true,
+  "camera_convention": "opencv_c2w",
+  "pose_estimation": "official ray pose",
+  "reference_view_policy": "middle",
+  "process_res": 504,
+  "process_res_method": "upper_bound_resize",
+  "seed": 42,
+  "point_cap": 100000,
+  "confidence_quantile": 0.5,
+  "device": "cuda",
+  "torch_version": "2.6.0+cu124",
+  "model_load_seconds": 6.391385497059673,
+  "inference_seconds": 2.502509923186153,
+  "scene_sha256": "6d12b107dee853ecd0dcf41648fe5e1e6a113b5a202416d191b1b75b877c941f"
+}

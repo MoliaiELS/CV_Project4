@@ -131,7 +131,7 @@ def map_training_views(pycolmap, database_path, image_root, output, names, size,
     raise RuntimeError("No valid fully registered PyCOLMAP model; see scene.json and mapping outputs")
 
 
-def initialize(dataset, output):
+def initialize(dataset, output, *, matches_only=False):
     import pycolmap
 
     if pycolmap.__version__ != PYCOLMAP_VERSION:
@@ -152,7 +152,7 @@ def initialize(dataset, output):
                "manifest_sha256": manifest_sha256, "split_hash": manifest["split_hash"], "train_images": names,
                "train_only_inputs": True, "camera_convention": "opencv_c2w", "camera_model": "shared PINHOLE",
                "canonical_image_wh": list(size), "matcher": "exhaustive CPU SIFT", "num_threads": THREADS,
-               "seed": SEED, "bundle_adjustment": True, "mapping_attempts": [], "status": "running"}
+               "seed": SEED, "bundle_adjustment": not matches_only, "mapping_attempts": [], "status": "running"}
     write_json(output / "scene.json", receipt)
     try:
         started = time.perf_counter()
@@ -170,6 +170,12 @@ def initialize(dataset, output):
         receipt["exhaustive_matching_seconds"] = time.perf_counter() - started
         pairs = verified_pairs(pycolmap, database_path)
         receipt["verified_seed_pairs"] = pairs
+        if matches_only:
+            if sha256_file(manifest_path) != manifest_sha256:
+                raise ValueError("Prepared manifest changed during PyCOLMAP matching")
+            receipt.update(status="matches_ready", database_sha256=sha256_file(database_path))
+            write_json(output / "scene.json", receipt)
+            return database_path
         scene, diagnostics = map_training_views(pycolmap, database_path, image_root, output, names, size, pairs, receipt)
         if sha256_file(manifest_path) != manifest_sha256:
             raise ValueError("Prepared manifest changed during PyCOLMAP reconstruction")
@@ -192,8 +198,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--matches-only", action="store_true", help="Write a verified match database without mapping")
     args = parser.parse_args()
-    print(initialize(args.dataset, args.output))
+    print(initialize(args.dataset, args.output, matches_only=args.matches_only))
 
 
 if __name__ == "__main__":
