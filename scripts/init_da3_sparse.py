@@ -1,8 +1,9 @@
-"""Initialize a sparse 3DGS scene from train RGB using the pinned DA3-SMALL model."""
+"""Initialize a sparse 3DGS scene from train RGB using a pinned DA3 model."""
 
 from __future__ import annotations
 
 import argparse
+from dataclasses import dataclass
 import hashlib
 from io import BytesIO
 import json
@@ -22,16 +23,33 @@ from p4.initialize import depth_to_points
 
 SOURCE_REVISION = "3d835ec1a5802d64a8b8b15f817a1ab54809bfe4"
 SOURCE_SHA256 = "5d33078424ffb1e51c34429ef7aac64c1298c632347aaaa3a97b3f8125a00be5"
-MODEL_ID = "depth-anything/DA3-SMALL"
-MODEL_REVISION = "e08cab65ca0ec38e7826075418411ab90cab4da3"
-MODEL_SHA256 = "364492e38a3a06d221ac75da7f6621ada3f2361cd24fde11ba79091e9f40efcf"
-CONFIG_SHA256 = "a486e29e82b7ab4a7d4cefc1ea4526cfe2ae438a572c8ca98917cfbcde7447d2"
 PROCESS_RES = 504
 RESIZE = "upper_bound_resize"
 REF_VIEW = "middle"
 SEED = 42
 MAX_POINTS = 100_000
 CONFIDENCE_QUANTILE = 0.5
+
+
+@dataclass(frozen=True)
+class ModelRelease:
+    model_id: str
+    revision: str
+    weights_sha256: str
+    config_sha256: str
+    preset: str
+
+
+MODELS = {
+    "da3-small": ModelRelease(
+        "depth-anything/DA3-SMALL", "e08cab65ca0ec38e7826075418411ab90cab4da3",
+        "364492e38a3a06d221ac75da7f6621ada3f2361cd24fde11ba79091e9f40efcf",
+        "a486e29e82b7ab4a7d4cefc1ea4526cfe2ae438a572c8ca98917cfbcde7447d2", "da3-small"),
+    "da3-large-1.1": ModelRelease(
+        "depth-anything/DA3-LARGE-1.1", "0e109ae307c5982f319a67cf6f9f99ccdc0ec97c",
+        "739905c423cf0d6ccaf9e61a8401d82ba1ac32d7f4d3ee6dca8f92b377633f64",
+        "744dcaf53859490ed92fc6cb98d68d3daf624b8c54533aaf604bdb53f06321f5", "da3-large"),
+}
 
 
 def _package_sha256(package):
@@ -135,16 +153,17 @@ def prediction_to_scene(prediction, names, canonical_size):
     return scene, metadata
 
 
-def initialize(dataset, output, repo, model_dir, device, source_revision=SOURCE_REVISION):
+def initialize(dataset, output, repo, model_dir, device, source_revision=SOURCE_REVISION, *, model_release="da3-small"):
     dataset, output, repo, model_dir = (Path(path).resolve() for path in (dataset, output, repo, model_dir))
     if output.exists():
         raise FileExistsError(f"Use a new initializer directory: {output}")
     package = repo / "src/depth_anything_3"
     if source_revision != SOURCE_REVISION or _package_sha256(package) != SOURCE_SHA256:
         raise ValueError("DA3 source does not match the pinned revision")
-    for name, digest in (("config.json", CONFIG_SHA256), ("model.safetensors", MODEL_SHA256)):
+    release = MODELS[model_release]
+    for name, digest in (("config.json", release.config_sha256), ("model.safetensors", release.weights_sha256)):
         if sha256_file(model_dir / name) != digest:
-            raise ValueError(f"DA3-SMALL {name} does not match the official pinned release")
+            raise ValueError(f"{release.model_id} {name} does not match the official pinned release")
     manifest_sha256 = sha256_file(dataset / "manifest.json")
     manifest, names, images, size = _load_train_rgb(dataset)
 
@@ -161,8 +180,8 @@ def initialize(dataset, output, repo, model_dir, device, source_revision=SOURCE_
     torch.manual_seed(SEED)
     tick = time.perf_counter()
     model = api.DepthAnything3.from_pretrained(str(model_dir), local_files_only=True, strict=True)
-    if model.model_name != "da3-small":
-        raise ValueError("Expected the DA3-SMALL any-view preset")
+    if model.model_name != release.preset:
+        raise ValueError(f"Expected the {release.preset} any-view preset")
     model = model.eval().to(device)
     model_load_seconds = time.perf_counter() - tick
     tick = time.perf_counter()
@@ -174,8 +193,8 @@ def initialize(dataset, output, repo, model_dir, device, source_revision=SOURCE_
     if sha256_file(dataset / "manifest.json") != manifest_sha256:
         raise ValueError("Prepared manifest changed during DA3 inference")
     receipt = {**source_version(), **geometry, "schema_version": 1, "scene": manifest["scene"],
-               "method": "da3-small", "model_id": MODEL_ID, "model_revision": MODEL_REVISION,
-               "model_config_sha256": CONFIG_SHA256, "weights_sha256": MODEL_SHA256,
+               "method": model_release, "model_id": release.model_id, "model_revision": release.revision,
+               "model_config_sha256": release.config_sha256, "weights_sha256": release.weights_sha256,
                "upstream_commit": source_revision, "upstream_package_sha256": SOURCE_SHA256,
                "manifest_sha256": manifest_sha256, "split_hash": manifest["split_hash"],
                "train_images": names, "train_only_inputs": True, "all_training_views_joint": True,
@@ -202,9 +221,11 @@ def main():
     for name in ("dataset", "output", "repo", "model-dir"):
         parser.add_argument("--" + name, required=True, type=Path)
     parser.add_argument("--source-revision", choices=(SOURCE_REVISION,), default=SOURCE_REVISION)
+    parser.add_argument("--model-release", choices=tuple(MODELS), default="da3-small")
     parser.add_argument("--device", choices=("cuda", "cpu"), default="cuda")
     args = parser.parse_args()
-    output = initialize(args.dataset, args.output, args.repo, args.model_dir, args.device, args.source_revision)
+    output = initialize(args.dataset, args.output, args.repo, args.model_dir, args.device, args.source_revision,
+                        model_release=args.model_release)
     print(json.dumps({"initializer": str(output / "scene.npz"), "receipt": str(output / "scene.json")}))
 
 
