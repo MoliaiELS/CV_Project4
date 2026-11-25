@@ -46,6 +46,13 @@ python -m scripts.train_joint_poses export --dataset "$dataset" --initializer "$
 
 课程运行把保存列表设为 1,000、4,000 和 7,000，便于中断恢复。全视角对照将 `kind` 改为 `full`，并将 `dataset` 改为 `"$assets/data/prepared/$scene"`。评价 fixed 时用原始初始化与固定分支的 7,000 步检查点。评价 joint 时用 `refined/scene.npz` 与 `refined/checkpoint.pt`。两者都用 `p4.train render` 和 `p4.evaluate renders`。留出相机来自同一参考记录，按各自训练相机拟合一个全局 Sim(3)，不做逐图优化。导出文件的高斯参数与归一化坐标继续绑定，可用于 Part 3 固定相机回灌。
 
+为检验对齐敏感性，用固定组的训练相机计算同一个 Sim(3) 并复评联合模型。该操作不改检查点或重新拟合单张留出相机。
+
+```bash
+python -m scripts.evaluate_fixed_alignment --dataset "$dataset" --initializer "$initializer" \
+  --refined "$case_dir/refined" --output "$output/part2_shared_alignment/$scene/$kind"
+```
+
 ## Part 3 同伪图的融合对照
 
 DL3DV 长预算起点从已发布的一致性种子重新训练 30,000 步，保持原 11 张真实图与 6,000 步增密截止。把 `TrainConfig` 的 `steps` 改为 30,000，`save_steps` 改为 7,000、15,000、30,000，再按[原 M0 收据方法](part3.md#从跨视角一致的种子点重建-dl3dv)记录第 30,000 步检查点及其 SHA-256。

@@ -1,0 +1,26 @@
+[
+  {
+    "selection_by_confidence_vs_real_only_psnr": "Median gain",
+    "frame_id": "frame_00057.png",
+    "image": "images/frame_00057.png.png",
+    "psnr_delta_db": 0.07858842774353292,
+    "psnr_db": {
+      "Sparse 30k M0": 15.716976054431262,
+      "Real only 40k": 15.723937664176963,
+      "Unweighted 40k": 15.992847302821511,
+      "Confidence 40k": 15.802526091920496
+    }
+  },
+  {
+    "selection_by_confidence_vs_real_only_psnr": "Lowest gain",
+    "frame_id": "frame_00017.png",
+    "image": "images/frame_00017.png.png",
+    "psnr_delta_db": -0.044703933030206144,
+    "psnr_db": {
+      "Sparse 30k M0": 14.453937392263486,
+      "Real only 40k": 14.651401619601936,
+      "Unweighted 40k": 14.847812697184,
+      "Confidence 40k": 14.60669768657173
+    }
+  }
+]

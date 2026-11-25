@@ -1,0 +1,29 @@
+{
+  "scene": "Dl3dv-2",
+  "split_hash": "8e4064e6fafc649deb06cb372038871c9f0d3be7140febb849b665161a35f309",
+  "test_frames": 39,
+  "baseline": {
+    "mean_frame_psnr_db": 16.586742365551483,
+    "geometric_mean_frame_mse": 0.021944503711027047,
+    "pooled_rgb_mse": 0.024020549456889577,
+    "ssim": 0.4714797973954441,
+    "lpips": 0.23064360328209707
+  },
+  "candidate": {
+    "mean_frame_psnr_db": 16.808289048223166,
+    "geometric_mean_frame_mse": 0.0208531225342209,
+    "pooled_rgb_mse": 0.022613857352784573,
+    "ssim": 0.4790197252012925,
+    "lpips": 0.22626031935214996
+  },
+  "psnr_improvement_db": 0.22154668267168276,
+  "improved_frames": 39,
+  "geometric_mse_reduction_percent": 4.973369145995921,
+  "pooled_mse_reduction_percent": 5.856202859262805,
+  "target_reduction_percent": 30.0,
+  "mean_psnr_target_db": 18.135761965408914,
+  "geometric_mse_target_met": false,
+  "pooled_mse_target_met": false,
+  "baseline_metrics_sha256": "56d25c5995a86b00a30f60ec9910a8a79b0b06742fa8e65b618e69853945f4d2",
+  "candidate_metrics_sha256": "e79d9aa59ca65355841b47c3354a1b8a0277c3d351c8b1815508f38b17572af0"
+}

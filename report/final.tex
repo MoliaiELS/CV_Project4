@@ -23,7 +23,7 @@
 \fi
 
 \begin{abstract}
-We study how camera initialization, observation density, and generative feedback affect 3D Gaussian Splatting on indoor and outdoor sequences. Under dense input, VGGT-$\Omega$ initializes 2.1--2.9 times faster than VGGT, while the initializer with the highest held-out PSNR varies across scenes. Keeping only 10--20 training views lowers PSNR by 0.13--3.13~dB under matched 7,000-step budgets, despite smaller aligned translation errors on shared camera IDs. \ifpartthreeevidence\partthreeabstract\else We investigate two rounds of reference-guided diffusion restoration with active selection of virtual cameras, geometric confidence weighting, and a control that matches extra optimization on real images.\fi{} Code and reproducibility instructions are at \url{https://github.com/MoliaiELS/CV_Project4}.
+We study camera initialization, observation density, and generative feedback in 3D Gaussian Splatting. In dense input, VGGT-$\Omega$ initializes 2.1--2.9 times faster than VGGT. Keeping 10--20 training views lowers PSNR by 0.13--3.13~dB at 7k updates even as aligned center error falls on shared camera IDs. Joint pose and Gaussian refinement raises dense DL3DV PSNR by 1.65~dB and increases LPIPS. \ifpartthreeevidence\partthreeabstract\else We investigate two rounds of reference-guided feedback with matched real-image optimization.\fi{} Code and reproducibility instructions are at \url{https://github.com/MoliaiELS/CV_Project4}.
 \end{abstract}
 
 \section{Introduction}
@@ -54,7 +54,7 @@ Feed-forward geometry shortens dense initialization, with scene-dependent qualit
 
 \ifpartthreeevidence\partthreeconclusion\fi
 
-The small scene set and one seed per condition limit generalization. DL3DV data were used to train Difix and DA3~\cite{wu2025difix,lin2025da3}. Exact overlap between course scenes and pretrained model corpora is unknown. The project split reserves held-out images for evaluation. Fixed cameras and Gaussian topology limit geometric recovery, and opaque errors can still score high on alpha. Future tests could measure geometry on Tanks and Temples~\cite{knapitsch2017tanks} and assess temporally coherent completion with video diffusion caches~\cite{liu2025teacache,haghighi2026sencache}.
+The small scene set and one seed per condition limit generalization. DL3DV data were used to train Difix and DA3~\cite{wu2025difix,lin2025da3}. Exact overlap between course scenes and pretrained model corpora is unknown. The project split reserves held-out images for evaluation. Feedback preserves its initial cameras and topology, and opaque errors can still score high on alpha. Future tests could measure geometry on Tanks and Temples~\cite{knapitsch2017tanks} and assess temporally coherent completion with video diffusion caches~\cite{liu2025teacache,haghighi2026sencache}.
 
 % Reset the two-column page after flushing wide figures.
 \onecolumn
