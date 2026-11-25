@@ -1,0 +1,42 @@
+[
+  {
+    "scene": "Dl3dv-2",
+    "input": "full",
+    "selection": "median",
+    "frame_id": "frame_00041.png",
+    "image": "images/frame_00041.png.png",
+    "fixed_psnr": 17.995469253289087,
+    "joint_psnr": 19.796816458721857,
+    "paired_psnr_db_change": 1.8013472054327693
+  },
+  {
+    "scene": "Dl3dv-2",
+    "input": "full",
+    "selection": "lowest",
+    "frame_id": "frame_00145.png",
+    "image": "images/frame_00145.png.png",
+    "fixed_psnr": 18.90177313818523,
+    "joint_psnr": 13.472965344122734,
+    "paired_psnr_db_change": -5.428807794062497
+  },
+  {
+    "scene": "Dl3dv-2",
+    "input": "sparse",
+    "selection": "median",
+    "frame_id": "frame_00193.png",
+    "image": "images/frame_00193.png.png",
+    "fixed_psnr": 12.962146766408667,
+    "joint_psnr": 13.018800633220042,
+    "paired_psnr_db_change": 0.05665386681137541
+  },
+  {
+    "scene": "Re10k-1",
+    "input": "sparse",
+    "selection": "median",
+    "frame_id": "00256.png",
+    "image": "images/00256.png.png",
+    "fixed_psnr": 10.624569466908007,
+    "joint_psnr": 10.722315186078845,
+    "paired_psnr_db_change": 0.09774571917083819
+  }
+]

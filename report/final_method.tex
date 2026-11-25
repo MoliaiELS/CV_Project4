@@ -17,7 +17,9 @@ The 7,000-step schedule raises spherical-harmonic degree every 1,000 steps up to
 
 \subsection{Unposed reconstruction under sparse input}
 \label{sec:sparse_method}
-We independently run VGGT and the same fixed-camera optimizer on full and sparse RGB subsets. All camera and point estimates for the sparse branch come from those sparse frames. For each scene, both conditions share the prepared image bytes and held-out IDs. Using the same number of optimizer updates makes computation comparable, while scarce inputs are sampled more often per image. Test reference poses are kept separate from these two training conditions.
+We independently run VGGT and the same fixed-camera optimizer on full and sparse RGB subsets. All camera and point estimates for the sparse branch come from those sparse frames. The conditions share held-out IDs and equal update budgets, so sparse training samples each available image more often.
+
+For joint refinement, we fork the same 1,000-step checkpoint into fixed and joint arms. Joint training differentiates the photometric objective through a local rotation and translation for each training camera, with fixed intrinsics, the first camera anchored, and soft priors on the pose increments. Cameras are frozen for the final 1,000 steps. Both arms use the same real-image draws and Gaussian update schedule. The refined train poses determine the evaluation similarity transform.
 
 \subsection{Closed-loop generative reconstruction}
 \label{sec:loop_method}
