@@ -72,6 +72,9 @@ On DL3DV, COLMAP leads all quality metrics and has a 3.51~dB PSNR margin over th
 \paragraph{Convergence and resource use.}
 DL3DV's neural initializers improve through all reported checkpoints. COLMAP peaks at 24.00~dB at step 2,000, dips to 21.64~dB at 4,000, then recovers to 23.61~dB (Fig.~\ref{fig:dense_convergence}). RealEstate10K's VGGT-$\Omega$ gains 1.19~dB between steps 500 and 7,000. The nine trained scenes yield 389,467 to 721,872 Gaussians and peak allocated training memory of 0.66--1.30~GiB. Differences in initialization cost are larger than training-time differences within each scene.
 
+\paragraph{Longer training on DL3DV.}
+Under a common 30,000-step schedule, COLMAP, VGGT, and VGGT-$\Omega$ reach 24.199, 18.949, and 20.767~dB. From 7k to 30k, gains are 0.498, 0.462, and 0.701~dB, with lower LPIPS for every method. The final 15k updates add only 0.076--0.251~dB.
+
 \subsection{Part 2: Full versus sparse unposed input}
 \label{sec:part2}
 
