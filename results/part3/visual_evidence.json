@@ -1,0 +1,252 @@
+{
+  "scene_order": [
+    "Re10k-1",
+    "Dl3dv-2",
+    "Waymo-405841",
+    "Bonsai"
+  ],
+  "compact_psnr": "Held-out mean PSNR change relative to M0. The scene panels use independent y-axis limits.",
+  "heldout_selection": "Largest and smallest Gated R2 minus M0 per-frame PSNR; use the course scenes for the main figure when available. For illustration after evaluation only.",
+  "heldout_examples": [
+    {
+      "scene": "Dl3dv-2",
+      "id": "frame_00001.png",
+      "image": "images/frame_00001.png.png",
+      "delta_psnr": 0.25543152546138614,
+      "delta_ssim": 0.0015389947088592093,
+      "delta_lpips": -0.009638935327529907
+    },
+    {
+      "scene": "Waymo-405841",
+      "id": "000192.png",
+      "image": "images/000192.png.png",
+      "delta_psnr": -0.18003544484289158,
+      "delta_ssim": -0.010769333183254348,
+      "delta_lpips": -0.008111059665679932
+    }
+  ],
+  "heldout_per_scene": {
+    "Re10k-1": [
+      {
+        "scene": "Re10k-1",
+        "id": "00016.png",
+        "image": "images/00016.png.png",
+        "delta_psnr": 0.10212409618465834,
+        "delta_ssim": -0.00033082220418481634,
+        "delta_lpips": -0.0016540884971618652
+      },
+      {
+        "scene": "Re10k-1",
+        "id": "00248.png",
+        "image": "images/00248.png.png",
+        "delta_psnr": -0.055278847903782236,
+        "delta_ssim": -0.002988912801117294,
+        "delta_lpips": -0.004700750112533569
+      }
+    ],
+    "Dl3dv-2": [
+      {
+        "scene": "Dl3dv-2",
+        "id": "frame_00001.png",
+        "image": "images/frame_00001.png.png",
+        "delta_psnr": 0.25543152546138614,
+        "delta_ssim": 0.0015389947088592093,
+        "delta_lpips": -0.009638935327529907
+      },
+      {
+        "scene": "Dl3dv-2",
+        "id": "frame_00105.png",
+        "image": "images/frame_00105.png.png",
+        "delta_psnr": -0.13684402031035603,
+        "delta_ssim": -0.0038178127278852836,
+        "delta_lpips": 0.007322579622268677
+      }
+    ],
+    "Waymo-405841": [
+      {
+        "scene": "Waymo-405841",
+        "id": "000024.png",
+        "image": "images/000024.png.png",
+        "delta_psnr": 0.22589621982299946,
+        "delta_ssim": 0.005851186877690928,
+        "delta_lpips": -0.0204622745513916
+      },
+      {
+        "scene": "Waymo-405841",
+        "id": "000192.png",
+        "image": "images/000192.png.png",
+        "delta_psnr": -0.18003544484289158,
+        "delta_ssim": -0.010769333183254348,
+        "delta_lpips": -0.008111059665679932
+      }
+    ],
+    "Bonsai": [
+      {
+        "scene": "Bonsai",
+        "id": "images_4/DSCF5813.JPG",
+        "image": "images/images_4/DSCF5813.JPG.png",
+        "delta_psnr": 0.5909204137731461,
+        "delta_ssim": 0.0072621462851344964,
+        "delta_lpips": 0.0053525567054748535
+      },
+      {
+        "scene": "Bonsai",
+        "id": "images_4/DSCF5853.JPG",
+        "image": "images/images_4/DSCF5853.JPG.png",
+        "delta_psnr": -0.37707451167316997,
+        "delta_ssim": -0.011402697898855785,
+        "delta_lpips": 0.007954835891723633
+      }
+    ]
+  },
+  "pseudo_selection": "First scene, most reprojected target support in R1 and least in R2. Confidence color scale is fixed to [0,1].",
+  "pseudo_examples": [
+    {
+      "scene": "Re10k-1",
+      "round": 1,
+      "target": "interval_005_67",
+      "anchors": [
+        "images/00151.png.png",
+        "images/00181.png.png"
+      ],
+      "reference": "images/00181.png.png",
+      "c2w": [
+        [
+          0.9950096241232959,
+          -0.002868441271877937,
+          0.09973775587352844,
+          0.027142336641926966
+        ],
+        [
+          0.004193838940634646,
+          0.9999056359529445,
+          -0.013081701130895722,
+          -0.014489852464186315
+        ],
+        [
+          -0.09969082012380974,
+          0.013434702609579761,
+          0.9949277607690091,
+          0.5069981543700409
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "K": [
+        [
+          265.53035513191764,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          263.2104046010296,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "width": 256,
+      "height": 256,
+      "fraction": 0.6666666666666666,
+      "seed": 1042,
+      "parent_checkpoint_sha256": "281427b1936ecf598501b54d75b7ad39a99cac247abfb1335c885c7a252b6b49",
+      "verified_fraction": 0.9691009521484375,
+      "two_anchor_fraction": 0.821502685546875,
+      "mean_confidence": 0.9288672208786011,
+      "low_confidence_fraction": 0.036407470703125,
+      "mean_edit": 0.03122013807296753
+    },
+    {
+      "scene": "Re10k-1",
+      "round": 2,
+      "target": "interval_008_50",
+      "anchors": [
+        "images/00241.png.png",
+        "images/00271.png.png"
+      ],
+      "reference": "images/00241.png.png",
+      "c2w": [
+        [
+          0.9274185111137021,
+          -0.01099718329394378,
+          0.37386356763295814,
+          0.0714362750736916
+        ],
+        [
+          0.014120054103659182,
+          0.9998845406264922,
+          -0.0056151124884979125,
+          -0.02254660720422652
+        ],
+        [
+          -0.37375865115840967,
+          0.010486533066183102,
+          0.9274667127765277,
+          0.6864713607060008
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "K": [
+        [
+          260.2592000482625,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          258.28192869208493,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "width": 256,
+      "height": 256,
+      "fraction": 0.5,
+      "seed": 2045,
+      "parent_checkpoint_sha256": "ee93cc3f9a513efdc17200897c64851c14026f8c3d22cfc46563aca0fddfa364",
+      "verified_fraction": 0.93060302734375,
+      "two_anchor_fraction": 0.5952911376953125,
+      "mean_confidence": 0.8754830360412598,
+      "low_confidence_fraction": 0.0813446044921875,
+      "mean_edit": 0.03133528307080269
+    }
+  ],
+  "trajectory": "PCA projection of estimated sparse train-camera centers and selected virtual cameras; each panel uses its own coordinate scale.",
+  "comparison_sha256": "c7c86d1f153c8a293d4e284b5c71ecaa54425050e09358c3d621fd40c2047834",
+  "per_frame_metrics_sha256": "f9988f2398075e68592d78c232d567ee7baffb80da33a7a29a9dfc6988bf1f44",
+  "figure_sha256": {
+    "active_trajectory.png": "af35e0b586edbe2948b43b1cee2ee75873d89130e51458058bebb4f9deffa185",
+    "closed_loop.png": "9fb846a143cf61e7026895c21d099e19afaffb67ed92f64054c12dfb5fce3bc2",
+    "closed_loop_psnr.png": "428b2713d3091a9625b159d474791d987072ac0150ce5e07da2eb510a121d3ac",
+    "heldout_Bonsai.png": "b6081b8687297c4ebe31d4a9e2c936f6475aec40faabe9386c3131bac6044edc",
+    "heldout_Dl3dv-2.png": "8ab14350c804636642b451340d2ce87640f33e75a4b05471b818d160e480b917",
+    "heldout_Re10k-1.png": "54aa53546bab7c62c565d4849c64b7cd526672863b4300dc83858d4645d91d10",
+    "heldout_Waymo-405841.png": "796fb0b0100375d01de90ac78593ced027a0ee7f68da78a1a1874a2bbc9c5e3e",
+    "heldout_comparison.png": "32a4b45a43f788093cf8fc45033353f950110810aeaa5a99f0fa3e91c2771080",
+    "pseudo_views.png": "23c826d8b6ba4af99c44f8c7504b83a1bc610cd46f92c9e870bdc3ad1e2a5c01"
+  },
+  "video_sha256": {
+    "Re10k-1_heldout.mp4": "158a9f25f075c3dec081af2f19300d63be7d19b440254b075e0d57a25f81ee04",
+    "Dl3dv-2_heldout.mp4": "d1489db29116bb75d9bdcfee61572954495654efb38ec6f31bc12a49be751473",
+    "Waymo-405841_heldout.mp4": "6b0a4ccfaa051d9e9ca8f368138d2fe8c2a339812c55db4bef34c984afe8f70c",
+    "Bonsai_heldout.mp4": "e5024935ff817ae046b9daec590c93a551a4ba8c46c7d00164d73ed9e77fedec",
+    "part3_heldout_demo.mp4": "e3455191bace3ee11b0a3920cf015643e5ce382c812bbd415d4993be78dde538"
+  }
+}

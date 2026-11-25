@@ -1,0 +1,70 @@
+\section{Method}
+\label{sec:method}
+Each reconstruction takes training images $I_i$ and produces a scene $M$ and estimated cameras $(K_i,T_i)$ in a common coordinate frame, with $T_i$ denoting camera-to-world. The first two stages vary how cameras and geometry are initialized and how many real images enter training. The last stage preserves the sparse camera frame and appends extra supervision at virtual poses.
+
+\subsection{Dense initialization and Gaussian training}
+\label{sec:dense_method}
+COLMAP~\cite{schonberger2016sfm} extracts CPU SIFT features, matches them exhaustively, and triangulates sparse points with incremental bundle adjustment. It estimates shared PINHOLE intrinsics for Waymo and RealEstate10K and per-image intrinsics for DL3DV. For long sequences, we configure the matcher and camera sharing to retain full registration. The effective settings are reported with their timings.
+
+VGGT~\cite{wang2025vggt} and VGGT-$\Omega$~\cite{wang2026vggtomega} jointly predict camera parameters and depth from all permitted views. We map intrinsics back to the canonical RGB pixel coordinates, then back-project confidence-filtered pixels and retain up to 100,000 colored seed points per neural initialization. VGGT uses $518\times518$ input and CPU offload for long-sequence head features. VGGT-$\Omega$ uses the published 1B-416 reproduction checkpoint with balanced preprocessing, $336\times512$ for Waymo and $416\times416$ for the square scenes. In both cases, cameras go straight into Gaussian training without an extra scene-specific bundle adjustment stage.
+
+We optimize anisotropic Gaussians with the gsplat rasterizer, fixed training cameras, and the loss
+\begin{equation}
+  \mathcal L_{\rm real} = 0.8 \lVert \widehat I-I\rVert_1 + 0.2\left(1-\mathrm{SSIM}(\widehat I,I)\right).
+  \label{eq:real}
+\end{equation}
+The 7,000-step schedule raises spherical-harmonic degree every 1,000 steps up to degree three, allows densification from steps 500 to 6,000 in 100-step intervals, and resets opacity every 3,000 steps during this period. A maximum of three million Gaussians bounds memory. Checkpoints preserve the Gaussian tensors, optimizer, schedule, densification state, and random state.
+
+\subsection{Unposed reconstruction under sparse input}
+\label{sec:sparse_method}
+We independently run VGGT and the same fixed-camera optimizer on full and sparse RGB subsets. All camera and point estimates for the sparse branch come from those sparse frames. The conditions share held-out IDs and equal update budgets, so sparse training samples each available image more often.
+
+For joint refinement, we fork the same 1,000-step checkpoint into fixed and joint arms. Joint training differentiates the photometric objective through a local rotation and translation for each training camera, with fixed intrinsics, the first camera anchored, and soft priors on the pose increments. Cameras are frozen for the final 1,000 steps. Both arms use the same real-image draws and Gaussian update schedule. The refined train poses determine the evaluation similarity transform.
+
+\subsection{Closed-loop generative reconstruction}
+\label{sec:loop_method}
+
+\begin{figure*}[t]
+  \centering
+  \setlength{\fboxsep}{5pt}
+  \newcommand{\pipelinebox}[3]{\fcolorbox{#1!60}{#1!8}{\parbox[c][10mm][c]{0.175\textwidth}{\centering\small\textbf{#2}\\[-1pt]\footnotesize #3}}}
+  \pipelinebox{MidnightBlue}{Current scene $M_r$}{Sparse initialization or previous round}
+  \(\;\longrightarrow\;\)
+  \pipelinebox{MidnightBlue}{Select and render}{Rank virtual cameras by scene coverage}
+  \(\;\longrightarrow\;\)
+  \pipelinebox{PineGreen}{Restore and check}{Real reference and geometric confidence}
+  \(\;\longrightarrow\;\)
+  \pipelinebox{PineGreen}{Update scene $M_{r+1}$}{Real views and weighted pseudo-observations}
+  \caption{One closed-loop round. The next round recomputes view priorities and restoration from the updated scene. All virtual cameras and restoration references are derived from sparse training data. The real-only control starts at the same $M_0$ and uses the same real-view update sequence.}
+  \label{fig:pipeline}
+\end{figure*}
+
+\paragraph{Active view selection.}
+We start from the sparse Gaussian checkpoint $M_0$. Between each consecutive pair of sparse training cameras, we interpolate camera centers and intrinsics linearly and rotations by spherical linear interpolation at fractions $1/3$, $1/2$, and $2/3$. We rasterize the candidate cameras at a maximum image edge of 256 pixels and measure weak support using their alpha $\alpha$ maps. Let $h=\mathrm{mean}(\alpha<0.5)$ and $a=\mathrm{mean}(1-\alpha)$. We rank candidates by
+\begin{equation}
+  S = (0.7h+0.3a)\min\{1,(1-h)/0.2\}.
+  \label{eq:view_score}
+\end{equation}
+The final factor deprioritizes nearly empty views where valid supervision is scarce. We choose at most one virtual camera per interval to distribute the new observations along the trajectory. The fixed-selection condition uses uniformly spaced interval midpoints.
+
+\paragraph{Reference-guided restoration.}
+We render each selected camera at the training image size and apply the published Difix-ref weights~\cite{wu2025difix} in a single diffusion step at timestep 199 with the prompt ``remove degradation.'' The closest endpoint of the interpolation interval provides the reference RGB. The input image is resized with preserved aspect ratio as needed, edge-padded to multiples of eight, then cropped and resized back after restoration. We save the before-and-after images, the reference ID, and the exact virtual camera and parent checkpoint that generated each observation.
+
+\paragraph{Geometric confidence.}
+We back-project supported target pixels at their expected Gaussian camera-$z$ depth (in the normalized scene frame) and project them into both real cameras bounding the virtual view. For each anchor, a projection is usable if it falls in bounds with positive depth, anchor accumulated alpha is at least 0.45, and projected depth differs from rendered anchor depth by less than 15\% relative to projected depth. We use the smaller mean absolute RGB residual $e$ to a usable real reference pixel. If neither anchor provides evidence or the target alpha is below 0.45, we use the magnitude $\delta$ of the edit relative to the raw render. The resulting confidence is
+\begin{equation}
+  w(p) = \begin{cases}
+    \exp[-(e(p)/0.18)^2] & \text{with anchor evidence},\\
+    0.20\exp[-\delta(p)/0.25] & \text{otherwise}.
+  \end{cases}
+  \label{eq:confidence}
+\end{equation}
+This provides strong weights for consistent projections and weak weights for unsupported edits. It can also suppress legitimate changes if the sparse geometry or estimated cameras produce inaccurate projections.
+
+\paragraph{Matched scene updates.}
+Each branch begins with the same Gaussian tensors, Adam moments, and real-camera sampler state. We keep the terminal Part 2 learning rates and harmonic degree fixed and disable further densification. Every branch sees the same sequence of real images. Each pseudo-supervised update adds one independently sampled pseudo-view loss to Eq.~\eqref{eq:real}:
+\begin{equation}
+  \mathcal L=\mathcal L_{\rm real}+\lambda\,\mathrm{mean}_{p,c}\left[w(p)|\widehat I_v(p,c)-I_v(p,c)|\right].
+  \label{eq:fusion}
+\end{equation}
+The mean is over the image and color channels, preserving the reduction in aggregate supervision when few pixels are confident. The real-only control omits this term, raw replay uses the unedited render with unit weights, ungated diffusion uses the restored target with unit weights, and gated diffusion uses Eq.~\eqref{eq:confidence}. The second pass through Fig.~\ref{fig:pipeline} starts from each branch's updated checkpoint and recomputes its virtual observations. We evaluate raw held-out renders from the resulting models after each round.

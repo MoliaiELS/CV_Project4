@@ -1,0 +1,351 @@
+{
+  "schema_version": 1,
+  "frozen_revision": "bd2e3ecae209df5de315fcddb258accf15a57592",
+  "part2_package_sha256": "c8b6722a8b18deaecd6766279d8e69617e762ec9cb9add52300ba171424bf51c",
+  "checkpoints_in_git": false,
+  "checkpoint_count": 30,
+  "files": [
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/train/checkpoints/step_000500.pt",
+      "bytes": 71624130,
+      "sha256": "073a237b7f1fc32759f46f95d1fc5ecf47606cce66296e147aa9af12bbc25702"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/train/checkpoints/step_001000.pt",
+      "bytes": 96739522,
+      "sha256": "e3e8f8e572aee0ddf0df54a14c601d9996f4f5b13a0b1ed168da2591b5de8bb5"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/train/checkpoints/step_002000.pt",
+      "bytes": 175000834,
+      "sha256": "554dfda2e5204c14cd6a78af0e15b613cedb9f84dcfce4eb0508de3ca4430a75"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/train/checkpoints/step_004000.pt",
+      "bytes": 293986626,
+      "sha256": "bc029dd87566963d2dc92745f9962c296cb3e88747c1fa2d0d475efdea409005"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/train/checkpoints/step_007000.pt",
+      "bytes": 399118338,
+      "sha256": "c8dfb1c80d3054ef2dbb85711a9ef53c3188423210c16e99b634816dc95f1671"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/train/checkpoints/step_000500.pt",
+      "bytes": 71623618,
+      "sha256": "bc083cb6a56769bde6a983721c7d2d430ce8df341a89b7914eabea69ae2fff5e"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/train/checkpoints/step_001000.pt",
+      "bytes": 100688450,
+      "sha256": "f10b0b57a8ccde50e0f8f111037778429d644ba9e632c73138065cc518cd38d8"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/train/checkpoints/step_002000.pt",
+      "bytes": 190468162,
+      "sha256": "ad7afa6ab9b7706d61a8e9c3c299f76ad81747eb2796aa48bbce1e3e1be3b53e"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/train/checkpoints/step_004000.pt",
+      "bytes": 282142914,
+      "sha256": "f401b9f78a303f0de5141fac2b945536d46186c5c50a7e300008937d0e1ab9a9"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/train/checkpoints/step_007000.pt",
+      "bytes": 318107522,
+      "sha256": "dff20b805c714bb0cc63334bfbdaa93f52018597d2db6e2f46ed3dac1ffa7eb3"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/train/checkpoints/step_000500.pt",
+      "bytes": 71624066,
+      "sha256": "93651a17ce8062dc666f305dbedd1dbc5011952ab61ad1ec3ec24e3b659b412e"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/train/checkpoints/step_001000.pt",
+      "bytes": 107931970,
+      "sha256": "4b7761011d68c4659bc87f6a04f733936e9c6bac0a6f774b134aa084d8b7edb8"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/train/checkpoints/step_002000.pt",
+      "bytes": 234406786,
+      "sha256": "8333c3960fe86a85bbda41c9b76d4291bddbf528e03aad178def07bfe1a13ec3"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/train/checkpoints/step_004000.pt",
+      "bytes": 382832642,
+      "sha256": "7ec5534ed5f328807e2ca825cebcdede5b05d8983b47aa00712eaad73147e7af"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/train/checkpoints/step_007000.pt",
+      "bytes": 516133506,
+      "sha256": "faa86af8dcb5a6975ec9fe4c6ed9ff3b3dac868eba539dce3b072212bc1f8011"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/train/checkpoints/step_000500.pt",
+      "bytes": 71623618,
+      "sha256": "8c7168da24db9775609764b2fdaeddd8c264d1cd2523e9e8d5908dac1d3ddfc0"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/train/checkpoints/step_001000.pt",
+      "bytes": 110967362,
+      "sha256": "e41d2400e3b86586a5e7a2e6707005c9624c64d5b01e682d7639464cd6049cd7"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/train/checkpoints/step_002000.pt",
+      "bytes": 235434498,
+      "sha256": "d167abd80dea9e222834ce855531e4068d623bc89b283c101b4ce9906c07e667"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/train/checkpoints/step_004000.pt",
+      "bytes": 363940674,
+      "sha256": "ba4401131b82f82e314d48f497b6962524ea2e7eae34b6a25f258c31c01365d7"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/train/checkpoints/step_007000.pt",
+      "bytes": 448244802,
+      "sha256": "281427b1936ecf598501b54d75b7ad39a99cac247abfb1335c885c7a252b6b49"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/train/checkpoints/step_000500.pt",
+      "bytes": 71623938,
+      "sha256": "0cf500c7fc4227592d3acab204c2305528edfd2599f84ad97a3af908ff2c20fa"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/train/checkpoints/step_001000.pt",
+      "bytes": 82500866,
+      "sha256": "6e5596e16e297a58381a674ea20f58dc694acfbc4c0bb780be12efa5190cf4b7"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/train/checkpoints/step_002000.pt",
+      "bytes": 132190466,
+      "sha256": "bbffeba1982313913a1d517f0a1e7cf2a8906b860165977183d3ec9110096baa"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/train/checkpoints/step_004000.pt",
+      "bytes": 227296130,
+      "sha256": "142af502c02515a06a70cd2344fb82de1a27a91f75e5dcc33b9a2fb1f5404c7d"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/train/checkpoints/step_007000.pt",
+      "bytes": 346787906,
+      "sha256": "d88db176cc0443538b11936fcffca2d86d9eff1f69060025403d53b812a6cc1f"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/train/checkpoints/step_000500.pt",
+      "bytes": 71623618,
+      "sha256": "89dd1f191b7caaca87ad7b4236884a161eee679ff00049f58b7b448baa7f5a79"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/train/checkpoints/step_001000.pt",
+      "bytes": 91816514,
+      "sha256": "6558294fad5b72d5260a859764d9cb61be0d45ae908ceb4f9fb854d22950df7e"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/train/checkpoints/step_002000.pt",
+      "bytes": 186424578,
+      "sha256": "7c36ee98b92c6223d833c8776d8c1168459161364e4b4d30c7ae7093b66203de"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/train/checkpoints/step_004000.pt",
+      "bytes": 407760450,
+      "sha256": "0c5e7d47e75ea104e685e75264aa29f48b111f645814bb2ad35028ee662f5e41"
+    },
+    {
+      "role": "part2_checkpoint",
+      "relative_path": "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/train/checkpoints/step_007000.pt",
+      "bytes": 600703490,
+      "sha256": "58d4e317001ad6807e54a47af74eee1c64b7eeb3519bf9aee620eeacdf43f4dd"
+    },
+    {
+      "role": "part2_initialization",
+      "relative_path": "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/init/scene.json",
+      "bytes": 76798,
+      "sha256": "8bb6890429a7bd541e53a7e2972beb80db88c1ffb58a1c75f4909e3833157a57"
+    },
+    {
+      "role": "part2_initialization",
+      "relative_path": "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/full/init/scene.npz",
+      "bytes": 1358960,
+      "sha256": "2407afc9a530afbc6644d14f76b3f2ca72f7797e4dfbd9afb57661d2a8c5aa9b"
+    },
+    {
+      "role": "part2_initialization",
+      "relative_path": "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/init/scene.json",
+      "bytes": 4347,
+      "sha256": "4712d5254125645796231b04af96282dc719aa975011349ac21b8f3b73539958"
+    },
+    {
+      "role": "part2_initialization",
+      "relative_path": "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/sparse/init/scene.npz",
+      "bytes": 1299513,
+      "sha256": "5a9be90a8867d0e7f8d7c2da79aa6fd0668c77b328d2acffdd8adea5a048b3da"
+    },
+    {
+      "role": "part2_initialization",
+      "relative_path": "runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/init/scene.json",
+      "bytes": 68826,
+      "sha256": "8ca119060590eb6b3d1d850919ef443d99bfeaf9f1f2a7e677c5118eb5a258da"
+    },
+    {
+      "role": "part2_initialization",
+      "relative_path": "runs/part2_formal/Re10k-1/full_sparse_7000_v1/full/init/scene.npz",
+      "bytes": 1388385,
+      "sha256": "78d5737781ca20963473d8d79d95cf0e0f61b4f8afdbac21c1394a1ef71ed9a3"
+    },
+    {
+      "role": "part2_initialization",
+      "relative_path": "runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/init/scene.json",
+      "bytes": 4005,
+      "sha256": "42e10cf49efce9ba8c9421a4477b8c49c55ed60330660925ff2e508d321420ef"
+    },
+    {
+      "role": "part2_initialization",
+      "relative_path": "runs/part2_formal/Re10k-1/full_sparse_7000_v1/sparse/init/scene.npz",
+      "bytes": 1315813,
+      "sha256": "7803e718bffcaac905e386853608b1d448886c201054e2d0789a9cc43eb3d508"
+    },
+    {
+      "role": "part2_initialization",
+      "relative_path": "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/init/scene.json",
+      "bytes": 59879,
+      "sha256": "e270f0e9cb97164ea39bf79878c60a9f17ee93138e543e04406b51c0208d02a6"
+    },
+    {
+      "role": "part2_initialization",
+      "relative_path": "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/full/init/scene.npz",
+      "bytes": 1357935,
+      "sha256": "d9fea97a0c8de460bbd703b88fc825f01e3687beef2a9525b625d865a0eacf68"
+    },
+    {
+      "role": "part2_initialization",
+      "relative_path": "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/init/scene.json",
+      "bytes": 7980,
+      "sha256": "d5e45f63a41dd0772e9d4334e879c2a359b5944176fe07856f849adab7d562df"
+    },
+    {
+      "role": "part2_initialization",
+      "relative_path": "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/sparse/init/scene.npz",
+      "bytes": 1318203,
+      "sha256": "60206e2fd256366eef3db465f585385e27b59f5c41d60782eeeaaf5c34d80487"
+    },
+    {
+      "role": "frozen_config",
+      "relative_path": "runs/part2_formal/Dl3dv-2/full_sparse_7000_v1/frozen_config.json",
+      "bytes": 912,
+      "sha256": "1094e876e84a73fa8a830932826e128c6dd4fef80239e0bc8729bd650f426a48"
+    },
+    {
+      "role": "frozen_config",
+      "relative_path": "runs/part2_formal/Re10k-1/full_sparse_7000_v1/frozen_config.json",
+      "bytes": 912,
+      "sha256": "1094e876e84a73fa8a830932826e128c6dd4fef80239e0bc8729bd650f426a48"
+    },
+    {
+      "role": "frozen_config",
+      "relative_path": "runs/part2_formal/Waymo-405841/full_sparse_7000_v1/frozen_config.json",
+      "bytes": 912,
+      "sha256": "1094e876e84a73fa8a830932826e128c6dd4fef80239e0bc8729bd650f426a48"
+    },
+    {
+      "role": "full_manifest",
+      "relative_path": "data/prepared/Dl3dv-2/manifest.json",
+      "bytes": 73447,
+      "sha256": "b5aa93f46a1abd19b3b375585c683ec757fd34b59177427a10326efff8474fbe"
+    },
+    {
+      "role": "full_manifest",
+      "relative_path": "data/prepared/Re10k-1/manifest.json",
+      "bytes": 63707,
+      "sha256": "a2baa55b092e7827e2d4eb092746bc4fc1296479b7259354254ac0817b5585ed"
+    },
+    {
+      "role": "full_manifest",
+      "relative_path": "data/prepared/Waymo-405841/manifest.json",
+      "bytes": 46164,
+      "sha256": "242380ca6920958df0efe67be16ae6f8d69a9c8078027b0eaebfb26dd3940e34"
+    },
+    {
+      "role": "full_reference",
+      "relative_path": "data/prepared/Dl3dv-2/reference.npz",
+      "bytes": 27773,
+      "sha256": "77a26709ec49464c1ab863fd07647d5c65276141e6e972c06211ec07ae522765"
+    },
+    {
+      "role": "full_reference",
+      "relative_path": "data/prepared/Re10k-1/reference.npz",
+      "bytes": 24614,
+      "sha256": "ae9d97bfe11d1c801466fc74c97493d8c3566893058c7e4c0ae74483c46905d6"
+    },
+    {
+      "role": "full_reference",
+      "relative_path": "data/prepared/Waymo-405841/reference.npz",
+      "bytes": 18716,
+      "sha256": "a3f182f8a26c567b863fcfcb491883acdc81de1abd3a1addc3a008d7ab34ab6c"
+    },
+    {
+      "role": "sparse_manifest",
+      "relative_path": "data/part2_sparse/Dl3dv-2/manifest.json",
+      "bytes": 20103,
+      "sha256": "29c4b7671053d0a173707e63b49ec909e3c77055bbcae43d480ae2942928eba6"
+    },
+    {
+      "role": "sparse_manifest",
+      "relative_path": "data/part2_sparse/Re10k-1/manifest.json",
+      "bytes": 16335,
+      "sha256": "129d78dbe6cffcc112e2e56ec74a7d7a7988649ad9c4ded8c8872cf0283cbeaa"
+    },
+    {
+      "role": "sparse_manifest",
+      "relative_path": "data/part2_sparse/Waymo-405841/manifest.json",
+      "bytes": 15427,
+      "sha256": "fbf18ad0aa41b17b3c918f2066b32b68d3da5da569b28008b47a48a4fde8f021"
+    },
+    {
+      "role": "sparse_reference",
+      "relative_path": "data/part2_sparse/Dl3dv-2/reference.npz",
+      "bytes": 5244,
+      "sha256": "28562ee219190dd9b590149b277cfc6140c3b2f44c150430c74f74fd3847e325"
+    },
+    {
+      "role": "sparse_reference",
+      "relative_path": "data/part2_sparse/Re10k-1/reference.npz",
+      "bytes": 4683,
+      "sha256": "144b18f97b0e25308634ef36d0795991d9437496f514d0cff976df42aa05d15b"
+    },
+    {
+      "role": "sparse_reference",
+      "relative_path": "data/part2_sparse/Waymo-405841/reference.npz",
+      "bytes": 4954,
+      "sha256": "aa99fdcbad42990a6b78f3810570ff44372d06ae165526ec6184155868d1b6aa"
+    }
+  ]
+}

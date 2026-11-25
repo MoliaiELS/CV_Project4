@@ -1,0 +1,16 @@
+{
+  "steps": 7000,
+  "seed": 42,
+  "save_steps": [
+    7000
+  ],
+  "sh_degree": 3,
+  "sh_degree_interval": 1000,
+  "ssim_lambda": 0.2,
+  "refine_start": 500,
+  "refine_stop": 6000,
+  "refine_every": 100,
+  "reset_every": 3000,
+  "max_gaussians": 3000000,
+  "log_every": 50
+}

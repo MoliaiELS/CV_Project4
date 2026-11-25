@@ -1,0 +1,133 @@
+{
+  "archive_sha256": "d38e5431f7e3a0cccb00bc12bdbffa66ccd9c9c6edddd35ede10783a06bcf54c",
+  "completed_formal_runs": 9,
+  "evaluation_steps": [
+    500,
+    1000,
+    2000,
+    4000,
+    7000
+  ],
+  "environment": {
+    "git_commit": "bde9244f692cc497355a307826ce1ca25f39cd99",
+    "torch": "2.6.0+cu124",
+    "cuda": "12.4",
+    "gsplat": "1.5.3",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "pose_optimization": false,
+    "appearance_optimization": false
+  },
+  "training": {
+    "steps": 7000,
+    "seed": 42,
+    "save_steps": [
+      500,
+      1000,
+      2000,
+      4000,
+      7000
+    ],
+    "sh_degree": 3,
+    "sh_degree_interval": 1000,
+    "ssim_lambda": 0.2,
+    "refine_start": 500,
+    "refine_stop": 6000,
+    "refine_every": 100,
+    "reset_every": 3000,
+    "max_gaussians": 3000000,
+    "log_every": 50
+  },
+  "scenes": {
+    "Waymo-405841": {
+      "train_frames": 174,
+      "test_frames": 25,
+      "prepared_split_sha256": "5505c9eb86732a0607b84d2f0a40e5e15c59f1ef7f32286df40fec724ed23e3e",
+      "pose_reference": "reference",
+      "colmap": {
+        "camera_model": "PINHOLE",
+        "single_camera": true,
+        "cpu_threads": 8,
+        "exhaustive_block_size": 200,
+        "registered_frames": 174
+      },
+      "vggt_network_input_hw": [
+        518,
+        518
+      ],
+      "vggt-omega_network_input_hw": [
+        336,
+        512
+      ]
+    },
+    "Dl3dv-2": {
+      "train_frames": 267,
+      "test_frames": 39,
+      "prepared_split_sha256": "9a15e67cde2fbb79ee23675ebeb995c2d6b45e21d0f06ef2516e65a66b59d67c",
+      "pose_reference": "reference",
+      "colmap": {
+        "camera_model": "PINHOLE",
+        "single_camera": false,
+        "cpu_threads": 4,
+        "exhaustive_block_size": 50,
+        "registered_frames": 267
+      },
+      "vggt_network_input_hw": [
+        518,
+        518
+      ],
+      "vggt-omega_network_input_hw": [
+        416,
+        416
+      ]
+    },
+    "Re10k-1": {
+      "train_frames": 244,
+      "test_frames": 35,
+      "prepared_split_sha256": "ae78d5d5f785913ebbee3cfefe8155622867c82d27b3d23f978645270a0944a8",
+      "pose_reference": "reference",
+      "colmap": {
+        "camera_model": "PINHOLE",
+        "single_camera": true,
+        "cpu_threads": 8,
+        "exhaustive_block_size": 50,
+        "registered_frames": 244
+      },
+      "vggt_network_input_hw": [
+        518,
+        518
+      ],
+      "vggt-omega_network_input_hw": [
+        416,
+        416
+      ]
+    }
+  },
+  "initializers": {
+    "vggt": {
+      "source_commit": "a288dd0f14786c93483e45524328726ab7b1b4ce",
+      "model_resolution": 518,
+      "weights_sha256": "d15bf50a8615c8225ed48b51ea5cac673d82442ec0309036df555a053253afe0"
+    },
+    "vggt-omega": {
+      "source_commit": "48b23c8ce72c9a8fcf987f0d7f43d8e4870759f6",
+      "model_resolution": 416,
+      "weights_sha256": "e900833330eb0e570e10543e6108d0dd704fa7c8dbc32738a645987875298896"
+    }
+  },
+  "timing": {
+    "initialization_seconds": "Successful initialization from RGB to exported scene. Includes mapping and bundle adjustment for COLMAP. Includes loading, preprocessing, inference, and export for the neural initializers.",
+    "training_seconds": "Training loop time reported by the final training log.",
+    "all_render_seconds": "Sum of measured rendering stages over the five evaluation checkpoints.",
+    "all_evaluation_seconds": "Sum of measured metric evaluation stages over the five evaluation checkpoints.",
+    "end_to_end_seconds": "Wall time of the successful formal runner attempt including initialization, training, rendering, evaluation, and orchestration."
+  },
+  "earlier_attempts": {
+    "Waymo-405841": {
+      "first_colmap_registered_frames": 107,
+      "subsequent_cpu_matching_crashes": 2
+    },
+    "Re10k-1": {
+      "first_colmap_registered_frames": 66
+    }
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "full": {
+    "versus_fixed": {
+      "scene": "Dl3dv-2",
+      "split_hash": "9a15e67cde2fbb79ee23675ebeb995c2d6b45e21d0f06ef2516e65a66b59d67c",
+      "test_frames": 39,
+      "baseline": {
+        "mean_frame_psnr_db": 18.252792850099233,
+        "geometric_mean_frame_mse": 0.014952737699253099,
+        "pooled_rgb_mse": 0.015359771075377658,
+        "ssim": 0.5132330319509812,
+        "lpips": 0.2024774390917558
+      },
+      "candidate": {
+        "mean_frame_psnr_db": 18.69011524166095,
+        "geometric_mean_frame_mse": 0.013520366859204193,
+        "pooled_rgb_mse": 0.014654471327518879,
+        "ssim": 0.5574069845982952,
+        "lpips": 0.2863202538245764
+      },
+      "psnr_improvement_db": 0.43732239156171815,
+      "improved_frames": 32,
+      "geometric_mse_reduction_percent": 9.579321652385131,
+      "pooled_mse_reduction_percent": 4.591863670347296,
+      "target_reduction_percent": 30.0,
+      "mean_psnr_target_db": 19.801812449956664,
+      "geometric_mse_target_met": false,
+      "pooled_mse_target_met": false,
+      "baseline_metrics_sha256": "0541041e2686b8313a1cee294d5ddd54a8e706387fc499667f005cfc9acdd72b",
+      "candidate_metrics_sha256": "b25398b0053dc88a83a3a660703b60f25f3ed6d76d7b9ae057b0b3eb0739deb1"
+    },
+    "versus_joint": {
+      "scene": "Dl3dv-2",
+      "split_hash": "9a15e67cde2fbb79ee23675ebeb995c2d6b45e21d0f06ef2516e65a66b59d67c",
+      "test_frames": 39,
+      "baseline": {
+        "mean_frame_psnr_db": 19.905378251422785,
+        "geometric_mean_frame_mse": 0.010220265426996986,
+        "pooled_rgb_mse": 0.011182860632166534,
+        "ssim": 0.638285275008336,
+        "lpips": 0.2769223478360054
+      },
+      "candidate": {
+        "mean_frame_psnr_db": 18.69011524166095,
+        "geometric_mean_frame_mse": 0.013520366859204193,
+        "pooled_rgb_mse": 0.014654471327518879,
+        "ssim": 0.5574069845982952,
+        "lpips": 0.2863202538245764
+      },
+      "psnr_improvement_db": -1.2152630097618342,
+      "improved_frames": 0,
+      "geometric_mse_reduction_percent": -32.28978205879016,
+      "pooled_mse_reduction_percent": -31.044030767642372,
+      "target_reduction_percent": 30.0,
+      "mean_psnr_target_db": 21.454397851280216,
+      "geometric_mse_target_met": false,
+      "pooled_mse_target_met": false,
+      "baseline_metrics_sha256": "e65c793b69dece190304a78d9e889d382ea7070fcdcb793ac2c0b44232768477",
+      "candidate_metrics_sha256": "b25398b0053dc88a83a3a660703b60f25f3ed6d76d7b9ae057b0b3eb0739deb1"
+    },
+    "camera_alignment_change": {
+      "test_frames": 39,
+      "rotation_deg": 0.28210452953788484,
+      "center_delta_median_normalized": 0.0021840503292460184,
+      "center_delta_max_normalized": 0.004234199004891737,
+      "identical_reference_intrinsics": true,
+      "scale_before": 0.09608133091137899,
+      "scale_after": 0.09582741620631996
+    }
+  },
+  "sparse": {
+    "versus_fixed": {
+      "scene": "Dl3dv-2",
+      "split_hash": "8e4064e6fafc649deb06cb372038871c9f0d3be7140febb849b665161a35f309",
+      "test_frames": 39,
+      "baseline": {
+        "mean_frame_psnr_db": 15.554309721523964,
+        "geometric_mean_frame_mse": 0.027833577325135,
+        "pooled_rgb_mse": 0.030541717913678542,
+        "ssim": 0.45617317492506376,
+        "lpips": 0.25964845105623585
+      },
+      "candidate": {
+        "mean_frame_psnr_db": 15.509863885960648,
+        "geometric_mean_frame_mse": 0.028119889607331,
+        "pooled_rgb_mse": 0.030768214545521966,
+        "ssim": 0.466646366904485,
+        "lpips": 0.25610069586680484
+      },
+      "psnr_improvement_db": -0.04444583556331594,
+      "improved_frames": 17,
+      "geometric_mse_reduction_percent": -1.0286578647490163,
+      "pooled_mse_reduction_percent": -0.7415975502215844,
+      "target_reduction_percent": 30.0,
+      "mean_psnr_target_db": 17.103329321381395,
+      "geometric_mse_target_met": false,
+      "pooled_mse_target_met": false,
+      "baseline_metrics_sha256": "f43b7a7d1b88ac747ca46996cd597c68513bc4f6361eb578d13223797626e44a",
+      "candidate_metrics_sha256": "862c61c3321cbddfdc3227fd8e9ba3e6e982aebaa8b18f076c47915eaffe0b74"
+    },
+    "versus_joint": {
+      "scene": "Dl3dv-2",
+      "split_hash": "8e4064e6fafc649deb06cb372038871c9f0d3be7140febb849b665161a35f309",
+      "test_frames": 39,
+      "baseline": {
+        "mean_frame_psnr_db": 15.593668010452216,
+        "geometric_mean_frame_mse": 0.02758247282389392,
+        "pooled_rgb_mse": 0.03027619841937732,
+        "ssim": 0.4716159449547305,
+        "lpips": 0.25493052487189954
+      },
+      "candidate": {
+        "mean_frame_psnr_db": 15.509863885960648,
+        "geometric_mean_frame_mse": 0.028119889607331,
+        "pooled_rgb_mse": 0.030768214545521966,
+        "ssim": 0.466646366904485,
+        "lpips": 0.25610069586680484
+      },
+      "psnr_improvement_db": -0.08380412449156793,
+      "improved_frames": 4,
+      "geometric_mse_reduction_percent": -1.9483995755867456,
+      "pooled_mse_reduction_percent": -1.6250921576394184,
+      "target_reduction_percent": 30.0,
+      "mean_psnr_target_db": 17.142687610309647,
+      "geometric_mse_target_met": false,
+      "pooled_mse_target_met": false,
+      "baseline_metrics_sha256": "4743c53eac59adb65a1b85eca9e85d4340cc1d306af7b7fe6de2ab313984df4f",
+      "candidate_metrics_sha256": "862c61c3321cbddfdc3227fd8e9ba3e6e982aebaa8b18f076c47915eaffe0b74"
+    },
+    "camera_alignment_change": {
+      "test_frames": 39,
+      "rotation_deg": 0.014751207019786956,
+      "center_delta_median_normalized": 0.00150343053409188,
+      "center_delta_max_normalized": 0.0016273854323588836,
+      "identical_reference_intrinsics": true,
+      "scale_before": 0.09041103061909811,
+      "scale_after": 0.09032608178870832
+    }
+  }
+}

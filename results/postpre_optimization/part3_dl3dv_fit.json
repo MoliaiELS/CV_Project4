@@ -1,0 +1,160 @@
+{
+  "protocol_sha256": "56fd8f34458a90713708834c6adaa2d3012c2bb583a619f9b2eb9d27c19a2c25",
+  "initial_updates": 30000,
+  "targets": {
+    "1": [
+      "interval_000_80",
+      "interval_002_80",
+      "interval_003_80",
+      "interval_004_80",
+      "interval_005_20",
+      "interval_006_20",
+      "interval_008_20",
+      "interval_009_20"
+    ],
+    "2": [
+      "interval_000_67",
+      "interval_002_67",
+      "interval_003_67",
+      "interval_004_67",
+      "interval_005_33",
+      "interval_006_33",
+      "interval_008_50",
+      "interval_009_33"
+    ]
+  },
+  "stages": {
+    "real_only": {
+      "1": {
+        "checkpoint_sha256": "cb961101ece2924e2234d75d40b9796019dae2d4196cc204ac8d7a7c6953b0c6",
+        "parent_checkpoint_sha256": "f810b3aff668342cbeca3197e7cf6713cc74325075418bbb95462b9d671e7cf9",
+        "observations_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "round_updates": 5000,
+        "cumulative_updates": 35000,
+        "real_sampler_sha256": "d7e69b25387718ca6253957cbab302ef66a833a3ca5dcc5d47cbbdba92c5c85c",
+        "real_views": 11,
+        "training_seconds": 251.32862297678366,
+        "peak_cuda_gib": 0.9295034408569336,
+        "gaussians": 518725,
+        "generation": null,
+        "matched_supervision_sha256": null,
+        "targets": []
+      },
+      "2": {
+        "checkpoint_sha256": "6517efd0fd8aa683e9da20f921be9837f6b6f5afe8d9bbddb81217b5b1a3c2f7",
+        "parent_checkpoint_sha256": "cb961101ece2924e2234d75d40b9796019dae2d4196cc204ac8d7a7c6953b0c6",
+        "observations_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "round_updates": 5000,
+        "cumulative_updates": 40000,
+        "real_sampler_sha256": "9c78820ac1c73ee832cc4d427a822dc412a338f03872335a0efb962ef9cbc714",
+        "real_views": 11,
+        "training_seconds": 197.83735625306144,
+        "peak_cuda_gib": 1.272404670715332,
+        "gaussians": 518725,
+        "generation": null,
+        "matched_supervision_sha256": null,
+        "targets": []
+      }
+    },
+    "warp_naive": {
+      "1": {
+        "checkpoint_sha256": "789c617ba44c2d94d7c6e9d49d192c0b57f4fe289e450e5224254386ab2ae3f5",
+        "parent_checkpoint_sha256": "f810b3aff668342cbeca3197e7cf6713cc74325075418bbb95462b9d671e7cf9",
+        "observations_sha256": "52c4b34a1dc2e5feb4f0ac68eac7a8039641f113a8ef026dcbc51da7314100cc",
+        "round_updates": 5000,
+        "cumulative_updates": 35000,
+        "real_sampler_sha256": "d7e69b25387718ca6253957cbab302ef66a833a3ca5dcc5d47cbbdba92c5c85c",
+        "real_views": 11,
+        "training_seconds": 193.99166558217257,
+        "peak_cuda_gib": 1.7311387062072754,
+        "gaussians": 518725,
+        "generation": "generation/shared/round1",
+        "matched_supervision_sha256": "6c397b57c01d88217b7af9e4ef262bedfe7f7703234a9fcbddeda9bab634cc70",
+        "targets": [
+          "interval_000_80",
+          "interval_002_80",
+          "interval_003_80",
+          "interval_004_80",
+          "interval_005_20",
+          "interval_006_20",
+          "interval_008_20",
+          "interval_009_20"
+        ]
+      },
+      "2": {
+        "checkpoint_sha256": "eb4a84554f5af0d7a624a83cbf3f2bcb1319f0250bbd581683aad3424eb88e20",
+        "parent_checkpoint_sha256": "789c617ba44c2d94d7c6e9d49d192c0b57f4fe289e450e5224254386ab2ae3f5",
+        "observations_sha256": "681fd246b50d1f29b5d32efc8a0189669eebbda92e57f0ab07557471c88e757a",
+        "round_updates": 5000,
+        "cumulative_updates": 40000,
+        "real_sampler_sha256": "9c78820ac1c73ee832cc4d427a822dc412a338f03872335a0efb962ef9cbc714",
+        "real_views": 11,
+        "training_seconds": 192.9683201862499,
+        "peak_cuda_gib": 1.1567001342773438,
+        "gaussians": 518725,
+        "generation": "generation/warp_naive/round2",
+        "matched_supervision_sha256": "eb5e7b51539fd77c4dfdca8353eebea647d5fdfa3381b6baeb014210f57a1ca1",
+        "targets": [
+          "interval_000_67",
+          "interval_002_67",
+          "interval_003_67",
+          "interval_004_67",
+          "interval_005_33",
+          "interval_006_33",
+          "interval_008_50",
+          "interval_009_33"
+        ]
+      }
+    },
+    "warp_gated": {
+      "1": {
+        "checkpoint_sha256": "fe71ddcc5f90719b190d0070af2909d0a30c0885502d6c3627a1244f82092a9c",
+        "parent_checkpoint_sha256": "f810b3aff668342cbeca3197e7cf6713cc74325075418bbb95462b9d671e7cf9",
+        "observations_sha256": "52c4b34a1dc2e5feb4f0ac68eac7a8039641f113a8ef026dcbc51da7314100cc",
+        "round_updates": 5000,
+        "cumulative_updates": 35000,
+        "real_sampler_sha256": "d7e69b25387718ca6253957cbab302ef66a833a3ca5dcc5d47cbbdba92c5c85c",
+        "real_views": 11,
+        "training_seconds": 198.4267949881032,
+        "peak_cuda_gib": 1.382683277130127,
+        "gaussians": 518725,
+        "generation": "generation/shared/round1",
+        "matched_supervision_sha256": "6c397b57c01d88217b7af9e4ef262bedfe7f7703234a9fcbddeda9bab634cc70",
+        "targets": [
+          "interval_000_80",
+          "interval_002_80",
+          "interval_003_80",
+          "interval_004_80",
+          "interval_005_20",
+          "interval_006_20",
+          "interval_008_20",
+          "interval_009_20"
+        ]
+      },
+      "2": {
+        "checkpoint_sha256": "801226995d935f7f25ef4a28f08416c53558a44627a7cde2c726bcfd8eb1d15e",
+        "parent_checkpoint_sha256": "fe71ddcc5f90719b190d0070af2909d0a30c0885502d6c3627a1244f82092a9c",
+        "observations_sha256": "848d9aaa27a9eba5e94cec36b2c3b518491049ab8f5cc300291ff3f0e689f859",
+        "round_updates": 5000,
+        "cumulative_updates": 40000,
+        "real_sampler_sha256": "9c78820ac1c73ee832cc4d427a822dc412a338f03872335a0efb962ef9cbc714",
+        "real_views": 11,
+        "training_seconds": 196.16205937089399,
+        "peak_cuda_gib": 1.1558189392089844,
+        "gaussians": 518725,
+        "generation": "generation/warp_gated/round2",
+        "matched_supervision_sha256": "4675245e3986b8bf2ef6441ee4cf07053a7bd7cc27224b76aa21c66ec1cb23b4",
+        "targets": [
+          "interval_000_67",
+          "interval_002_67",
+          "interval_003_67",
+          "interval_004_67",
+          "interval_005_33",
+          "interval_006_33",
+          "interval_008_50",
+          "interval_009_33"
+        ]
+      }
+    }
+  }
+}

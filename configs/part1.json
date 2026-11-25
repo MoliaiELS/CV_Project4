@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "scenes": ["Waymo-405841", "Dl3dv-2", "Re10k-1"],
+  "methods": ["colmap", "vggt", "vggt-omega"],
+  "dataset_root": "data/prepared",
+  "output_root": "runs/part1",
+  "initialization": {
+    "max_points": 100000,
+    "confidence_quantile": 0.5,
+    "matcher": "exhaustive",
+    "vggt_repo": "third_party/vggt",
+    "vggt_weights": "weights/vggt/model.pt",
+    "vggt_omega_repo": "third_party/vggt-omega",
+    "vggt_omega_weights": "weights/vggt-omega/vggt_omega_1b_416_reproduce.pt"
+  },
+  "training": {
+    "steps": 7000,
+    "seed": 42,
+    "save_steps": [500, 1000, 2000, 4000, 7000],
+    "sh_degree": 3,
+    "sh_degree_interval": 1000,
+    "ssim_lambda": 0.2,
+    "refine_start": 500,
+    "refine_stop": 6000,
+    "refine_every": 100,
+    "reset_every": 3000,
+    "max_gaussians": 3000000,
+    "log_every": 50
+  }
+}

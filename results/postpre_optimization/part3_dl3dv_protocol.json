@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "scene": "Dl3dv-2",
+  "split_hash": "8e4064e6fafc649deb06cb372038871c9f0d3be7140febb849b665161a35f309",
+  "initial": {
+    "manifest_sha256": "29c4b7671053d0a173707e63b49ec909e3c77055bbcae43d480ae2942928eba6",
+    "scene_sha256": "ccb5bd6e7fcf3c34704b0bf5d61615df17bc5878c2dce12c5e8a32ae97b1254e",
+    "package_source_sha256": "0e2a75ba924cc167b47f4c89fbec95550b6b8a7250d0edfa91fc66b3358b8140",
+    "scene": "Dl3dv-2",
+    "condition": "local_sparse",
+    "step": 30000,
+    "training_checkpoint_sha256": "f810b3aff668342cbeca3197e7cf6713cc74325075418bbb95462b9d671e7cf9",
+    "reference_sha256": "28562ee219190dd9b590149b277cfc6140c3b2f44c150430c74f74fd3847e325"
+  },
+  "m0_receipt_sha256": "414e3eaeb151a4569550e3098ddbdc969e362959800683291e23de39c3f80f9b",
+  "m0_normalization": {
+    "origin": [
+      0.3665516972541809,
+      0.04682966321706772,
+      0.27823910117149353
+    ],
+    "radius": 0.5583422183990479
+  },
+  "arms": {
+    "real_only": "real_only",
+    "warp_naive": "ungated",
+    "warp_gated": "gated"
+  },
+  "rounds": [
+    1,
+    2
+  ],
+  "fusion": {
+    "steps": 5000,
+    "seed": 42,
+    "synthetic_weight": 0.4,
+    "lr_scale": 1.0,
+    "log_every": 100,
+    "checkpoint_every": 500
+  },
+  "views": 8,
+  "precision": "float16",
+  "max_edge": 768,
+  "difix_model": "nvidia/difix_ref",
+  "difix_revision": "f88399d769a3648f04c5b74f41661bfa25361607",
+  "adapter_sha256": "38b8be66cb35ed6a076f0bd8f4cab7f63599d5ec76564da98a60fde88835a140",
+  "backend_sha256": "52664ce781042da350e501b8276e5dd2c6d0ba70fbdaa412db1702ecfc6dc333",
+  "warp_depth_sha256": null
+}

@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aiaa3201-project4"
+version = "0.1.0"
+description = "COLMAP / VGGT / VGGT-Omega with a shared gsplat reconstruction protocol"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.26", "Pillow>=10", "PyYAML>=6", "scipy>=1.11", "scikit-image>=0.22"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "matplotlib>=3.8"]
+metrics = ["lpips==0.1.4"]
+
+[tool.setuptools.packages.find]
+include = ["p4*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

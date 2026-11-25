@@ -1,0 +1,363 @@
+{
+  "verified": true,
+  "formal_stages": 38,
+  "heldout_frame_evaluations": 1294,
+  "diffix_observations": 72,
+  "run_comparison_sha256": "ba0ff6180ac72be4603a76f84c63348d9629d4c5d8e6a204a9a658705ad31853",
+  "scenes": {
+    "Bonsai": {
+      "train_frames": 12,
+      "test_frames": 37,
+      "stages": 9,
+      "implementation_sha256": "5bc036614e16428c8917d837aec2bd7772e87c25beaaa01497a1c5ad20987c23",
+      "branches": {
+        "gated": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "2fbbf2c2de008424bccd5187342d78023634778f3c745401257a823242465cbb",
+            "result_checkpoint_sha256": "22be8cf4e551020fa2b89198e2e54f249457b50f09fa5f0354e3f5f1064b780a",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "22be8cf4e551020fa2b89198e2e54f249457b50f09fa5f0354e3f5f1064b780a",
+            "result_checkpoint_sha256": "6ee55705f0d9c44675bc2f2cc2850a7d73516ab997da0bfb9a539dfd1ea684ef",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          }
+        },
+        "raw_replay": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "2fbbf2c2de008424bccd5187342d78023634778f3c745401257a823242465cbb",
+            "result_checkpoint_sha256": "e783f56399c6c985177bf8fa4f7ef94447ead5db4c0e0494c330849e3df86162",
+            "virtual_views": 4,
+            "difix_invocations": 0
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "e783f56399c6c985177bf8fa4f7ef94447ead5db4c0e0494c330849e3df86162",
+            "result_checkpoint_sha256": "5159d247db0d303fe2adf941cbc4ba4125a72164d6a2d0b799e740bab3fae2a3",
+            "virtual_views": 4,
+            "difix_invocations": 0
+          }
+        },
+        "real_only": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "2fbbf2c2de008424bccd5187342d78023634778f3c745401257a823242465cbb",
+            "result_checkpoint_sha256": "0f62d01d82e6b2e8e46ce37041a1d7d1bad77e779921dde9767cfc6e45c0bed7",
+            "virtual_views": 0,
+            "difix_invocations": 0
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "0f62d01d82e6b2e8e46ce37041a1d7d1bad77e779921dde9767cfc6e45c0bed7",
+            "result_checkpoint_sha256": "be581b95a4d5533c3ad9d410b87aab65da777daf85db01361e53bbbde1ab50d5",
+            "virtual_views": 0,
+            "difix_invocations": 0
+          }
+        },
+        "ungated": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "2fbbf2c2de008424bccd5187342d78023634778f3c745401257a823242465cbb",
+            "result_checkpoint_sha256": "49479cdd5d715c9f00d4769fa69cf3ced0bb910fd12beb7aa2d84894563db3ab",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "49479cdd5d715c9f00d4769fa69cf3ced0bb910fd12beb7aa2d84894563db3ab",
+            "result_checkpoint_sha256": "220b87f439a70bee22e58d84c60f321f5d787234bcccb00ebaf2af8c9e84e7a6",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          }
+        }
+      }
+    },
+    "Dl3dv-2": {
+      "train_frames": 11,
+      "test_frames": 39,
+      "stages": 9,
+      "implementation_sha256": "5bc036614e16428c8917d837aec2bd7772e87c25beaaa01497a1c5ad20987c23",
+      "branches": {
+        "gated": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "dff20b805c714bb0cc63334bfbdaa93f52018597d2db6e2f46ed3dac1ffa7eb3",
+            "result_checkpoint_sha256": "6e180aeac0ba867f3e56454b62d82dfe90140fb11c2181c9b03a2dff638b36cf",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "6e180aeac0ba867f3e56454b62d82dfe90140fb11c2181c9b03a2dff638b36cf",
+            "result_checkpoint_sha256": "062d5ced4fb969f24e3c7e7f03cd2a7872bafaab986554024974de6ed58c7af8",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          }
+        },
+        "raw_replay": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "dff20b805c714bb0cc63334bfbdaa93f52018597d2db6e2f46ed3dac1ffa7eb3",
+            "result_checkpoint_sha256": "94bd482ee76cf6f33107f747027527b3a9dc6ef1a7d8deaaa91f9758dd3e569b",
+            "virtual_views": 4,
+            "difix_invocations": 0
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "94bd482ee76cf6f33107f747027527b3a9dc6ef1a7d8deaaa91f9758dd3e569b",
+            "result_checkpoint_sha256": "d9e759d6ecbad290b4ed7671d378194fa134be63842ceabd279ab1d1735ff3bc",
+            "virtual_views": 4,
+            "difix_invocations": 0
+          }
+        },
+        "real_only": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "dff20b805c714bb0cc63334bfbdaa93f52018597d2db6e2f46ed3dac1ffa7eb3",
+            "result_checkpoint_sha256": "345976330feb20226890305e7171dd47f1f6050c0b056f23ca534deabc8bba42",
+            "virtual_views": 0,
+            "difix_invocations": 0
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "345976330feb20226890305e7171dd47f1f6050c0b056f23ca534deabc8bba42",
+            "result_checkpoint_sha256": "1f0c25de7894ff03e5b6f2c3dfdbbeabcbb221c18462634affc481b672370690",
+            "virtual_views": 0,
+            "difix_invocations": 0
+          }
+        },
+        "ungated": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "dff20b805c714bb0cc63334bfbdaa93f52018597d2db6e2f46ed3dac1ffa7eb3",
+            "result_checkpoint_sha256": "52d16827e98b89ec0fbffdb6392f96fb5bdc1f9964b0ff85555adc5156525cf1",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "52d16827e98b89ec0fbffdb6392f96fb5bdc1f9964b0ff85555adc5156525cf1",
+            "result_checkpoint_sha256": "66ae97fe0f3f19ed20deaf8ee3d8491634ecdbe18c8e2eb81edf0d6eb9da1277",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          }
+        }
+      },
+      "archived_m0_absolute_differences": {
+        "psnr": 1.225409278049483e-06,
+        "ssim": 1.1850309844518847e-07,
+        "lpips": 5.448475862146474e-07
+      }
+    },
+    "Re10k-1": {
+      "train_frames": 10,
+      "test_frames": 35,
+      "stages": 11,
+      "implementation_sha256": "5bc036614e16428c8917d837aec2bd7772e87c25beaaa01497a1c5ad20987c23",
+      "branches": {
+        "fixed_gated": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "281427b1936ecf598501b54d75b7ad39a99cac247abfb1335c885c7a252b6b49",
+            "result_checkpoint_sha256": "0f0e615ee156fbb940e88052f632acccf4f21c8fba0eca59915f32776420d677",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "0f0e615ee156fbb940e88052f632acccf4f21c8fba0eca59915f32776420d677",
+            "result_checkpoint_sha256": "d4acfcb934f6a1e37425142c8d3aca09034c391d3fe9f5bad1e7fa8a023036c1",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          }
+        },
+        "gated": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "281427b1936ecf598501b54d75b7ad39a99cac247abfb1335c885c7a252b6b49",
+            "result_checkpoint_sha256": "ee93cc3f9a513efdc17200897c64851c14026f8c3d22cfc46563aca0fddfa364",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "ee93cc3f9a513efdc17200897c64851c14026f8c3d22cfc46563aca0fddfa364",
+            "result_checkpoint_sha256": "352ada7d2bb0c4f56b707180e5004671c29b02d0b1b7b56016b86feafe32d4f1",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          }
+        },
+        "raw_replay": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "281427b1936ecf598501b54d75b7ad39a99cac247abfb1335c885c7a252b6b49",
+            "result_checkpoint_sha256": "8acb6bf6705d8c95fad1111b9b4dd4f9cd48ffcc836621fdd032f0fb17b6e01b",
+            "virtual_views": 4,
+            "difix_invocations": 0
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "8acb6bf6705d8c95fad1111b9b4dd4f9cd48ffcc836621fdd032f0fb17b6e01b",
+            "result_checkpoint_sha256": "4a3ade88bdfd2a69dc72a38c935bca32781c7720e7f71ed372f1835617b50122",
+            "virtual_views": 4,
+            "difix_invocations": 0
+          }
+        },
+        "real_only": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "281427b1936ecf598501b54d75b7ad39a99cac247abfb1335c885c7a252b6b49",
+            "result_checkpoint_sha256": "3060fc9cb45e567fb0806a7a87d1c6ad2acb4ab040d5139432d48ba94ed55a71",
+            "virtual_views": 0,
+            "difix_invocations": 0
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "3060fc9cb45e567fb0806a7a87d1c6ad2acb4ab040d5139432d48ba94ed55a71",
+            "result_checkpoint_sha256": "9f99e957e07b9ce2f46f91364a8a30e074b66d3b5e71633b124002fa09fd8b47",
+            "virtual_views": 0,
+            "difix_invocations": 0
+          }
+        },
+        "ungated": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "281427b1936ecf598501b54d75b7ad39a99cac247abfb1335c885c7a252b6b49",
+            "result_checkpoint_sha256": "b8dea8778df13c9a336d202e240ce140c78a5069e0169332dc5f450bcb74b0a8",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "b8dea8778df13c9a336d202e240ce140c78a5069e0169332dc5f450bcb74b0a8",
+            "result_checkpoint_sha256": "c4e16fcc3e19dbea227ce504b5d2899c1e558803a111fae8665bd804d2e46ca8",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          }
+        }
+      },
+      "archived_m0_absolute_differences": {
+        "psnr": 1.4411848603401722e-07,
+        "ssim": 4.969537520382872e-08,
+        "lpips": 1.1665480477707213e-06
+      }
+    },
+    "Waymo-405841": {
+      "train_frames": 20,
+      "test_frames": 25,
+      "stages": 9,
+      "implementation_sha256": "5bc036614e16428c8917d837aec2bd7772e87c25beaaa01497a1c5ad20987c23",
+      "branches": {
+        "gated": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "58d4e317001ad6807e54a47af74eee1c64b7eeb3519bf9aee620eeacdf43f4dd",
+            "result_checkpoint_sha256": "221162839217319905f40ff16361a2ec7a664eb67d5896f58baf9e24685cf197",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "221162839217319905f40ff16361a2ec7a664eb67d5896f58baf9e24685cf197",
+            "result_checkpoint_sha256": "ed2f78ea808a6f6f6eb4270ee3f8c4fa7f6f4d86a1d2d49590537c08f99c5cbe",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          }
+        },
+        "raw_replay": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "58d4e317001ad6807e54a47af74eee1c64b7eeb3519bf9aee620eeacdf43f4dd",
+            "result_checkpoint_sha256": "2a8017d942c9f0689220458a6a859ed9045a30a228ad77f2b044db39e281a42c",
+            "virtual_views": 4,
+            "difix_invocations": 0
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "2a8017d942c9f0689220458a6a859ed9045a30a228ad77f2b044db39e281a42c",
+            "result_checkpoint_sha256": "74d7488034341d40f287919fd1eeb9a05d4743d72a012d7df6579734f12b569e",
+            "virtual_views": 4,
+            "difix_invocations": 0
+          }
+        },
+        "real_only": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "58d4e317001ad6807e54a47af74eee1c64b7eeb3519bf9aee620eeacdf43f4dd",
+            "result_checkpoint_sha256": "f8fae6487e7560d47ab908ebd4a74626ae9775abc7df8ca5dc4957a90a399096",
+            "virtual_views": 0,
+            "difix_invocations": 0
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "f8fae6487e7560d47ab908ebd4a74626ae9775abc7df8ca5dc4957a90a399096",
+            "result_checkpoint_sha256": "d6f7ccba6aaa012a0819c4e9e3912b19b367986be94cedbc0d4524a6d7eb2ab9",
+            "virtual_views": 0,
+            "difix_invocations": 0
+          }
+        },
+        "ungated": {
+          "1": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "58d4e317001ad6807e54a47af74eee1c64b7eeb3519bf9aee620eeacdf43f4dd",
+            "result_checkpoint_sha256": "6da31c45207c73cf460ed736519c178820dbc343964c083659acde58ba3dea46",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          },
+          "2": {
+            "round_updates": 3000,
+            "sampled_schedule_records_compared": 30,
+            "parent_checkpoint_sha256": "6da31c45207c73cf460ed736519c178820dbc343964c083659acde58ba3dea46",
+            "result_checkpoint_sha256": "618f4418d97b7bad1ba73dbae189d66b1dc8e816bf8cac6ec1f3bae43146ae59",
+            "virtual_views": 4,
+            "difix_invocations": 4
+          }
+        }
+      },
+      "archived_m0_absolute_differences": {
+        "psnr": 1.820234828642242e-06,
+        "ssim": 3.123835690121979e-08,
+        "lpips": 4.3392181398038687e-07
+      }
+    }
+  },
+  "published_comparison_sha256": "c7c86d1f153c8a293d4e284b5c71ecaa54425050e09358c3d621fd40c2047834"
+}

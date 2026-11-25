@@ -1,0 +1,19 @@
+# Install torch/torchvision first using scripts/setup_server.sh.
+# The two official models' requirements differ; these satisfy Omega's minimums
+# and retain VGGT's NumPy 1.x API. Verify both in the server pilot.
+numpy==1.26.4
+Pillow==11.1.0
+scipy==1.15.2
+scikit-image==0.25.2
+PyYAML==6.0.2
+einops==0.8.1
+opencv-python-headless==4.11.0.86
+huggingface-hub==0.29.3
+safetensors==0.5.3
+lpips==0.1.4
+matplotlib==3.10.1
+pytest==8.3.5
+ninja==1.11.1.3
+jaxtyping==0.2.38
+rich==13.9.4
+gdown==5.2.0

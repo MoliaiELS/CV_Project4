@@ -1,0 +1,29 @@
+{
+  "protocol": "same 30000-step schedule, fixed VGGT cameras and seeds",
+  "stages": {
+    "7000": {
+      "psnr": 16.41352440802896,
+      "ssim": 0.47575919833236696,
+      "lpips": 0.22604444126288095,
+      "test_frames": 39,
+      "split_hash": "8e4064e6fafc649deb06cb372038871c9f0d3be7140febb849b665161a35f309",
+      "checkpoint_sha256": "18f7eb4e4a473c29f55c68a51f5d2696db549387e28b7e55fdbc7b2200aa7875"
+    },
+    "15000": {
+      "psnr": 16.509216037894713,
+      "ssim": 0.4737292527075171,
+      "lpips": 0.2284381580658448,
+      "test_frames": 39,
+      "split_hash": "8e4064e6fafc649deb06cb372038871c9f0d3be7140febb849b665161a35f309",
+      "checkpoint_sha256": "d35c7e3b97c0b689e56a260037cacbb90ef887b8f388a2977050b8c2298f5e48"
+    },
+    "30000": {
+      "psnr": 16.586742365551483,
+      "ssim": 0.4714797973954441,
+      "lpips": 0.23064360328209707,
+      "test_frames": 39,
+      "split_hash": "8e4064e6fafc649deb06cb372038871c9f0d3be7140febb849b665161a35f309",
+      "checkpoint_sha256": "f810b3aff668342cbeca3197e7cf6713cc74325075418bbb95462b9d671e7cf9"
+    }
+  }
+}

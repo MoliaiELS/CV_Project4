@@ -1,0 +1,26 @@
+[
+  {
+    "scene": "Re10k-1",
+    "image": "images/00272.png.png",
+    "selection": "largest Full-minus-Sparse PSNR gap across all test frames",
+    "full_psnr": 10.591683520061936,
+    "sparse_psnr": 10.005287250135122,
+    "gap_db": 0.5863962699268139
+  },
+  {
+    "scene": "Waymo-405841",
+    "image": "images/000168.png.png",
+    "selection": "largest Full-minus-Sparse PSNR gap across all test frames",
+    "full_psnr": 17.691257240048813,
+    "sparse_psnr": 15.228346129652062,
+    "gap_db": 2.4629111103967514
+  },
+  {
+    "scene": "Dl3dv-2",
+    "image": "images/frame_00193.png.png",
+    "selection": "largest Full-minus-Sparse PSNR gap across all test frames",
+    "full_psnr": 20.1424120311328,
+    "sparse_psnr": 12.87686120768302,
+    "gap_db": 7.2655508234497805
+  }
+]

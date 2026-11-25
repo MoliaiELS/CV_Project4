@@ -1,0 +1,519 @@
+{
+  "dataset": "Mip-NeRF 360",
+  "scene": "Bonsai",
+  "official_project": "https://jonbarron.info/mipnerf360/",
+  "official_archive": "https://storage.googleapis.com/gresearch/refraw360/bonsai.zip",
+  "official_archive_generation": "1704838090071815",
+  "official_selection_sha256": "d06fccfd9048edd5a5a29d03e3e4b46cd1b4adb98da4fe43ee28a5ec37559022",
+  "input_mirror_repository": "alexmkwizu/gaussian_training_datasets",
+  "input_mirror_revision": "f63877dbf97e58cbf9f9ad15d0aae7548e502098",
+  "input_mirror_endpoint": "https://huggingface.co",
+  "input_mirror_scene": "mipnerf360/bonsai",
+  "source_level": "images_4",
+  "source_files": {
+    "images_4/DSCF5565.JPG": {
+      "bytes": 284986,
+      "sha256": "7e8e76ff58c0c60bbcba96c707311c3801cf1af2e629ec13f1c67b05bb886f2f"
+    },
+    "images_4/DSCF5566.JPG": {
+      "bytes": 282508,
+      "sha256": "6c239a1b2d6e16d80c29970ca15c9b7bced47ba2bd3625d73d02292d85b32a4b"
+    },
+    "images_4/DSCF5573.JPG": {
+      "bytes": 300359,
+      "sha256": "764c2662dafe9cc8409c774e4d7f1ee0732f6bfeb77412c487908eb32fb1f84a"
+    },
+    "images_4/DSCF5581.JPG": {
+      "bytes": 296160,
+      "sha256": "8e6df9685378567c386dde0dc0125a47d53a32fff59a7592a97f0416f4d03cfc"
+    },
+    "images_4/DSCF5589.JPG": {
+      "bytes": 280620,
+      "sha256": "fbe8c93fddb0a50ed47d9caeeeb3c509890490c409b413c002fa04eeb9955802"
+    },
+    "images_4/DSCF5592.JPG": {
+      "bytes": 296992,
+      "sha256": "8b25f6962a0538cc8228634cbdbbb9afb52e1eeb7f10d473fa8b624a6bcad0dd"
+    },
+    "images_4/DSCF5597.JPG": {
+      "bytes": 303180,
+      "sha256": "692e2e289530c3f4586b2daad3b3ddcc0ce38bf3739c74a8fc6ab94a8b00f592"
+    },
+    "images_4/DSCF5605.JPG": {
+      "bytes": 294013,
+      "sha256": "2184f31f5050dbd45fd7b67a6f4676ced6a8706e83558442ddad653915d42022"
+    },
+    "images_4/DSCF5613.JPG": {
+      "bytes": 288447,
+      "sha256": "49c55edec034be52db71c02d4af1942152ef4ca300f754598c37e7a50d12d56d"
+    },
+    "images_4/DSCF5618.JPG": {
+      "bytes": 296902,
+      "sha256": "a89162dc3e664e6ff7b97ff4da612a5398b4732c52569067c73c45b02ae42e96"
+    },
+    "images_4/DSCF5621.JPG": {
+      "bytes": 306166,
+      "sha256": "8c5fa014e18c05ec86e9e638035bf50ab9b2403448350beed3d455d274ad42cc"
+    },
+    "images_4/DSCF5629.JPG": {
+      "bytes": 291315,
+      "sha256": "335c5e102dd41968bca95061b88145d4bd8772ea207427c30dbda5d8f4addbbb"
+    },
+    "images_4/DSCF5637.JPG": {
+      "bytes": 288711,
+      "sha256": "24d6b250724297ddd6daea71b2f4bef85bc58f6b28c1296b1cebb44aaa2380f3"
+    },
+    "images_4/DSCF5644.JPG": {
+      "bytes": 302767,
+      "sha256": "d593c47f161388e06be133c2938e34e9e4dd7978529b62e9668bdbf7d6ac2ed4"
+    },
+    "images_4/DSCF5645.JPG": {
+      "bytes": 304867,
+      "sha256": "76fbe8230dc6016ba9454784612ded276eb62e638fc1b941c5c13950332b5d61"
+    },
+    "images_4/DSCF5653.JPG": {
+      "bytes": 291193,
+      "sha256": "3653224ddcd232295ba0b7df82d40e908b048442dadca41a4b192a1c31b30142"
+    },
+    "images_4/DSCF5661.JPG": {
+      "bytes": 274060,
+      "sha256": "d8a03f29146f2e0eba1c694097f29788922b4f34fcfdfb7318d510feeb8b1731"
+    },
+    "images_4/DSCF5669.JPG": {
+      "bytes": 322613,
+      "sha256": "b36abfa65304ad8a80b018e935f5c0ac9df31f653cc681ba730cd4984643d17b"
+    },
+    "images_4/DSCF5671.JPG": {
+      "bytes": 327402,
+      "sha256": "a00776750f3b8b9fced8b6c1c1679629e7fcb0927e86a6135be78bd0e6bd7807"
+    },
+    "images_4/DSCF5677.JPG": {
+      "bytes": 315046,
+      "sha256": "71e08359bd1494b6ae46a9e9030608ce8953d9b973fcfb60d2ca1fcfdfd5054d"
+    },
+    "images_4/DSCF5685.JPG": {
+      "bytes": 271488,
+      "sha256": "8b77513ceccf6810f87f8cd929594e54c7624c44d8e5825da8aff1833bfb9375"
+    },
+    "images_4/DSCF5693.JPG": {
+      "bytes": 300901,
+      "sha256": "2b937ab769435c3382a2f3c131d1f1dd473927ec409ce5eb08375616874427c4"
+    },
+    "images_4/DSCF5697.JPG": {
+      "bytes": 307812,
+      "sha256": "ddc242e19969b3e6322fd24f7e58f625edf1abbcbd15baf2ecb2339ee698aeab"
+    },
+    "images_4/DSCF5701.JPG": {
+      "bytes": 309492,
+      "sha256": "606dab10bd8668d550fde90b327d73636acccd9d8a03f577e73932d2a89984f8"
+    },
+    "images_4/DSCF5709.JPG": {
+      "bytes": 292146,
+      "sha256": "d7ba5db6a73cafdd50019bb74f21b3dafe11c7f3d00526b9c522a1bb47b44c04"
+    },
+    "images_4/DSCF5717.JPG": {
+      "bytes": 287402,
+      "sha256": "b92e7453c148935adfbb37a9af96258e6b8884ca03bcd549f769494fafa6af2a"
+    },
+    "images_4/DSCF5724.JPG": {
+      "bytes": 296612,
+      "sha256": "607725bdb0c2a603d0926d479c58ee62e4ceb47c254115308117197f23a77c30"
+    },
+    "images_4/DSCF5725.JPG": {
+      "bytes": 285476,
+      "sha256": "70392965385ec3059ad9372afde9128a5b10a042ab546c49d47aaca194b12c87"
+    },
+    "images_4/DSCF5733.JPG": {
+      "bytes": 287867,
+      "sha256": "9dc90d1af1ba4f9d6dde80c71a4297d31af0ae2a6d675327a0c4db18199ae87f"
+    },
+    "images_4/DSCF5741.JPG": {
+      "bytes": 273350,
+      "sha256": "1f26ab1559a8e62101c4a4770dfd06c5a8e32db6e1f1bbae92efde4138eed1ee"
+    },
+    "images_4/DSCF5749.JPG": {
+      "bytes": 301218,
+      "sha256": "9802752781431889b1fe601fd59a0688764cf2ab65d018a6e5f2804692cd2cb0"
+    },
+    "images_4/DSCF5751.JPG": {
+      "bytes": 291056,
+      "sha256": "254f204b86fb327db4d99994436844bb7e94bf0c6d540b7f222871bc6101ea3b"
+    },
+    "images_4/DSCF5757.JPG": {
+      "bytes": 258020,
+      "sha256": "0a0a79e737176b9bddb3d0d871067e4a6c123241c167c28a89bf98fff59c6816"
+    },
+    "images_4/DSCF5765.JPG": {
+      "bytes": 240471,
+      "sha256": "2a4bb436ce8bdf3e7a5a4a6c8022d1bc6a7cfb3508f96f7aff0d7d413346bf97"
+    },
+    "images_4/DSCF5773.JPG": {
+      "bytes": 261407,
+      "sha256": "adbc8ac443a31dcd144399054d9a2917fa231a708e9f0ce9d1c1c739d6792ce3"
+    },
+    "images_4/DSCF5777.JPG": {
+      "bytes": 261639,
+      "sha256": "eda70b732bb51458b8188beb33283d4bf1eba433edcd49a8df9f001fa626ab72"
+    },
+    "images_4/DSCF5781.JPG": {
+      "bytes": 260549,
+      "sha256": "5c166c693ebee0e1790b1bd8fac29cca80dba4f0d0de9a3f506ea80def67aae1"
+    },
+    "images_4/DSCF5789.JPG": {
+      "bytes": 244795,
+      "sha256": "24d96966d794263af9bf23c94b58439b91da2eae6caedec551f9c45088f574f5"
+    },
+    "images_4/DSCF5797.JPG": {
+      "bytes": 270879,
+      "sha256": "5b16b43b4fad626e2532c304cf1412bd11dcfa37ca3da45ef68e0581b1244d5a"
+    },
+    "images_4/DSCF5803.JPG": {
+      "bytes": 273137,
+      "sha256": "e3bbc9961ac910a543f151292d9851ace9647b98fc46ecf4b66e32b59478fa9c"
+    },
+    "images_4/DSCF5805.JPG": {
+      "bytes": 263048,
+      "sha256": "3cf79230cb7d9a23407835dd27e99fec18348f20254e395cc19550712ebc1d4d"
+    },
+    "images_4/DSCF5813.JPG": {
+      "bytes": 258720,
+      "sha256": "188d27f1b282dc74de0654605b54cb35c03b9b53a46e8df5c5ba8f389d0cbca0"
+    },
+    "images_4/DSCF5821.JPG": {
+      "bytes": 282429,
+      "sha256": "4c8d78db091e4bc5534e2b9476de9fa8c04a1da55e8905c2f8b7b15b65b5c22e"
+    },
+    "images_4/DSCF5829.JPG": {
+      "bytes": 271445,
+      "sha256": "d1b2e60841ccbda285db099fd52cd8cd245215f2b3a85cffe360864e7ba8167a"
+    },
+    "images_4/DSCF5830.JPG": {
+      "bytes": 279015,
+      "sha256": "f0e2262deacf16ec42d9bc14027e37774a553aa7aaac092397d3d1e923df69fd"
+    },
+    "images_4/DSCF5837.JPG": {
+      "bytes": 277277,
+      "sha256": "ff5e789c49891486cf3aced8b9f4e572bd3397d53aaad1582f7f27134dfcf4c8"
+    },
+    "images_4/DSCF5845.JPG": {
+      "bytes": 283881,
+      "sha256": "8a02366070f2e1342f90a7f29ade9d07ceee1d26b81b1431443b3d7a2a757a67"
+    },
+    "images_4/DSCF5853.JPG": {
+      "bytes": 266054,
+      "sha256": "3c11291b06700e09f882e6e571b8a2a462f006ecc60c246ec41e0f6ce78a2b7f"
+    },
+    "images_4/DSCF5856.JPG": {
+      "bytes": 275384,
+      "sha256": "b9785688392f505d80e6045e815e0e2bfe39d7971c7996cbf7770e3ca2b53088"
+    },
+    "sparse/0/cameras.bin": {
+      "bytes": 64,
+      "sha256": "7f46e171740e11b5320bd59b3510db9cb689449aab6110d04fe0082605578008"
+    },
+    "sparse/0/images.bin": {
+      "bytes": 68376564,
+      "sha256": "63defb91a82457edaec0b589fb400b37804d74173b0e859bae3e4eec38b67044"
+    }
+  },
+  "source_natural_order": [
+    "images_4/DSCF5565.JPG",
+    "images_4/DSCF5566.JPG",
+    "images_4/DSCF5567.JPG",
+    "images_4/DSCF5568.JPG",
+    "images_4/DSCF5569.JPG",
+    "images_4/DSCF5570.JPG",
+    "images_4/DSCF5571.JPG",
+    "images_4/DSCF5572.JPG",
+    "images_4/DSCF5573.JPG",
+    "images_4/DSCF5574.JPG",
+    "images_4/DSCF5575.JPG",
+    "images_4/DSCF5576.JPG",
+    "images_4/DSCF5577.JPG",
+    "images_4/DSCF5578.JPG",
+    "images_4/DSCF5579.JPG",
+    "images_4/DSCF5580.JPG",
+    "images_4/DSCF5581.JPG",
+    "images_4/DSCF5582.JPG",
+    "images_4/DSCF5583.JPG",
+    "images_4/DSCF5584.JPG",
+    "images_4/DSCF5585.JPG",
+    "images_4/DSCF5586.JPG",
+    "images_4/DSCF5587.JPG",
+    "images_4/DSCF5588.JPG",
+    "images_4/DSCF5589.JPG",
+    "images_4/DSCF5590.JPG",
+    "images_4/DSCF5591.JPG",
+    "images_4/DSCF5592.JPG",
+    "images_4/DSCF5593.JPG",
+    "images_4/DSCF5594.JPG",
+    "images_4/DSCF5595.JPG",
+    "images_4/DSCF5596.JPG",
+    "images_4/DSCF5597.JPG",
+    "images_4/DSCF5598.JPG",
+    "images_4/DSCF5599.JPG",
+    "images_4/DSCF5600.JPG",
+    "images_4/DSCF5601.JPG",
+    "images_4/DSCF5602.JPG",
+    "images_4/DSCF5603.JPG",
+    "images_4/DSCF5604.JPG",
+    "images_4/DSCF5605.JPG",
+    "images_4/DSCF5606.JPG",
+    "images_4/DSCF5607.JPG",
+    "images_4/DSCF5608.JPG",
+    "images_4/DSCF5609.JPG",
+    "images_4/DSCF5610.JPG",
+    "images_4/DSCF5611.JPG",
+    "images_4/DSCF5612.JPG",
+    "images_4/DSCF5613.JPG",
+    "images_4/DSCF5614.JPG",
+    "images_4/DSCF5615.JPG",
+    "images_4/DSCF5616.JPG",
+    "images_4/DSCF5617.JPG",
+    "images_4/DSCF5618.JPG",
+    "images_4/DSCF5619.JPG",
+    "images_4/DSCF5620.JPG",
+    "images_4/DSCF5621.JPG",
+    "images_4/DSCF5622.JPG",
+    "images_4/DSCF5623.JPG",
+    "images_4/DSCF5624.JPG",
+    "images_4/DSCF5625.JPG",
+    "images_4/DSCF5626.JPG",
+    "images_4/DSCF5627.JPG",
+    "images_4/DSCF5628.JPG",
+    "images_4/DSCF5629.JPG",
+    "images_4/DSCF5630.JPG",
+    "images_4/DSCF5631.JPG",
+    "images_4/DSCF5632.JPG",
+    "images_4/DSCF5633.JPG",
+    "images_4/DSCF5634.JPG",
+    "images_4/DSCF5635.JPG",
+    "images_4/DSCF5636.JPG",
+    "images_4/DSCF5637.JPG",
+    "images_4/DSCF5638.JPG",
+    "images_4/DSCF5639.JPG",
+    "images_4/DSCF5640.JPG",
+    "images_4/DSCF5641.JPG",
+    "images_4/DSCF5642.JPG",
+    "images_4/DSCF5643.JPG",
+    "images_4/DSCF5644.JPG",
+    "images_4/DSCF5645.JPG",
+    "images_4/DSCF5646.JPG",
+    "images_4/DSCF5647.JPG",
+    "images_4/DSCF5648.JPG",
+    "images_4/DSCF5649.JPG",
+    "images_4/DSCF5650.JPG",
+    "images_4/DSCF5651.JPG",
+    "images_4/DSCF5652.JPG",
+    "images_4/DSCF5653.JPG",
+    "images_4/DSCF5654.JPG",
+    "images_4/DSCF5655.JPG",
+    "images_4/DSCF5656.JPG",
+    "images_4/DSCF5657.JPG",
+    "images_4/DSCF5658.JPG",
+    "images_4/DSCF5659.JPG",
+    "images_4/DSCF5660.JPG",
+    "images_4/DSCF5661.JPG",
+    "images_4/DSCF5662.JPG",
+    "images_4/DSCF5663.JPG",
+    "images_4/DSCF5664.JPG",
+    "images_4/DSCF5665.JPG",
+    "images_4/DSCF5666.JPG",
+    "images_4/DSCF5667.JPG",
+    "images_4/DSCF5668.JPG",
+    "images_4/DSCF5669.JPG",
+    "images_4/DSCF5670.JPG",
+    "images_4/DSCF5671.JPG",
+    "images_4/DSCF5672.JPG",
+    "images_4/DSCF5673.JPG",
+    "images_4/DSCF5674.JPG",
+    "images_4/DSCF5675.JPG",
+    "images_4/DSCF5676.JPG",
+    "images_4/DSCF5677.JPG",
+    "images_4/DSCF5678.JPG",
+    "images_4/DSCF5679.JPG",
+    "images_4/DSCF5680.JPG",
+    "images_4/DSCF5681.JPG",
+    "images_4/DSCF5682.JPG",
+    "images_4/DSCF5683.JPG",
+    "images_4/DSCF5684.JPG",
+    "images_4/DSCF5685.JPG",
+    "images_4/DSCF5686.JPG",
+    "images_4/DSCF5687.JPG",
+    "images_4/DSCF5688.JPG",
+    "images_4/DSCF5689.JPG",
+    "images_4/DSCF5690.JPG",
+    "images_4/DSCF5691.JPG",
+    "images_4/DSCF5692.JPG",
+    "images_4/DSCF5693.JPG",
+    "images_4/DSCF5694.JPG",
+    "images_4/DSCF5695.JPG",
+    "images_4/DSCF5696.JPG",
+    "images_4/DSCF5697.JPG",
+    "images_4/DSCF5698.JPG",
+    "images_4/DSCF5699.JPG",
+    "images_4/DSCF5700.JPG",
+    "images_4/DSCF5701.JPG",
+    "images_4/DSCF5702.JPG",
+    "images_4/DSCF5703.JPG",
+    "images_4/DSCF5704.JPG",
+    "images_4/DSCF5705.JPG",
+    "images_4/DSCF5706.JPG",
+    "images_4/DSCF5707.JPG",
+    "images_4/DSCF5708.JPG",
+    "images_4/DSCF5709.JPG",
+    "images_4/DSCF5710.JPG",
+    "images_4/DSCF5711.JPG",
+    "images_4/DSCF5712.JPG",
+    "images_4/DSCF5713.JPG",
+    "images_4/DSCF5714.JPG",
+    "images_4/DSCF5715.JPG",
+    "images_4/DSCF5716.JPG",
+    "images_4/DSCF5717.JPG",
+    "images_4/DSCF5718.JPG",
+    "images_4/DSCF5719.JPG",
+    "images_4/DSCF5720.JPG",
+    "images_4/DSCF5721.JPG",
+    "images_4/DSCF5722.JPG",
+    "images_4/DSCF5723.JPG",
+    "images_4/DSCF5724.JPG",
+    "images_4/DSCF5725.JPG",
+    "images_4/DSCF5726.JPG",
+    "images_4/DSCF5727.JPG",
+    "images_4/DSCF5728.JPG",
+    "images_4/DSCF5729.JPG",
+    "images_4/DSCF5730.JPG",
+    "images_4/DSCF5731.JPG",
+    "images_4/DSCF5732.JPG",
+    "images_4/DSCF5733.JPG",
+    "images_4/DSCF5734.JPG",
+    "images_4/DSCF5735.JPG",
+    "images_4/DSCF5736.JPG",
+    "images_4/DSCF5737.JPG",
+    "images_4/DSCF5738.JPG",
+    "images_4/DSCF5739.JPG",
+    "images_4/DSCF5740.JPG",
+    "images_4/DSCF5741.JPG",
+    "images_4/DSCF5742.JPG",
+    "images_4/DSCF5743.JPG",
+    "images_4/DSCF5744.JPG",
+    "images_4/DSCF5745.JPG",
+    "images_4/DSCF5746.JPG",
+    "images_4/DSCF5747.JPG",
+    "images_4/DSCF5748.JPG",
+    "images_4/DSCF5749.JPG",
+    "images_4/DSCF5750.JPG",
+    "images_4/DSCF5751.JPG",
+    "images_4/DSCF5752.JPG",
+    "images_4/DSCF5753.JPG",
+    "images_4/DSCF5754.JPG",
+    "images_4/DSCF5755.JPG",
+    "images_4/DSCF5756.JPG",
+    "images_4/DSCF5757.JPG",
+    "images_4/DSCF5758.JPG",
+    "images_4/DSCF5759.JPG",
+    "images_4/DSCF5760.JPG",
+    "images_4/DSCF5761.JPG",
+    "images_4/DSCF5762.JPG",
+    "images_4/DSCF5763.JPG",
+    "images_4/DSCF5764.JPG",
+    "images_4/DSCF5765.JPG",
+    "images_4/DSCF5766.JPG",
+    "images_4/DSCF5767.JPG",
+    "images_4/DSCF5768.JPG",
+    "images_4/DSCF5769.JPG",
+    "images_4/DSCF5770.JPG",
+    "images_4/DSCF5771.JPG",
+    "images_4/DSCF5772.JPG",
+    "images_4/DSCF5773.JPG",
+    "images_4/DSCF5774.JPG",
+    "images_4/DSCF5775.JPG",
+    "images_4/DSCF5776.JPG",
+    "images_4/DSCF5777.JPG",
+    "images_4/DSCF5778.JPG",
+    "images_4/DSCF5779.JPG",
+    "images_4/DSCF5780.JPG",
+    "images_4/DSCF5781.JPG",
+    "images_4/DSCF5782.JPG",
+    "images_4/DSCF5783.JPG",
+    "images_4/DSCF5784.JPG",
+    "images_4/DSCF5785.JPG",
+    "images_4/DSCF5786.JPG",
+    "images_4/DSCF5787.JPG",
+    "images_4/DSCF5788.JPG",
+    "images_4/DSCF5789.JPG",
+    "images_4/DSCF5790.JPG",
+    "images_4/DSCF5791.JPG",
+    "images_4/DSCF5792.JPG",
+    "images_4/DSCF5793.JPG",
+    "images_4/DSCF5794.JPG",
+    "images_4/DSCF5795.JPG",
+    "images_4/DSCF5796.JPG",
+    "images_4/DSCF5797.JPG",
+    "images_4/DSCF5798.JPG",
+    "images_4/DSCF5799.JPG",
+    "images_4/DSCF5800.JPG",
+    "images_4/DSCF5801.JPG",
+    "images_4/DSCF5802.JPG",
+    "images_4/DSCF5803.JPG",
+    "images_4/DSCF5804.JPG",
+    "images_4/DSCF5805.JPG",
+    "images_4/DSCF5806.JPG",
+    "images_4/DSCF5807.JPG",
+    "images_4/DSCF5808.JPG",
+    "images_4/DSCF5809.JPG",
+    "images_4/DSCF5810.JPG",
+    "images_4/DSCF5811.JPG",
+    "images_4/DSCF5812.JPG",
+    "images_4/DSCF5813.JPG",
+    "images_4/DSCF5814.JPG",
+    "images_4/DSCF5815.JPG",
+    "images_4/DSCF5816.JPG",
+    "images_4/DSCF5817.JPG",
+    "images_4/DSCF5818.JPG",
+    "images_4/DSCF5819.JPG",
+    "images_4/DSCF5820.JPG",
+    "images_4/DSCF5821.JPG",
+    "images_4/DSCF5822.JPG",
+    "images_4/DSCF5823.JPG",
+    "images_4/DSCF5824.JPG",
+    "images_4/DSCF5825.JPG",
+    "images_4/DSCF5826.JPG",
+    "images_4/DSCF5827.JPG",
+    "images_4/DSCF5828.JPG",
+    "images_4/DSCF5829.JPG",
+    "images_4/DSCF5830.JPG",
+    "images_4/DSCF5831.JPG",
+    "images_4/DSCF5832.JPG",
+    "images_4/DSCF5833.JPG",
+    "images_4/DSCF5834.JPG",
+    "images_4/DSCF5835.JPG",
+    "images_4/DSCF5836.JPG",
+    "images_4/DSCF5837.JPG",
+    "images_4/DSCF5838.JPG",
+    "images_4/DSCF5839.JPG",
+    "images_4/DSCF5840.JPG",
+    "images_4/DSCF5841.JPG",
+    "images_4/DSCF5842.JPG",
+    "images_4/DSCF5843.JPG",
+    "images_4/DSCF5844.JPG",
+    "images_4/DSCF5845.JPG",
+    "images_4/DSCF5846.JPG",
+    "images_4/DSCF5847.JPG",
+    "images_4/DSCF5848.JPG",
+    "images_4/DSCF5849.JPG",
+    "images_4/DSCF5850.JPG",
+    "images_4/DSCF5851.JPG",
+    "images_4/DSCF5852.JPG",
+    "images_4/DSCF5853.JPG",
+    "images_4/DSCF5854.JPG",
+    "images_4/DSCF5855.JPG",
+    "images_4/DSCF5856.JPG"
+  ],
+  "split_rule": "Every eighth natural filename starting at index zero is held out. Select twelve evenly spaced ranks from the remaining names, rounded to the nearest integer.",
+  "split_sha256": "3164ce997d6da2a47723c420181ac512c5e53900c484f32205e1e5c418874e81",
+  "prepared_split_hash": "00b0082279015bf1e1485b892b5b78686b8db5fda55f74274c41c6d4c086d04a",
+  "reference_sha256": "75d8738ced711765eddda12b94dbbec91777e3f6842bac309749b7c5762618e6",
+  "reference_policy": "Released COLMAP calibration is evaluation-only. Rescale K rows by independent actual image-width and image-height ratios to the downloaded level, then apply canonical resize ratios. Preserve the released camera-to-world transforms.",
+  "unused_non_test_views": 243
+}
