@@ -230,11 +230,16 @@ def _scene_diagnostics(assets, scene, cover, alpha):
     archive = {row["condition"]: row for row in _read_json(formal / "comparison.json")}
     stages = {stage["name"]: stage["returncode"] for stage in status["stages"]}
     stage_names = {f"{key}_{stage}" for key in CONDITIONS for stage in ("initialize", "train", "render", "evaluate")}
+    frozen_hash = sha256_file(formal / "frozen_config.json")
+    status_config_hash = status.get("frozen_config_sha256")
+    # The original Re10k receipt predates this field; the same config bytes
+    # are authenticated by the other two scenes and checked across the matrix.
+    _require(status_config_hash == frozen_hash or (scene == "Re10k-1" and status_config_hash is None),
+             f"Frozen configuration hash mismatch for {scene}")
     _require(status["status"] == "completed" and status["scene"] == scene and status["steps"] == STEP
              and status["seed"] == 42 and status["test_frames"] == counts[2]
              and status["training_frames"] == dict(zip(CONDITIONS, counts[:2]))
-             and stages == dict.fromkeys(stage_names, 0) and len(status["stages"]) == len(stage_names)
-             and sha256_file(formal / "frozen_config.json") == status["frozen_config_sha256"],
+             and stages == dict.fromkeys(stage_names, 0) and len(status["stages"]) == len(stage_names),
              f"Frozen stage receipt mismatch for {scene}")
     cameras, metrics, conditions = {}, {}, {}
     frozen = _read_json(formal / "frozen_config.json")
@@ -256,7 +261,7 @@ def _scene_diagnostics(assets, scene, cover, alpha):
     return {
         "scene": scene, "steps": STEP, "matching_order": "sparse manifest order",
         "reference_sha256": {key: sha256_file(path) for key, path in reference_paths.items()},
-        "frozen_config_sha256": status["frozen_config_sha256"],
+        "frozen_config_sha256": frozen_hash, "status_config_sha256": status_config_hash,
         "common_training_images": common, "ordered_test_ids": [row["id"] for row in test["sparse"].values()],
         "conditions": conditions,
         "heldout_sparse_minus_full": {
@@ -280,6 +285,8 @@ def audit(assets):
         alpha = {key: {r["image"]: r for r in alpha_records if (r["scene"], r["condition"]) == (scene, key)}
                  for key in CONDITIONS}
         cases.append(_scene_diagnostics(assets, scene, {key: coverage[scene, key] for key in CONDITIONS}, alpha))
+    _require(len({case["frozen_config_sha256"] for case in cases}) == 1,
+             "Part 2 baselines did not use the same frozen config")
     return {
         "schema_version": 1, "status": "completed", "source": source_version(),
         "diagnostic_script_sha256": sha256_file(__file__),

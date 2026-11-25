@@ -1,0 +1,2117 @@
+{
+  "schema_version": 1,
+  "status": "completed",
+  "source": {
+    "git_commit": "4ace9486b99d4e5a4feb661f4b39a5e809e4e613",
+    "git_dirty": false,
+    "package_source_sha256": "0e2a75ba924cc167b47f4c89fbec95550b6b8a7250d0edfa91fc66b3358b8140",
+    "python": "3.10.22",
+    "platform": "Linux-5.15.0-186-generic-x86_64-with-glibc2.35"
+  },
+  "diagnostic_script_sha256": "697058e0377fd716451af66edd46310046540f8dd5b1b8e179c7cb5a4703d31b",
+  "protocol": {
+    "alignment": "Independent estimate-to-reference Sim(3) fit to the same sparse training IDs per condition",
+    "ate": "Camera-center RMSE in scene-specific reference trajectory units",
+    "rpe": "Consecutive common sequence frames after Sim(3). Compare inverse(T_i) @ T_j. Translation in reference units and rotation geodesic in degrees.",
+    "focal": "Estimated-to-reference fx and fy ratios and absolute errors on the prepared image grid",
+    "coverage": "Archived same-checkpoint accumulated alpha support on the frozen held-out pixels",
+    "reference_usage": "Only evaluate geometric accuracy and verify reference consistency. Track reprojection uses estimated cameras and train RGB.",
+    "coverage_csv_sha256": "37a49160aabcec447e58bfe355c2c9a50c95f568a1e7132434c3c45588fd6c07",
+    "coverage_frames_sha256": "fc38317d5a9d5e197c87973e75fa8fa2984b93514fffb14191ed1f866df279d0"
+  },
+  "scenes": [
+    {
+      "scene": "Waymo-405841",
+      "steps": 7000,
+      "matching_order": "sparse manifest order",
+      "reference_sha256": {
+        "full": "a3f182f8a26c567b863fcfcb491883acdc81de1abd3a1addc3a008d7ab34ab6c",
+        "sparse": "aa99fdcbad42990a6b78f3810570ff44372d06ae165526ec6184155868d1b6aa"
+      },
+      "frozen_config_sha256": "1094e876e84a73fa8a830932826e128c6dd4fef80239e0bc8729bd650f426a48",
+      "status_config_sha256": "1094e876e84a73fa8a830932826e128c6dd4fef80239e0bc8729bd650f426a48",
+      "common_training_images": [
+        "images/000001.png.png",
+        "images/000011.png.png",
+        "images/000021.png.png",
+        "images/000031.png.png",
+        "images/000041.png.png",
+        "images/000051.png.png",
+        "images/000061.png.png",
+        "images/000071.png.png",
+        "images/000081.png.png",
+        "images/000091.png.png",
+        "images/000101.png.png",
+        "images/000111.png.png",
+        "images/000121.png.png",
+        "images/000131.png.png",
+        "images/000141.png.png",
+        "images/000151.png.png",
+        "images/000161.png.png",
+        "images/000171.png.png",
+        "images/000181.png.png",
+        "images/000191.png.png"
+      ],
+      "ordered_test_ids": [
+        "000000.png",
+        "000008.png",
+        "000016.png",
+        "000024.png",
+        "000032.png",
+        "000040.png",
+        "000048.png",
+        "000056.png",
+        "000064.png",
+        "000072.png",
+        "000080.png",
+        "000088.png",
+        "000096.png",
+        "000104.png",
+        "000112.png",
+        "000120.png",
+        "000128.png",
+        "000136.png",
+        "000144.png",
+        "000152.png",
+        "000160.png",
+        "000168.png",
+        "000176.png",
+        "000184.png",
+        "000192.png"
+      ],
+      "conditions": {
+        "full": {
+          "attempted_training_frames": 174,
+          "registered_training_frames": 174,
+          "registered_with_reference_frames": 174,
+          "test_frames": 25,
+          "render_alignment_all_train_ate_rmse": 0.9275639133416637,
+          "rendering": {
+            "psnr": 17.68943561211013,
+            "ssim": 0.6541511053170557,
+            "lpips": 0.5204238271713257
+          },
+          "alpha_support": {
+            "mean_alpha": 0.9858386993408204,
+            "coverage_alpha_0_1": 0.9991647786458333,
+            "coverage_alpha_0_5": 0.9949797526041667,
+            "coverage_alpha_0_9": 0.9634505859375001
+          },
+          "split_hash": "5505c9eb86732a0607b84d2f0a40e5e15c59f1ef7f32286df40fec724ed23e3e",
+          "manifest_sha256": "242380ca6920958df0efe67be16ae6f8d69a9c8078027b0eaebfb26dd3940e34",
+          "initializer_sha256": "d9fea97a0c8de460bbd703b88fc825f01e3687beef2a9525b625d865a0eacf68",
+          "checkpoint_sha256": "d88db176cc0443538b11936fcffca2d86d9eff1f69060025403d53b812a6cc1f",
+          "render_metrics_sha256": "69bed23de62a04310c364b9618394f98335f5566558a01086c2a568cc4a9986d",
+          "paired_ate_rmse": 0.956492971046773,
+          "rotation_error_degrees": {
+            "count": 20,
+            "mean": 1.0528157259609745,
+            "median": 1.0192767158328735,
+            "rmse": 1.0948031745396525,
+            "p90": 1.4542403196833797
+          },
+          "focal_median_ratio_fx_fy": [
+            1.0168375128061031,
+            1.0107083033819473
+          ],
+          "focal_mean_abs_error_percent_fx_fy": [
+            1.9854273401185407,
+            1.5698423160349604
+          ],
+          "focal_mean_abs_error_pixels_fx_fy": [
+            20.516389240752517,
+            16.22194645534332
+          ],
+          "relative_translation": {
+            "count": 19,
+            "mean": 0.5697959426554651,
+            "median": 0.4781067865757894,
+            "rmse": 0.6745432553002695,
+            "p90": 1.2265325012056423
+          },
+          "relative_rotation_degrees": {
+            "count": 19,
+            "mean": 0.499003124620015,
+            "median": 0.4170203368377362,
+            "rmse": 0.5832623488560095,
+            "p90": 0.9405627571574113
+          },
+          "estimate_to_reference": {
+            "scale": 49.98682191167583,
+            "rotation": [
+              [
+                -0.9828818034285528,
+                0.006981141083216707,
+                -0.18410492703404954
+              ],
+              [
+                0.1841943242645919,
+                0.058802104235370134,
+                -0.9811293306420943
+              ],
+              [
+                0.003976354831606912,
+                -0.9982452485269694,
+                -0.05908140482067306
+              ]
+            ],
+            "translation": [
+              -1.3648126151407958,
+              0.4032669792264869,
+              0.08603967295497283
+            ]
+          },
+          "frames": [
+            {
+              "image": "images/000001.png.png",
+              "translation_error": 1.4349793548915513,
+              "rotation_error_degrees": 1.7200761407128922,
+              "focal_ratio_fx_fy": [
+                1.0267838155414175,
+                1.0202372714576269
+              ]
+            },
+            {
+              "image": "images/000011.png.png",
+              "translation_error": 1.30603507765251,
+              "rotation_error_degrees": 1.5557721186185995,
+              "focal_ratio_fx_fy": [
+                1.0260066152572453,
+                1.0223408570718429
+              ]
+            },
+            {
+              "image": "images/000021.png.png",
+              "translation_error": 1.1440158771368765,
+              "rotation_error_degrees": 1.4429590086905775,
+              "focal_ratio_fx_fy": [
+                1.0289846059235697,
+                1.0241853394363922
+              ]
+            },
+            {
+              "image": "images/000031.png.png",
+              "translation_error": 0.7888680000990453,
+              "rotation_error_degrees": 1.3389089125987548,
+              "focal_ratio_fx_fy": [
+                1.0372436177884288,
+                1.0317205698535128
+              ]
+            },
+            {
+              "image": "images/000041.png.png",
+              "translation_error": 0.0790735743492664,
+              "rotation_error_degrees": 1.0224937393782088,
+              "focal_ratio_fx_fy": [
+                1.0357430739158329,
+                1.0301816038260232
+              ]
+            },
+            {
+              "image": "images/000051.png.png",
+              "translation_error": 0.5335042407611221,
+              "rotation_error_degrees": 0.5682938557561689,
+              "focal_ratio_fx_fy": [
+                1.0469646419061618,
+                1.0397757582072273
+              ]
+            },
+            {
+              "image": "images/000061.png.png",
+              "translation_error": 1.135586183054264,
+              "rotation_error_degrees": 0.7331149878343252,
+              "focal_ratio_fx_fy": [
+                1.042915537890454,
+                1.0343313060193586
+              ]
+            },
+            {
+              "image": "images/000071.png.png",
+              "translation_error": 1.281799224705377,
+              "rotation_error_degrees": 0.8520034927011785,
+              "focal_ratio_fx_fy": [
+                1.019604783677071,
+                1.0129575319508244
+              ]
+            },
+            {
+              "image": "images/000081.png.png",
+              "translation_error": 1.1131099470048607,
+              "rotation_error_degrees": 1.016059692287538,
+              "focal_ratio_fx_fy": [
+                1.0089632698143234,
+                1.0012375705951664
+              ]
+            },
+            {
+              "image": "images/000091.png.png",
+              "translation_error": 0.8926855068743874,
+              "rotation_error_degrees": 0.8514905053480631,
+              "focal_ratio_fx_fy": [
+                1.0102104026083476,
+                1.0034510588974541
+              ]
+            },
+            {
+              "image": "images/000101.png.png",
+              "translation_error": 0.5471493633384735,
+              "rotation_error_degrees": 0.6244645215735087,
+              "focal_ratio_fx_fy": [
+                1.0153991449562412,
+                1.0086967229563009
+              ]
+            },
+            {
+              "image": "images/000111.png.png",
+              "translation_error": 0.6117991848549527,
+              "rotation_error_degrees": 0.7008589466949137,
+              "focal_ratio_fx_fy": [
+                1.0182758806559653,
+                1.0127198838075937
+              ]
+            },
+            {
+              "image": "images/000121.png.png",
+              "translation_error": 0.35659172692912583,
+              "rotation_error_degrees": 1.076690633972,
+              "focal_ratio_fx_fy": [
+                1.0219657211036939,
+                1.0166914867245418
+              ]
+            },
+            {
+              "image": "images/000131.png.png",
+              "translation_error": 0.16228776217092072,
+              "rotation_error_degrees": 0.9142298359943171,
+              "focal_ratio_fx_fy": [
+                1.0113822236001875,
+                1.0067892983152167
+              ]
+            },
+            {
+              "image": "images/000141.png.png",
+              "translation_error": 1.3206073608421176,
+              "rotation_error_degrees": 0.8959866580213861,
+              "focal_ratio_fx_fy": [
+                0.9932127039990174,
+                0.9930026409926334
+              ]
+            },
+            {
+              "image": "images/000151.png.png",
+              "translation_error": 0.9423852395501569,
+              "rotation_error_degrees": 1.1211479545130367,
+              "focal_ratio_fx_fy": [
+                0.9915815685857147,
+                0.9907177816219962
+              ]
+            },
+            {
+              "image": "images/000161.png.png",
+              "translation_error": 0.42157199762961783,
+              "rotation_error_degrees": 1.29937726684132,
+              "focal_ratio_fx_fy": [
+                0.9976396806035931,
+                0.9955925788410154
+              ]
+            },
+            {
+              "image": "images/000171.png.png",
+              "translation_error": 0.7307205915415739,
+              "rotation_error_degrees": 0.9931107528095964,
+              "focal_ratio_fx_fy": [
+                1.0019612425780764,
+                0.9997912118128048
+              ]
+            },
+            {
+              "image": "images/000181.png.png",
+              "translation_error": 0.6013205376740983,
+              "rotation_error_degrees": 1.2162884993340681,
+              "focal_ratio_fx_fy": [
+                0.9931441790162158,
+                0.9923567985029692
+              ]
+            },
+            {
+              "image": "images/000191.png.png",
+              "translation_error": 1.6762250858142866,
+              "rotation_error_degrees": 1.11298699553904,
+              "focal_ratio_fx_fy": [
+                0.979740976988767,
+                0.9798867841406708
+              ]
+            }
+          ],
+          "relative_pairs": [
+            {
+              "from": "images/000001.png.png",
+              "to": "images/000011.png.png",
+              "translation_error": 0.2736968946308533,
+              "rotation_error_degrees": 0.19733698166702188
+            },
+            {
+              "from": "images/000011.png.png",
+              "to": "images/000021.png.png",
+              "translation_error": 0.21395541083537653,
+              "rotation_error_degrees": 0.14798100209044568
+            },
+            {
+              "from": "images/000021.png.png",
+              "to": "images/000031.png.png",
+              "translation_error": 0.41996140312088975,
+              "rotation_error_degrees": 0.2956962288499632
+            },
+            {
+              "from": "images/000031.png.png",
+              "to": "images/000041.png.png",
+              "translation_error": 0.82422708232229,
+              "rotation_error_degrees": 0.482665168944372
+            },
+            {
+              "from": "images/000041.png.png",
+              "to": "images/000051.png.png",
+              "translation_error": 0.5839272863626048,
+              "rotation_error_degrees": 0.7138736003595125
+            },
+            {
+              "from": "images/000051.png.png",
+              "to": "images/000061.png.png",
+              "translation_error": 0.6142532710906031,
+              "rotation_error_degrees": 0.4170203368377362
+            },
+            {
+              "from": "images/000061.png.png",
+              "to": "images/000071.png.png",
+              "translation_error": 0.2587167604917613,
+              "rotation_error_degrees": 0.25030019160682737
+            },
+            {
+              "from": "images/000071.png.png",
+              "to": "images/000081.png.png",
+              "translation_error": 0.2694299995890849,
+              "rotation_error_degrees": 0.18658788348255662
+            },
+            {
+              "from": "images/000081.png.png",
+              "to": "images/000091.png.png",
+              "translation_error": 0.21703413734194563,
+              "rotation_error_degrees": 0.6574964481029602
+            },
+            {
+              "from": "images/000091.png.png",
+              "to": "images/000101.png.png",
+              "translation_error": 0.3578084888281164,
+              "rotation_error_degrees": 0.3513230043351353
+            },
+            {
+              "from": "images/000101.png.png",
+              "to": "images/000111.png.png",
+              "translation_error": 0.2180397819696033,
+              "rotation_error_degrees": 0.1616473305808722
+            },
+            {
+              "from": "images/000111.png.png",
+              "to": "images/000121.png.png",
+              "translation_error": 0.9533762089631137,
+              "rotation_error_degrees": 0.933245372169642
+            },
+            {
+              "from": "images/000121.png.png",
+              "to": "images/000131.png.png",
+              "translation_error": 0.5203514001429581,
+              "rotation_error_degrees": 0.30597138099187093
+            },
+            {
+              "from": "images/000131.png.png",
+              "to": "images/000141.png.png",
+              "translation_error": 1.2607259061881926,
+              "rotation_error_degrees": 0.4724427152685629
+            },
+            {
+              "from": "images/000141.png.png",
+              "to": "images/000151.png.png",
+              "translation_error": 0.4781067865757894,
+              "rotation_error_degrees": 0.34422626007571966
+            },
+            {
+              "from": "images/000151.png.png",
+              "to": "images/000161.png.png",
+              "translation_error": 1.297441771137635,
+              "rotation_error_degrees": 1.1658704604886803
+            },
+            {
+              "from": "images/000161.png.png",
+              "to": "images/000171.png.png",
+              "translation_error": 0.6037594198542318,
+              "rotation_error_degrees": 0.496298075021068
+            },
+            {
+              "from": "images/000171.png.png",
+              "to": "images/000181.png.png",
+              "translation_error": 0.24332675104878143,
+              "rotation_error_degrees": 0.9698322971084886
+            },
+            {
+              "from": "images/000181.png.png",
+              "to": "images/000191.png.png",
+              "translation_error": 1.2179841499600048,
+              "rotation_error_degrees": 0.9312446297988487
+            }
+          ],
+          "common_training_frames": 20
+        },
+        "sparse": {
+          "attempted_training_frames": 20,
+          "registered_training_frames": 20,
+          "registered_with_reference_frames": 20,
+          "test_frames": 25,
+          "render_alignment_all_train_ate_rmse": 0.7293696011635176,
+          "rendering": {
+            "psnr": 16.726004886649665,
+            "ssim": 0.5971100157042106,
+            "lpips": 0.4573744237422943
+          },
+          "alpha_support": {
+            "mean_alpha": 0.9765784764289855,
+            "coverage_alpha_0_1": 0.9973332682291667,
+            "coverage_alpha_0_5": 0.9910412760416665,
+            "coverage_alpha_0_9": 0.9418364583333333
+          },
+          "split_hash": "d2b2f9f9bcde3b9fc24ab13a27eddcb8a30dd256c3edfb917cb29085053aca55",
+          "manifest_sha256": "fbf18ad0aa41b17b3c918f2066b32b68d3da5da569b28008b47a48a4fde8f021",
+          "initializer_sha256": "60206e2fd256366eef3db465f585385e27b59f5c41d60782eeeaaf5c34d80487",
+          "checkpoint_sha256": "58d4e317001ad6807e54a47af74eee1c64b7eeb3519bf9aee620eeacdf43f4dd",
+          "render_metrics_sha256": "0e654777e36951d67437f41d8e23402ed0ca7ae4902012cb48cbcc68631145bf",
+          "paired_ate_rmse": 0.7293696011635176,
+          "rotation_error_degrees": {
+            "count": 20,
+            "mean": 2.2140204279484164,
+            "median": 2.045960116577824,
+            "rmse": 2.3220963577387432,
+            "p90": 3.435610349175749
+          },
+          "focal_median_ratio_fx_fy": [
+            1.0020512226673144,
+            1.0006000474324876
+          ],
+          "focal_mean_abs_error_percent_fx_fy": [
+            1.2724215185002863,
+            1.1284389855552384
+          ],
+          "focal_mean_abs_error_pixels_fx_fy": [
+            13.148552265983517,
+            11.660710515202709
+          ],
+          "relative_translation": {
+            "count": 19,
+            "mean": 0.5727565971023671,
+            "median": 0.4413843438784104,
+            "rmse": 0.6941062837102658,
+            "p90": 0.8976827749915867
+          },
+          "relative_rotation_degrees": {
+            "count": 19,
+            "mean": 0.3787810340520982,
+            "median": 0.34933071774826274,
+            "rmse": 0.4486532527968179,
+            "p90": 0.6121098699619719
+          },
+          "estimate_to_reference": {
+            "scale": 47.83931540911928,
+            "rotation": [
+              [
+                -0.975704046869827,
+                0.006840198247405615,
+                -0.21898590048169514
+              ],
+              [
+                0.21899294498192423,
+                0.060607083441029455,
+                -0.9738423237284956
+              ],
+              [
+                0.0066108221868860255,
+                -0.9981382635310141,
+                -0.060632531740849156
+              ]
+            ],
+            "translation": [
+              -0.944557820801549,
+              -0.03892481977367268,
+              0.059275151740036724
+            ]
+          },
+          "frames": [
+            {
+              "image": "images/000001.png.png",
+              "translation_error": 0.9406522419187084,
+              "rotation_error_degrees": 3.6261810704732884,
+              "focal_ratio_fx_fy": [
+                0.9982387816113782,
+                0.9972970556895849
+              ]
+            },
+            {
+              "image": "images/000011.png.png",
+              "translation_error": 0.9139548527683581,
+              "rotation_error_degrees": 3.5514751310372277,
+              "focal_ratio_fx_fy": [
+                1.0026504331399282,
+                1.0030717632658126
+              ]
+            },
+            {
+              "image": "images/000021.png.png",
+              "translation_error": 0.8081064725917431,
+              "rotation_error_degrees": 3.422736484524473,
+              "focal_ratio_fx_fy": [
+                0.9965986700821176,
+                0.9957482378275074
+              ]
+            },
+            {
+              "image": "images/000031.png.png",
+              "translation_error": 0.5529623042502928,
+              "rotation_error_degrees": 3.1283793051965576,
+              "focal_ratio_fx_fy": [
+                1.0032902550640108,
+                1.0019999931274561
+              ]
+            },
+            {
+              "image": "images/000041.png.png",
+              "translation_error": 0.2613023940219974,
+              "rotation_error_degrees": 2.541700509106647,
+              "focal_ratio_fx_fy": [
+                1.019866514082628,
+                1.0182939423527102
+              ]
+            },
+            {
+              "image": "images/000051.png.png",
+              "translation_error": 0.4339792619037972,
+              "rotation_error_degrees": 2.4174991355493294,
+              "focal_ratio_fx_fy": [
+                1.0368557839001442,
+                1.0328032864747447
+              ]
+            },
+            {
+              "image": "images/000061.png.png",
+              "translation_error": 0.9768888606151693,
+              "rotation_error_degrees": 2.085797175151774,
+              "focal_ratio_fx_fy": [
+                1.023564235998027,
+                1.018083113092525
+              ]
+            },
+            {
+              "image": "images/000071.png.png",
+              "translation_error": 1.020978725429329,
+              "rotation_error_degrees": 2.2579814942305987,
+              "focal_ratio_fx_fy": [
+                1.0082332488713455,
+                1.0036384626842856
+              ]
+            },
+            {
+              "image": "images/000081.png.png",
+              "translation_error": 1.0728828900924638,
+              "rotation_error_degrees": 1.8705451994874063,
+              "focal_ratio_fx_fy": [
+                0.9988507994689565,
+                0.9940578819418473
+              ]
+            },
+            {
+              "image": "images/000091.png.png",
+              "translation_error": 0.7537700622679164,
+              "rotation_error_degrees": 1.448307719326417,
+              "focal_ratio_fx_fy": [
+                1.0094558615437281,
+                1.0048163042417069
+              ]
+            },
+            {
+              "image": "images/000101.png.png",
+              "translation_error": 0.4768327479806385,
+              "rotation_error_degrees": 1.3336390265642035,
+              "focal_ratio_fx_fy": [
+                1.008026907669139,
+                1.0044085477545885
+              ]
+            },
+            {
+              "image": "images/000111.png.png",
+              "translation_error": 0.23567665676196292,
+              "rotation_error_degrees": 1.6866142093259051,
+              "focal_ratio_fx_fy": [
+                1.0072718192803758,
+                1.004927411042895
+              ]
+            },
+            {
+              "image": "images/000121.png.png",
+              "translation_error": 0.18161690544711606,
+              "rotation_error_degrees": 1.8841180760233591,
+              "focal_ratio_fx_fy": [
+                1.0086972702804446,
+                1.0059134702203347
+              ]
+            },
+            {
+              "image": "images/000131.png.png",
+              "translation_error": 0.509066209824933,
+              "rotation_error_degrees": 2.0258826812868307,
+              "focal_ratio_fx_fy": [
+                1.0014520121947006,
+                0.999200101737519
+              ]
+            },
+            {
+              "image": "images/000141.png.png",
+              "translation_error": 1.003917808167328,
+              "rotation_error_degrees": 1.7523586675952951,
+              "focal_ratio_fx_fy": [
+                0.982321938721191,
+                0.9835227678926513
+              ]
+            },
+            {
+              "image": "images/000151.png.png",
+              "translation_error": 0.42858600487880544,
+              "rotation_error_degrees": 1.9540009309468522,
+              "focal_ratio_fx_fy": [
+                0.9837649040938609,
+                0.9850573553269906
+              ]
+            },
+            {
+              "image": "images/000161.png.png",
+              "translation_error": 0.28056437555295133,
+              "rotation_error_degrees": 2.4174780880811753,
+              "focal_ratio_fx_fy": [
+                0.9881267491253266,
+                0.9885216982274806
+              ]
+            },
+            {
+              "image": "images/000171.png.png",
+              "translation_error": 0.4580860330792762,
+              "rotation_error_degrees": 2.0660375518688174,
+              "focal_ratio_fx_fy": [
+                0.9865998242290003,
+                0.9860415536023415
+              ]
+            },
+            {
+              "image": "images/000181.png.png",
+              "translation_error": 0.5044055538895947,
+              "rotation_error_degrees": 1.4393385246476487,
+              "focal_ratio_fx_fy": [
+                0.9723855972852937,
+                0.9729834941799623
+              ]
+            },
+            {
+              "image": "images/000191.png.png",
+              "translation_error": 1.29557567273229,
+              "rotation_error_degrees": 1.3703375785445204,
+              "focal_ratio_fx_fy": [
+                0.9679927737072899,
+                0.9698383507201267
+              ]
+            }
+          ],
+          "relative_pairs": [
+            {
+              "from": "images/000001.png.png",
+              "to": "images/000011.png.png",
+              "translation_error": 0.11735003973480246,
+              "rotation_error_degrees": 0.0936049532424086
+            },
+            {
+              "from": "images/000011.png.png",
+              "to": "images/000021.png.png",
+              "translation_error": 0.30682069582554644,
+              "rotation_error_degrees": 0.1439972743189391
+            },
+            {
+              "from": "images/000021.png.png",
+              "to": "images/000031.png.png",
+              "translation_error": 0.4413843438784104,
+              "rotation_error_degrees": 0.3729618591837203
+            },
+            {
+              "from": "images/000031.png.png",
+              "to": "images/000041.png.png",
+              "translation_error": 0.6856473168998417,
+              "rotation_error_degrees": 0.6246057895059087
+            },
+            {
+              "from": "images/000041.png.png",
+              "to": "images/000051.png.png",
+              "translation_error": 0.6613818558685539,
+              "rotation_error_degrees": 0.13801900295958597
+            },
+            {
+              "from": "images/000051.png.png",
+              "to": "images/000061.png.png",
+              "translation_error": 0.7395401105146799,
+              "rotation_error_degrees": 0.36944464334747623
+            },
+            {
+              "from": "images/000061.png.png",
+              "to": "images/000071.png.png",
+              "translation_error": 0.2258742843326304,
+              "rotation_error_degrees": 0.2209026649131937
+            },
+            {
+              "from": "images/000071.png.png",
+              "to": "images/000081.png.png",
+              "translation_error": 0.27117870614483536,
+              "rotation_error_degrees": 0.46184303560948264
+            },
+            {
+              "from": "images/000081.png.png",
+              "to": "images/000091.png.png",
+              "translation_error": 0.32723444016322817,
+              "rotation_error_degrees": 0.5506987600366096
+            },
+            {
+              "from": "images/000091.png.png",
+              "to": "images/000101.png.png",
+              "translation_error": 0.2571234020846655,
+              "rotation_error_degrees": 0.26017748128097096
+            },
+            {
+              "from": "images/000101.png.png",
+              "to": "images/000111.png.png",
+              "translation_error": 0.324204871012557,
+              "rotation_error_degrees": 0.46577738016125647
+            },
+            {
+              "from": "images/000111.png.png",
+              "to": "images/000121.png.png",
+              "translation_error": 0.3109903172693763,
+              "rotation_error_degrees": 0.23626143750137163
+            },
+            {
+              "from": "images/000121.png.png",
+              "to": "images/000131.png.png",
+              "translation_error": 0.3508991937178261,
+              "rotation_error_degrees": 0.16876839616448502
+            },
+            {
+              "from": "images/000131.png.png",
+              "to": "images/000141.png.png",
+              "translation_error": 1.2923338633488577,
+              "rotation_error_degrees": 0.34933071774826274
+            },
+            {
+              "from": "images/000141.png.png",
+              "to": "images/000151.png.png",
+              "translation_error": 0.7942093140846596,
+              "rotation_error_degrees": 0.20251424400860743
+            },
+            {
+              "from": "images/000151.png.png",
+              "to": "images/000161.png.png",
+              "translation_error": 0.519793439993368,
+              "rotation_error_degrees": 0.6089858900759877
+            },
+            {
+              "from": "images/000161.png.png",
+              "to": "images/000171.png.png",
+              "translation_error": 0.7066317561678741,
+              "rotation_error_degrees": 0.45054290027882665
+            },
+            {
+              "from": "images/000171.png.png",
+              "to": "images/000181.png.png",
+              "translation_error": 0.7990200029022694,
+              "rotation_error_degrees": 1.155249981457449
+            },
+            {
+              "from": "images/000181.png.png",
+              "to": "images/000191.png.png",
+              "translation_error": 1.7507573910009941,
+              "rotation_error_degrees": 0.3231532351953226
+            }
+          ],
+          "common_training_frames": 20
+        }
+      },
+      "heldout_sparse_minus_full": {
+        "psnr": -0.9634307254604676,
+        "ssim": -0.05704108961284495,
+        "lpips": -0.06304940342903137,
+        "mean_alpha": -0.009260222911834814,
+        "coverage_alpha_0_1": -0.0018315104166666263,
+        "coverage_alpha_0_5": -0.003938476562500237,
+        "coverage_alpha_0_9": -0.02161412760416681
+      },
+      "reference_free_reserved_training_reprojection": {
+        "matching": "OpenCV SIFT, mutual 0.78 ratio, MAGSAC fundamental matrix on common training RGB",
+        "opencv": "4.11.0",
+        "policy": "Triangulate first/last match per track with frozen estimated cameras and reserve every interior observation",
+        "anchor_requirements": {
+          "minimum_parallax_degrees": 1.5,
+          "maximum_reprojection_px": 2.0,
+          "positive_camera_z": true
+        },
+        "uses_reference_cameras": false,
+        "verified_image_pairs": 106,
+        "tracks_at_least_three_views": 1435,
+        "attempted_reserved_observations": 3883,
+        "paired_valid_reserved_observations": 186,
+        "conditions": {
+          "full": {
+            "tracks_failing_anchor_checks": 1233,
+            "nonpositive_or_nonfinite_predictions": 0,
+            "all_valid_error_px": {
+              "count": 476,
+              "mean": 10.806619575632814,
+              "median": 9.616768491704114,
+              "rmse": 13.28463591656284,
+              "p90": 20.11345393466543
+            },
+            "paired_valid_error_px": {
+              "count": 186,
+              "mean": 8.744366002630482,
+              "median": 8.067702527742274,
+              "rmse": 10.249255378507932,
+              "p90": 15.937482575163425
+            }
+          },
+          "sparse": {
+            "tracks_failing_anchor_checks": 1172,
+            "nonpositive_or_nonfinite_predictions": 0,
+            "all_valid_error_px": {
+              "count": 526,
+              "mean": 8.934384928608537,
+              "median": 5.340589399835951,
+              "rmse": 15.357144482442216,
+              "p90": 19.02301886898568
+            },
+            "paired_valid_error_px": {
+              "count": 186,
+              "mean": 6.033831165256134,
+              "median": 4.679744243408031,
+              "rmse": 7.737915473013803,
+              "p90": 12.561234253107674
+            }
+          }
+        }
+      }
+    },
+    {
+      "scene": "Dl3dv-2",
+      "steps": 7000,
+      "matching_order": "sparse manifest order",
+      "reference_sha256": {
+        "full": "77a26709ec49464c1ab863fd07647d5c65276141e6e972c06211ec07ae522765",
+        "sparse": "28562ee219190dd9b590149b277cfc6140c3b2f44c150430c74f74fd3847e325"
+      },
+      "frozen_config_sha256": "1094e876e84a73fa8a830932826e128c6dd4fef80239e0bc8729bd650f426a48",
+      "status_config_sha256": "1094e876e84a73fa8a830932826e128c6dd4fef80239e0bc8729bd650f426a48",
+      "common_training_images": [
+        "images/frame_00002.png.png",
+        "images/frame_00032.png.png",
+        "images/frame_00062.png.png",
+        "images/frame_00092.png.png",
+        "images/frame_00122.png.png",
+        "images/frame_00152.png.png",
+        "images/frame_00182.png.png",
+        "images/frame_00212.png.png",
+        "images/frame_00242.png.png",
+        "images/frame_00272.png.png",
+        "images/frame_00302.png.png"
+      ],
+      "ordered_test_ids": [
+        "frame_00001.png",
+        "frame_00009.png",
+        "frame_00017.png",
+        "frame_00025.png",
+        "frame_00033.png",
+        "frame_00041.png",
+        "frame_00049.png",
+        "frame_00057.png",
+        "frame_00065.png",
+        "frame_00073.png",
+        "frame_00081.png",
+        "frame_00089.png",
+        "frame_00097.png",
+        "frame_00105.png",
+        "frame_00113.png",
+        "frame_00121.png",
+        "frame_00129.png",
+        "frame_00137.png",
+        "frame_00145.png",
+        "frame_00153.png",
+        "frame_00161.png",
+        "frame_00169.png",
+        "frame_00177.png",
+        "frame_00185.png",
+        "frame_00193.png",
+        "frame_00201.png",
+        "frame_00209.png",
+        "frame_00217.png",
+        "frame_00225.png",
+        "frame_00233.png",
+        "frame_00241.png",
+        "frame_00249.png",
+        "frame_00257.png",
+        "frame_00265.png",
+        "frame_00273.png",
+        "frame_00281.png",
+        "frame_00289.png",
+        "frame_00297.png",
+        "frame_00305.png"
+      ],
+      "conditions": {
+        "full": {
+          "attempted_training_frames": 267,
+          "registered_training_frames": 267,
+          "registered_with_reference_frames": 267,
+          "test_frames": 39,
+          "render_alignment_all_train_ate_rmse": 0.033146834618160925,
+          "rendering": {
+            "psnr": 18.608707600145117,
+            "ssim": 0.5142183021537603,
+            "lpips": 0.18431517233451208
+          },
+          "alpha_support": {
+            "mean_alpha": 0.984517439817771,
+            "coverage_alpha_0_1": 0.9998971009865786,
+            "coverage_alpha_0_5": 0.9933553842397836,
+            "coverage_alpha_0_9": 0.9597586607321714
+          },
+          "split_hash": "9a15e67cde2fbb79ee23675ebeb995c2d6b45e21d0f06ef2516e65a66b59d67c",
+          "manifest_sha256": "b5aa93f46a1abd19b3b375585c683ec757fd34b59177427a10326efff8474fbe",
+          "initializer_sha256": "2407afc9a530afbc6644d14f76b3f2ca72f7797e4dfbd9afb57661d2a8c5aa9b",
+          "checkpoint_sha256": "c8dfb1c80d3054ef2dbb85711a9ef53c3188423210c16e99b634816dc95f1671",
+          "render_metrics_sha256": "54bb7dab73a696ccaed9c6c73661adfcf142b0d442e46aef95815f21c95da00d",
+          "paired_ate_rmse": 0.03789904535544095,
+          "rotation_error_degrees": {
+            "count": 11,
+            "mean": 0.5726482550009724,
+            "median": 0.5549797610310292,
+            "rmse": 0.5923879315530505,
+            "p90": 0.7266324112207952
+          },
+          "focal_median_ratio_fx_fy": [
+            1.0166689362097332,
+            1.01487398560409
+          ],
+          "focal_mean_abs_error_percent_fx_fy": [
+            1.4880631418121208,
+            1.4295314509213508
+          ],
+          "focal_mean_abs_error_pixels_fx_fy": [
+            3.03635580801098,
+            2.91752247720311
+          ],
+          "relative_translation": {
+            "count": 10,
+            "mean": 0.047492904992869456,
+            "median": 0.03846121397427582,
+            "rmse": 0.056771492551826966,
+            "p90": 0.10010582155237616
+          },
+          "relative_rotation_degrees": {
+            "count": 10,
+            "mean": 0.2957746242439343,
+            "median": 0.25329051562689486,
+            "rmse": 0.3460153408368539,
+            "p90": 0.5907430887033879
+          },
+          "estimate_to_reference": {
+            "scale": 10.40506973547112,
+            "rotation": [
+              [
+                0.9990422107596795,
+                -0.017789454921708817,
+                0.039977448818064164
+              ],
+              [
+                0.01885081436324607,
+                0.9994755329147718,
+                -0.026330702660141234
+              ],
+              [
+                -0.039488073113978235,
+                0.027059090862828844,
+                0.9988535917157342
+              ]
+            ],
+            "translation": [
+              -4.8326954650626135,
+              -0.5449769321409391,
+              -2.9337881751409522
+            ]
+          },
+          "frames": [
+            {
+              "image": "images/frame_00002.png.png",
+              "translation_error": 0.01859061854710533,
+              "rotation_error_degrees": 0.7266324112207952,
+              "focal_ratio_fx_fy": [
+                1.0190656840610313,
+                1.020024169097466
+              ]
+            },
+            {
+              "image": "images/frame_00032.png.png",
+              "translation_error": 0.03480058629315822,
+              "rotation_error_degrees": 0.6843529027648897,
+              "focal_ratio_fx_fy": [
+                1.0189642735246722,
+                1.0186350118153034
+              ]
+            },
+            {
+              "image": "images/frame_00062.png.png",
+              "translation_error": 0.034197975504986884,
+              "rotation_error_degrees": 0.6973367033092834,
+              "focal_ratio_fx_fy": [
+                1.0166689362097332,
+                1.0158787931136957
+              ]
+            },
+            {
+              "image": "images/frame_00092.png.png",
+              "translation_error": 0.033692791811437424,
+              "rotation_error_degrees": 0.5549797610310292,
+              "focal_ratio_fx_fy": [
+                1.0110961611450129,
+                1.0104178634573504
+              ]
+            },
+            {
+              "image": "images/frame_00122.png.png",
+              "translation_error": 0.015560932609281026,
+              "rotation_error_degrees": 0.512462118771559,
+              "focal_ratio_fx_fy": [
+                1.016189084021655,
+                1.0148442042239054
+              ]
+            },
+            {
+              "image": "images/frame_00152.png.png",
+              "translation_error": 0.08616535957400663,
+              "rotation_error_degrees": 0.8523979837716021,
+              "focal_ratio_fx_fy": [
+                1.0182633434107558,
+                1.0185271189739395
+              ]
+            },
+            {
+              "image": "images/frame_00182.png.png",
+              "translation_error": 0.03434497377223043,
+              "rotation_error_degrees": 0.3766087600240035,
+              "focal_ratio_fx_fy": [
+                1.009279715131146,
+                1.008233181218145
+              ]
+            },
+            {
+              "image": "images/frame_00212.png.png",
+              "translation_error": 0.028604742869191714,
+              "rotation_error_degrees": 0.3431251155041195,
+              "focal_ratio_fx_fy": [
+                1.008915982442062,
+                1.008128983337102
+              ]
+            },
+            {
+              "image": "images/frame_00242.png.png",
+              "translation_error": 0.01531997250361291,
+              "rotation_error_degrees": 0.40929600051683196,
+              "focal_ratio_fx_fy": [
+                1.0169692503564,
+                1.01487398560409
+              ]
+            },
+            {
+              "image": "images/frame_00272.png.png",
+              "translation_error": 0.02408040316286811,
+              "rotation_error_degrees": 0.546078293685737,
+              "focal_ratio_fx_fy": [
+                1.0113854620482998,
+                1.009860885138611
+              ]
+            },
+            {
+              "image": "images/frame_00302.png.png",
+              "translation_error": 0.038201160298837224,
+              "rotation_error_degrees": 0.595860754410845,
+              "focal_ratio_fx_fy": [
+                1.0168890532485653,
+                1.0178242636217398
+              ]
+            }
+          ],
+          "relative_pairs": [
+            {
+              "from": "images/frame_00002.png.png",
+              "to": "images/frame_00032.png.png",
+              "translation_error": 0.041477055604415364,
+              "rotation_error_degrees": 0.35017311062325424
+            },
+            {
+              "from": "images/frame_00032.png.png",
+              "to": "images/frame_00062.png.png",
+              "translation_error": 0.023941993784407367,
+              "rotation_error_degrees": 0.04854681687118058
+            },
+            {
+              "from": "images/frame_00062.png.png",
+              "to": "images/frame_00092.png.png",
+              "translation_error": 0.021302081839950457,
+              "rotation_error_degrees": 0.21473738363937653
+            },
+            {
+              "from": "images/frame_00092.png.png",
+              "to": "images/frame_00122.png.png",
+              "translation_error": 0.03708328025003472,
+              "rotation_error_degrees": 0.1365240662333206
+            },
+            {
+              "from": "images/frame_00122.png.png",
+              "to": "images/frame_00152.png.png",
+              "translation_error": 0.09840920856990117,
+              "rotation_error_degrees": 0.6373617482878104
+            },
+            {
+              "from": "images/frame_00152.png.png",
+              "to": "images/frame_00182.png.png",
+              "translation_error": 0.11537533839465113,
+              "rotation_error_degrees": 0.5855632376384521
+            },
+            {
+              "from": "images/frame_00182.png.png",
+              "to": "images/frame_00212.png.png",
+              "translation_error": 0.04757923031583889,
+              "rotation_error_degrees": 0.20441845720177018
+            },
+            {
+              "from": "images/frame_00212.png.png",
+              "to": "images/frame_00242.png.png",
+              "translation_error": 0.02225535612998003,
+              "rotation_error_degrees": 0.3221000399102164
+            },
+            {
+              "from": "images/frame_00242.png.png",
+              "to": "images/frame_00272.png.png",
+              "translation_error": 0.027666357340998513,
+              "rotation_error_degrees": 0.16647773441954894
+            },
+            {
+              "from": "images/frame_00272.png.png",
+              "to": "images/frame_00302.png.png",
+              "translation_error": 0.039839147698516916,
+              "rotation_error_degrees": 0.29184364761441317
+            }
+          ],
+          "common_training_frames": 11
+        },
+        "sparse": {
+          "attempted_training_frames": 11,
+          "registered_training_frames": 11,
+          "registered_with_reference_frames": 11,
+          "test_frames": 39,
+          "render_alignment_all_train_ate_rmse": 0.02902769301422055,
+          "rendering": {
+            "psnr": 15.478618005356376,
+            "ssim": 0.455907305074555,
+            "lpips": 0.2571776499732947
+          },
+          "alpha_support": {
+            "mean_alpha": 0.9657939779452789,
+            "coverage_alpha_0_1": 0.9923440004006411,
+            "coverage_alpha_0_5": 0.9812007806239984,
+            "coverage_alpha_0_9": 0.9229184664212741
+          },
+          "split_hash": "8e4064e6fafc649deb06cb372038871c9f0d3be7140febb849b665161a35f309",
+          "manifest_sha256": "29c4b7671053d0a173707e63b49ec909e3c77055bbcae43d480ae2942928eba6",
+          "initializer_sha256": "5a9be90a8867d0e7f8d7c2da79aa6fd0668c77b328d2acffdd8adea5a048b3da",
+          "checkpoint_sha256": "dff20b805c714bb0cc63334bfbdaa93f52018597d2db6e2f46ed3dac1ffa7eb3",
+          "render_metrics_sha256": "b7fba285fc870f3e6dc34532a2d158f4a0235a5a837ee9a517c28c82b0f02204",
+          "paired_ate_rmse": 0.02902769301422055,
+          "rotation_error_degrees": {
+            "count": 11,
+            "mean": 0.4725102544705836,
+            "median": 0.44857184767119435,
+            "rmse": 0.4825677830065423,
+            "p90": 0.5402208665990643
+          },
+          "focal_median_ratio_fx_fy": [
+            1.008447365240519,
+            1.0047708555992554
+          ],
+          "focal_mean_abs_error_percent_fx_fy": [
+            0.7687088594855451,
+            0.5213694422852194
+          ],
+          "focal_mean_abs_error_pixels_fx_fy": [
+            1.568531297217716,
+            1.0640598818680138
+          ],
+          "relative_translation": {
+            "count": 10,
+            "mean": 0.034266307292235086,
+            "median": 0.026354478862953844,
+            "rmse": 0.04304296027823954,
+            "p90": 0.07871229606110512
+          },
+          "relative_rotation_degrees": {
+            "count": 10,
+            "mean": 0.29461461817227863,
+            "median": 0.26268329608733043,
+            "rmse": 0.3386884947557923,
+            "p90": 0.5869950512598819
+          },
+          "estimate_to_reference": {
+            "scale": 11.0600335228617,
+            "rotation": [
+              [
+                0.9990268312603197,
+                -0.02168944498060777,
+                0.03840518712879855
+              ],
+              [
+                0.02285553401204535,
+                0.999282877880761,
+                -0.030188649180895866
+              ],
+              [
+                -0.03772287087416724,
+                0.031037041591881184,
+                0.9988061308693668
+              ]
+            ],
+            "translation": [
+              -4.8226215609421175,
+              -0.541391212587355,
+              -2.934789855465866
+            ]
+          },
+          "frames": [
+            {
+              "image": "images/frame_00002.png.png",
+              "translation_error": 0.010617068209526664,
+              "rotation_error_degrees": 0.4267848644956134,
+              "focal_ratio_fx_fy": [
+                1.0108980705929411,
+                1.0077456681534347
+              ]
+            },
+            {
+              "image": "images/frame_00032.png.png",
+              "translation_error": 0.020926954315969176,
+              "rotation_error_degrees": 0.5402208665990643,
+              "focal_ratio_fx_fy": [
+                1.009958470929532,
+                1.0058484538271786
+              ]
+            },
+            {
+              "image": "images/frame_00062.png.png",
+              "translation_error": 0.023929698015887554,
+              "rotation_error_degrees": 0.6944845580631587,
+              "focal_ratio_fx_fy": [
+                1.008361254981876,
+                1.0047708555992554
+              ]
+            },
+            {
+              "image": "images/frame_00092.png.png",
+              "translation_error": 0.036743094015414535,
+              "rotation_error_degrees": 0.5233382916349466,
+              "focal_ratio_fx_fy": [
+                1.0032133398027183,
+                1.0007060297504757
+              ]
+            },
+            {
+              "image": "images/frame_00122.png.png",
+              "translation_error": 0.020546433661802834,
+              "rotation_error_degrees": 0.5184125028859766,
+              "focal_ratio_fx_fy": [
+                1.0102074145785536,
+                1.0076627532438387
+              ]
+            },
+            {
+              "image": "images/frame_00152.png.png",
+              "translation_error": 0.06431987216879506,
+              "rotation_error_degrees": 0.43664812683772075,
+              "focal_ratio_fx_fy": [
+                1.0135487143570625,
+                1.0121222008548671
+              ]
+            },
+            {
+              "image": "images/frame_00182.png.png",
+              "translation_error": 0.023759432669359735,
+              "rotation_error_degrees": 0.44857184767119435,
+              "focal_ratio_fx_fy": [
+                1.0039979410005697,
+                1.0010654754904715
+              ]
+            },
+            {
+              "image": "images/frame_00212.png.png",
+              "translation_error": 0.011852161369221908,
+              "rotation_error_degrees": 0.5295039397632025,
+              "focal_ratio_fx_fy": [
+                1.002430364721339,
+                0.999623628074136
+              ]
+            },
+            {
+              "image": "images/frame_00242.png.png",
+              "translation_error": 0.013975137711082391,
+              "rotation_error_degrees": 0.32567026245453684,
+              "focal_ratio_fx_fy": [
+                1.008447365240519,
+                1.0044490984545307
+              ]
+            },
+            {
+              "image": "images/frame_00272.png.png",
+              "translation_error": 0.01513166320860526,
+              "rotation_error_degrees": 0.3697009678274005,
+              "focal_ratio_fx_fy": [
+                1.0017438479125174,
+                0.9974844677460816
+              ]
+            },
+            {
+              "image": "images/frame_00302.png.png",
+              "translation_error": 0.03326971073389812,
+              "rotation_error_degrees": 0.38427657094360484,
+              "focal_ratio_fx_fy": [
+                1.0117511904257814,
+                1.0100881990975392
+              ]
+            }
+          ],
+          "relative_pairs": [
+            {
+              "from": "images/frame_00002.png.png",
+              "to": "images/frame_00032.png.png",
+              "translation_error": 0.02185046727588493,
+              "rotation_error_degrees": 0.263823846667632
+            },
+            {
+              "from": "images/frame_00032.png.png",
+              "to": "images/frame_00062.png.png",
+              "translation_error": 0.015006314872033017,
+              "rotation_error_degrees": 0.18462466197069516
+            },
+            {
+              "from": "images/frame_00062.png.png",
+              "to": "images/frame_00092.png.png",
+              "translation_error": 0.010458299942353814,
+              "rotation_error_degrees": 0.1865918355420794
+            },
+            {
+              "from": "images/frame_00092.png.png",
+              "to": "images/frame_00122.png.png",
+              "translation_error": 0.0480695176535957,
+              "rotation_error_degrees": 0.10497728049457704
+            },
+            {
+              "from": "images/frame_00122.png.png",
+              "to": "images/frame_00152.png.png",
+              "translation_error": 0.07840627749028863,
+              "rotation_error_degrees": 0.6247543749955001
+            },
+            {
+              "from": "images/frame_00152.png.png",
+              "to": "images/frame_00182.png.png",
+              "translation_error": 0.08146646319845365,
+              "rotation_error_degrees": 0.5827995708448133
+            },
+            {
+              "from": "images/frame_00182.png.png",
+              "to": "images/frame_00212.png.png",
+              "translation_error": 0.002824740780158699,
+              "rotation_error_degrees": 0.1358193543521045
+            },
+            {
+              "from": "images/frame_00212.png.png",
+              "to": "images/frame_00242.png.png",
+              "translation_error": 0.016452860174856306,
+              "rotation_error_degrees": 0.29745832680325074
+            },
+            {
+              "from": "images/frame_00242.png.png",
+              "to": "images/frame_00272.png.png",
+              "translation_error": 0.030858490450022757,
+              "rotation_error_degrees": 0.26154274550702883
+            },
+            {
+              "from": "images/frame_00272.png.png",
+              "to": "images/frame_00302.png.png",
+              "translation_error": 0.03726964108470345,
+              "rotation_error_degrees": 0.3037541845451049
+            }
+          ],
+          "common_training_frames": 11
+        }
+      },
+      "heldout_sparse_minus_full": {
+        "psnr": -3.1300895947887386,
+        "ssim": -0.05831099707920524,
+        "lpips": 0.0728624776387826,
+        "mean_alpha": -0.018723461872492075,
+        "coverage_alpha_0_1": -0.0075531005859375,
+        "coverage_alpha_0_5": -0.012154603615785242,
+        "coverage_alpha_0_9": -0.036840194310897356
+      },
+      "reference_free_reserved_training_reprojection": {
+        "matching": "OpenCV SIFT, mutual 0.78 ratio, MAGSAC fundamental matrix on common training RGB",
+        "opencv": "4.11.0",
+        "policy": "Triangulate first/last match per track with frozen estimated cameras and reserve every interior observation",
+        "anchor_requirements": {
+          "minimum_parallax_degrees": 1.5,
+          "maximum_reprojection_px": 2.0,
+          "positive_camera_z": true
+        },
+        "uses_reference_cameras": false,
+        "verified_image_pairs": 22,
+        "tracks_at_least_three_views": 115,
+        "attempted_reserved_observations": 156,
+        "paired_valid_reserved_observations": 91,
+        "conditions": {
+          "full": {
+            "tracks_failing_anchor_checks": 46,
+            "nonpositive_or_nonfinite_predictions": 0,
+            "all_valid_error_px": {
+              "count": 91,
+              "mean": 4.761657290562623,
+              "median": 0.9764940663658395,
+              "rmse": 21.691691303423255,
+              "p90": 4.307736353428294
+            },
+            "paired_valid_error_px": {
+              "count": 91,
+              "mean": 4.761657290562623,
+              "median": 0.9764940663658395,
+              "rmse": 21.691691303423255,
+              "p90": 4.307736353428294
+            }
+          },
+          "sparse": {
+            "tracks_failing_anchor_checks": 46,
+            "nonpositive_or_nonfinite_predictions": 0,
+            "all_valid_error_px": {
+              "count": 91,
+              "mean": 4.758442233520613,
+              "median": 1.019790493713248,
+              "rmse": 21.853949559929365,
+              "p90": 4.033003154059942
+            },
+            "paired_valid_error_px": {
+              "count": 91,
+              "mean": 4.758442233520613,
+              "median": 1.019790493713248,
+              "rmse": 21.853949559929365,
+              "p90": 4.033003154059942
+            }
+          }
+        }
+      }
+    },
+    {
+      "scene": "Re10k-1",
+      "steps": 7000,
+      "matching_order": "sparse manifest order",
+      "reference_sha256": {
+        "full": "ae9d97bfe11d1c801466fc74c97493d8c3566893058c7e4c0ae74483c46905d6",
+        "sparse": "144b18f97b0e25308634ef36d0795991d9437496f514d0cff976df42aa05d15b"
+      },
+      "frozen_config_sha256": "1094e876e84a73fa8a830932826e128c6dd4fef80239e0bc8729bd650f426a48",
+      "status_config_sha256": null,
+      "common_training_images": [
+        "images/00001.png.png",
+        "images/00031.png.png",
+        "images/00061.png.png",
+        "images/00091.png.png",
+        "images/00121.png.png",
+        "images/00151.png.png",
+        "images/00181.png.png",
+        "images/00211.png.png",
+        "images/00241.png.png",
+        "images/00271.png.png"
+      ],
+      "ordered_test_ids": [
+        "00000.png",
+        "00008.png",
+        "00016.png",
+        "00024.png",
+        "00032.png",
+        "00040.png",
+        "00048.png",
+        "00056.png",
+        "00064.png",
+        "00072.png",
+        "00080.png",
+        "00088.png",
+        "00096.png",
+        "00104.png",
+        "00112.png",
+        "00120.png",
+        "00128.png",
+        "00136.png",
+        "00144.png",
+        "00152.png",
+        "00160.png",
+        "00168.png",
+        "00176.png",
+        "00184.png",
+        "00192.png",
+        "00200.png",
+        "00208.png",
+        "00216.png",
+        "00224.png",
+        "00232.png",
+        "00240.png",
+        "00248.png",
+        "00256.png",
+        "00264.png",
+        "00272.png"
+      ],
+      "conditions": {
+        "full": {
+          "attempted_training_frames": 244,
+          "registered_training_frames": 244,
+          "registered_with_reference_frames": 244,
+          "test_frames": 35,
+          "render_alignment_all_train_ate_rmse": 0.04512176326909908,
+          "rendering": {
+            "psnr": 11.364302995051043,
+            "ssim": 0.29095039423879576,
+            "lpips": 0.3956530656133379
+          },
+          "alpha_support": {
+            "mean_alpha": 0.944500093800681,
+            "coverage_alpha_0_1": 0.9898202078683036,
+            "coverage_alpha_0_5": 0.9639195033482143,
+            "coverage_alpha_0_9": 0.8726658412388393
+          },
+          "split_hash": "ae78d5d5f785913ebbee3cfefe8155622867c82d27b3d23f978645270a0944a8",
+          "manifest_sha256": "a2baa55b092e7827e2d4eb092746bc4fc1296479b7259354254ac0817b5585ed",
+          "initializer_sha256": "78d5737781ca20963473d8d79d95cf0e0f61b4f8afdbac21c1394a1ef71ed9a3",
+          "checkpoint_sha256": "faa86af8dcb5a6975ec9fe4c6ed9ff3b3dac868eba539dce3b072212bc1f8011",
+          "render_metrics_sha256": "b7a3ef7f9bf351399bc114560c5eccd7149eebcab3cfcbc72c6a339000168018",
+          "paired_ate_rmse": 0.029021926722405382,
+          "rotation_error_degrees": {
+            "count": 10,
+            "mean": 3.477709763969685,
+            "median": 3.5245092341973185,
+            "rmse": 3.4854250776074682,
+            "p90": 3.680773104517267
+          },
+          "focal_median_ratio_fx_fy": [
+            1.2056298519753699,
+            1.193806618843446
+          ],
+          "focal_mean_abs_error_percent_fx_fy": [
+            20.418744303454037,
+            19.162951766904374
+          ],
+          "focal_mean_abs_error_pixels_fx_fy": [
+            44.81139921550192,
+            42.065681573505785
+          ],
+          "relative_translation": {
+            "count": 9,
+            "mean": 0.023489845552948536,
+            "median": 0.01874669356285063,
+            "rmse": 0.026612922044684156,
+            "p90": 0.041464914111817505
+          },
+          "relative_rotation_degrees": {
+            "count": 9,
+            "mean": 0.41742232701369236,
+            "median": 0.1605258031002049,
+            "rmse": 0.5754662254427778,
+            "p90": 0.9592022726981796
+          },
+          "estimate_to_reference": {
+            "scale": 5.62114133304358,
+            "rotation": [
+              [
+                0.9971383704270238,
+                -0.05895217770678843,
+                0.04732558468489946
+              ],
+              [
+                0.05938715061478341,
+                0.9982042613861817,
+                -0.007837020628202527
+              ],
+              [
+                -0.04677859087229361,
+                0.010625125603823676,
+                0.9988487724084693
+              ]
+            ],
+            "translation": [
+              -0.005217224263876552,
+              -0.007589035667483479,
+              0.35428636168011707
+            ]
+          },
+          "frames": [
+            {
+              "image": "images/00001.png.png",
+              "translation_error": 0.033379931046587395,
+              "rotation_error_degrees": 3.8948922096459486,
+              "focal_ratio_fx_fy": [
+                1.2021815484313845,
+                1.1939502831165807
+              ]
+            },
+            {
+              "image": "images/00031.png.png",
+              "translation_error": 0.027399258090828615,
+              "rotation_error_degrees": 3.6569820928363024,
+              "focal_ratio_fx_fy": [
+                1.2140689421341644,
+                1.203483654653206
+              ]
+            },
+            {
+              "image": "images/00061.png.png",
+              "translation_error": 0.018005906636907827,
+              "rotation_error_degrees": 3.644150359663722,
+              "focal_ratio_fx_fy": [
+                1.2052791595667969,
+                1.1936629545703112
+              ]
+            },
+            {
+              "image": "images/00091.png.png",
+              "translation_error": 0.01864225629879802,
+              "rotation_error_degrees": 3.5593316844689977,
+              "focal_ratio_fx_fy": [
+                1.2059805443839426,
+                1.19360661563967
+              ]
+            },
+            {
+              "image": "images/00121.png.png",
+              "translation_error": 0.027385997825315138,
+              "rotation_error_degrees": 3.540600480348613,
+              "focal_ratio_fx_fy": [
+                1.2038128900725173,
+                1.1918496654758244
+              ]
+            },
+            {
+              "image": "images/00151.png.png",
+              "translation_error": 0.025827374570684965,
+              "rotation_error_degrees": 3.5084179880460242,
+              "focal_ratio_fx_fy": [
+                1.21283949138179,
+                1.1987308474995146
+              ]
+            },
+            {
+              "image": "images/00181.png.png",
+              "translation_error": 0.028797921892136615,
+              "rotation_error_degrees": 3.453178949719768,
+              "focal_ratio_fx_fy": [
+                1.2097402308993648,
+                1.1965913422554135
+              ]
+            },
+            {
+              "image": "images/00211.png.png",
+              "translation_error": 0.017620812972599896,
+              "rotation_error_degrees": 3.2298337632822176,
+              "focal_ratio_fx_fy": [
+                1.2122513617261823,
+                1.1971692972365753
+              ]
+            },
+            {
+              "image": "images/00241.png.png",
+              "translation_error": 0.014350365797878512,
+              "rotation_error_degrees": 3.080994668555549,
+              "focal_ratio_fx_fy": [
+                1.2007471663126836,
+                1.1859967376423466
+              ]
+            },
+            {
+              "image": "images/00271.png.png",
+              "translation_error": 0.05588599345739769,
+              "rotation_error_degrees": 3.2087154431297082,
+              "focal_ratio_fx_fy": [
+                1.1749730954365776,
+                1.1612537786009949
+              ]
+            }
+          ],
+          "relative_pairs": [
+            {
+              "from": "images/00001.png.png",
+              "to": "images/00031.png.png",
+              "translation_error": 0.01844882569310783,
+              "rotation_error_degrees": 0.4091927916081896
+            },
+            {
+              "from": "images/00031.png.png",
+              "to": "images/00061.png.png",
+              "translation_error": 0.04182256366668612,
+              "rotation_error_degrees": 0.11525643817980431
+            },
+            {
+              "from": "images/00061.png.png",
+              "to": "images/00091.png.png",
+              "translation_error": 0.008691838287639014,
+              "rotation_error_degrees": 0.15316388479346454
+            },
+            {
+              "from": "images/00091.png.png",
+              "to": "images/00121.png.png",
+              "translation_error": 0.01240834871773404,
+              "rotation_error_degrees": 0.1350749269991758
+            },
+            {
+              "from": "images/00121.png.png",
+              "to": "images/00151.png.png",
+              "translation_error": 0.01874669356285063,
+              "rotation_error_degrees": 0.13861754091261785
+            },
+            {
+              "from": "images/00151.png.png",
+              "to": "images/00181.png.png",
+              "translation_error": 0.009721939620778655,
+              "rotation_error_degrees": 0.1605258031002049
+            },
+            {
+              "from": "images/00181.png.png",
+              "to": "images/00211.png.png",
+              "translation_error": 0.023548621224667197,
+              "rotation_error_degrees": 0.45225481711190635
+            },
+            {
+              "from": "images/00211.png.png",
+              "to": "images/00241.png.png",
+              "translation_error": 0.036644277479973,
+              "rotation_error_degrees": 0.8677655410243431
+            },
+            {
+              "from": "images/00241.png.png",
+              "to": "images/00271.png.png",
+              "translation_error": 0.04137550172310035,
+              "rotation_error_degrees": 1.3249491993935252
+            }
+          ],
+          "common_training_frames": 10
+        },
+        "sparse": {
+          "attempted_training_frames": 10,
+          "registered_training_frames": 10,
+          "registered_with_reference_frames": 10,
+          "test_frames": 35,
+          "render_alignment_all_train_ate_rmse": 0.026431858126685425,
+          "rendering": {
+            "psnr": 11.23416072917376,
+            "ssim": 0.27513227462124673,
+            "lpips": 0.4055099972656795
+          },
+          "alpha_support": {
+            "mean_alpha": 0.9340734345572336,
+            "coverage_alpha_0_1": 0.9872188023158482,
+            "coverage_alpha_0_5": 0.9642286028180803,
+            "coverage_alpha_0_9": 0.8368722098214286
+          },
+          "split_hash": "0887b21ad76890c530a6bd428cbe4ce7085d501d0639997dc0e48164ba81a74c",
+          "manifest_sha256": "129d78dbe6cffcc112e2e56ec74a7d7a7988649ad9c4ded8c8872cf0283cbeaa",
+          "initializer_sha256": "7803e718bffcaac905e386853608b1d448886c201054e2d0789a9cc43eb3d508",
+          "checkpoint_sha256": "281427b1936ecf598501b54d75b7ad39a99cac247abfb1335c885c7a252b6b49",
+          "render_metrics_sha256": "4ac311f0e0346b2a7f3c8c5717354c601fdf9b4057f47ad847182163c4ab243a",
+          "paired_ate_rmse": 0.026431858126685425,
+          "rotation_error_degrees": {
+            "count": 10,
+            "mean": 3.853491566558449,
+            "median": 3.917191572749331,
+            "rmse": 3.859108178440916,
+            "p90": 4.0173067756430525
+          },
+          "focal_median_ratio_fx_fy": [
+            1.2083303828174774,
+            1.1981296698859667
+          ],
+          "focal_mean_abs_error_percent_fx_fy": [
+            20.52989792200662,
+            19.586140957354665
+          ],
+          "focal_mean_abs_error_pixels_fx_fy": [
+            45.05533924928572,
+            42.99464815169112
+          ],
+          "relative_translation": {
+            "count": 9,
+            "mean": 0.020985649103531748,
+            "median": 0.018010696457845095,
+            "rmse": 0.02383343242941598,
+            "p90": 0.03409242640233011
+          },
+          "relative_rotation_degrees": {
+            "count": 9,
+            "mean": 0.3694724703866674,
+            "median": 0.12773920718706408,
+            "rmse": 0.5232708009248166,
+            "p90": 0.9003240301109436
+          },
+          "estimate_to_reference": {
+            "scale": 5.536793843855956,
+            "rotation": [
+              [
+                0.9968170615258614,
+                -0.06613611375759851,
+                0.044516966518272305
+              ],
+              [
+                0.06663095143214554,
+                0.997730308456705,
+                -0.009723574349783614
+              ],
+              [
+                -0.04377284731650512,
+                0.012658832644864724,
+                0.9989613064547971
+              ]
+            ],
+            "translation": [
+              0.0014551078460038336,
+              -0.00778820402448524,
+              0.3362542415186076
+            ]
+          },
+          "frames": [
+            {
+              "image": "images/00001.png.png",
+              "translation_error": 0.03796807896300442,
+              "rotation_error_degrees": 4.197367516896221,
+              "focal_ratio_fx_fy": [
+                1.2174556013335505,
+                1.2097058086004218
+              ]
+            },
+            {
+              "image": "images/00031.png.png",
+              "translation_error": 0.008191622978713134,
+              "rotation_error_degrees": 3.997300026614923,
+              "focal_ratio_fx_fy": [
+                1.2135401889710136,
+                1.2055570647128235
+              ]
+            },
+            {
+              "image": "images/00061.png.png",
+              "translation_error": 0.0180350538077438,
+              "rotation_error_degrees": 3.9770985771316445,
+              "focal_ratio_fx_fy": [
+                1.2074803506008134,
+                1.1989294078770178
+              ]
+            },
+            {
+              "image": "images/00091.png.png",
+              "translation_error": 0.013945818758951628,
+              "rotation_error_degrees": 3.936408852894687,
+              "focal_ratio_fx_fy": [
+                1.207226076269691,
+                1.197679370676916
+              ]
+            },
+            {
+              "image": "images/00121.png.png",
+              "translation_error": 0.021761026053629395,
+              "rotation_error_degrees": 3.915784390207041,
+              "focal_ratio_fx_fy": [
+                1.2059338128852497,
+                1.1973865456496082
+              ]
+            },
+            {
+              "image": "images/00151.png.png",
+              "translation_error": 0.020242577255558745,
+              "rotation_error_degrees": 3.918598755291621,
+              "focal_ratio_fx_fy": [
+                1.2110188871709513,
+                1.199992015073719
+              ]
+            },
+            {
+              "image": "images/00181.png.png",
+              "translation_error": 0.025948019140464056,
+              "rotation_error_degrees": 3.881306045047305,
+              "focal_ratio_fx_fy": [
+                1.209362392987875,
+                1.1985799690950174
+              ]
+            },
+            {
+              "image": "images/00211.png.png",
+              "translation_error": 0.017551881291710005,
+              "rotation_error_degrees": 3.6877719173820136,
+              "focal_ratio_fx_fy": [
+                1.2091804150341416,
+                1.1975857930872413
+              ]
+            },
+            {
+              "image": "images/00241.png.png",
+              "translation_error": 0.008382682022785764,
+              "rotation_error_degrees": 3.4798591282189135,
+              "focal_ratio_fx_fy": [
+                1.1980364644973311,
+                1.1875890681990997
+              ]
+            },
+            {
+              "image": "images/00271.png.png",
+              "translation_error": 0.05498238559283233,
+              "rotation_error_degrees": 3.5434204559001192,
+              "focal_ratio_fx_fy": [
+                1.1737556024500448,
+                1.1656090527636018
+              ]
+            }
+          ],
+          "relative_pairs": [
+            {
+              "from": "images/00001.png.png",
+              "to": "images/00031.png.png",
+              "translation_error": 0.024032554417323108,
+              "rotation_error_degrees": 0.41258445239845315
+            },
+            {
+              "from": "images/00031.png.png",
+              "to": "images/00061.png.png",
+              "translation_error": 0.02063535348923522,
+              "rotation_error_degrees": 0.07776159649329305
+            },
+            {
+              "from": "images/00061.png.png",
+              "to": "images/00091.png.png",
+              "translation_error": 0.013307114166951394,
+              "rotation_error_degrees": 0.06584114232133313
+            },
+            {
+              "from": "images/00091.png.png",
+              "to": "images/00121.png.png",
+              "translation_error": 0.012903952295766078,
+              "rotation_error_degrees": 0.11714813340567107
+            },
+            {
+              "from": "images/00121.png.png",
+              "to": "images/00151.png.png",
+              "translation_error": 0.012837924698336296,
+              "rotation_error_degrees": 0.08686292951823858
+            },
+            {
+              "from": "images/00151.png.png",
+              "to": "images/00181.png.png",
+              "translation_error": 0.008952205488735366,
+              "rotation_error_degrees": 0.12773920718706408
+            },
+            {
+              "from": "images/00181.png.png",
+              "to": "images/00211.png.png",
+              "translation_error": 0.018010696457845095,
+              "rotation_error_degrees": 0.43750740432720087
+            },
+            {
+              "from": "images/00211.png.png",
+              "to": "images/00241.png.png",
+              "translation_error": 0.030757030364685786,
+              "rotation_error_degrees": 0.8339375942419885
+            },
+            {
+              "from": "images/00241.png.png",
+              "to": "images/00271.png.png",
+              "translation_error": 0.04743401055290738,
+              "rotation_error_degrees": 1.165869773586764
+            }
+          ],
+          "common_training_frames": 10
+        }
+      },
+      "heldout_sparse_minus_full": {
+        "psnr": -0.13014226587727953,
+        "ssim": -0.015818119617548948,
+        "lpips": 0.00985693165234157,
+        "mean_alpha": -0.010426659243447434,
+        "coverage_alpha_0_1": -0.0026014055524553603,
+        "coverage_alpha_0_5": 0.00030909946986601433,
+        "coverage_alpha_0_9": -0.035793631417410654
+      },
+      "reference_free_reserved_training_reprojection": {
+        "matching": "OpenCV SIFT, mutual 0.78 ratio, MAGSAC fundamental matrix on common training RGB",
+        "opencv": "4.11.0",
+        "policy": "Triangulate first/last match per track with frozen estimated cameras and reserve every interior observation",
+        "anchor_requirements": {
+          "minimum_parallax_degrees": 1.5,
+          "maximum_reprojection_px": 2.0,
+          "positive_camera_z": true
+        },
+        "uses_reference_cameras": false,
+        "verified_image_pairs": 37,
+        "tracks_at_least_three_views": 327,
+        "attempted_reserved_observations": 722,
+        "paired_valid_reserved_observations": 591,
+        "conditions": {
+          "full": {
+            "tracks_failing_anchor_checks": 39,
+            "nonpositive_or_nonfinite_predictions": 0,
+            "all_valid_error_px": {
+              "count": 617,
+              "mean": 1.1007463721543398,
+              "median": 0.8292668597256304,
+              "rmse": 1.56646169465995,
+              "p90": 2.0572951896627942
+            },
+            "paired_valid_error_px": {
+              "count": 591,
+              "mean": 1.0839600757119174,
+              "median": 0.8159727638070569,
+              "rmse": 1.5598740415712962,
+              "p90": 2.033987801560439
+            }
+          },
+          "sparse": {
+            "tracks_failing_anchor_checks": 35,
+            "nonpositive_or_nonfinite_predictions": 0,
+            "all_valid_error_px": {
+              "count": 612,
+              "mean": 1.0685735534087581,
+              "median": 0.7768697076362079,
+              "rmse": 1.5770688256803584,
+              "p90": 2.2284782713974325
+            },
+            "paired_valid_error_px": {
+              "count": 591,
+              "mean": 1.069633835080827,
+              "median": 0.7804755035086463,
+              "rmse": 1.5767575626476016,
+              "p90": 2.2284782713974325
+            }
+          }
+        }
+      }
+    }
+  ]
+}

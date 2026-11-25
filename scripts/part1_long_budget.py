@@ -12,8 +12,7 @@ import subprocess
 import sys
 from tempfile import TemporaryDirectory
 import time
-
-import numpy as np
+from zipfile import BadZipFile, ZipFile
 
 from p4.common import sha256_file, source_version, write_json
 from p4.data import load_manifest, load_scene
@@ -24,10 +23,16 @@ from p4.train import TrainConfig
 SCENES = ("Dl3dv-2", "Re10k-1", "Waymo-405841")
 METHODS = ("colmap", "vggt", "vggt-omega")
 COMPARISON_STEP = 7000
+LONG_BUDGET = 30000
 
 
 def read_json(path):
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def budget_config(steps):
+    save_steps = (COMPARISON_STEP, 15000, steps) if steps == LONG_BUDGET else (COMPARISON_STEP, steps)
+    return TrainConfig(steps=steps, save_steps=save_steps)
 
 
 def preflight(dataset_root, archive, scenes, methods):
@@ -109,13 +114,31 @@ def verify_completed(destination, case):
     return record
 
 
+def completed_checkpoint_count(checkpoints):
+    """Count consecutive intact snapshots from the start of the fixed schedule."""
+    for index, checkpoint in enumerate(checkpoints):
+        if not checkpoint.is_file():
+            return index
+        try:
+            # The trainer publishes torch.save ZIP archives by atomic rename.
+            with ZipFile(checkpoint) as archive:
+                if not any(name.endswith("/data.pkl") for name in archive.namelist()) or archive.testzip() is not None:
+                    return index
+        except BadZipFile:
+            return index
+    return len(checkpoints)
+
+
 def run_case(case, config, output, scratch, keep_final):
     case_path = Path(case["scene"]) / case["method"]
     destination, work = output / case_path, scratch / case_path
     if not work.resolve().is_relative_to(scratch.resolve()):
         raise ValueError(f"Scratch case escapes experiment scratch: {work}")
     training = work / "train"
-    checkpoints = [training / "checkpoints" / f"step_{step:06d}.pt" for step in config.save_steps]
+    checkpoint_dir = training / "checkpoints"
+    if not checkpoint_dir.resolve().is_relative_to(work.resolve()):
+        raise ValueError(f"Checkpoints escape experiment scratch: {checkpoint_dir}")
+    checkpoints = [checkpoint_dir / f"step_{step:06d}.pt" for step in config.save_steps]
     if (destination / "record.json").is_file():
         record = verify_completed(destination, case)
         if keep_final and sha256_file(checkpoints[-1]) != record["rows"][-1]["checkpoint_sha256"]:
@@ -125,13 +148,20 @@ def run_case(case, config, output, scratch, keep_final):
         dataset, initializer = Path(case["dataset"]), Path(case["initializer"])
         config_path = work / "config.json"
         write_json(config_path, asdict(config))
-        if not checkpoints[-1].is_file():
-            resume = {"resume": checkpoints[0]} if checkpoints[0].is_file() else {}
-            if not resume and (training / "config.json").exists():
+        training_config = training / "config.json"
+        if training_config.exists() and read_json(training_config) != read_json(config_path):
+            raise ValueError(f"Scratch training config differs at {training}")
+        completed = completed_checkpoint_count(checkpoints)
+        if completed < len(checkpoints):
+            resume = {"resume": checkpoints[completed - 1]} if completed else {}
+            for path in checkpoints[completed:]:
+                path.unlink(missing_ok=True)
+                path.with_suffix(".tmp").unlink(missing_ok=True)
+            if not resume and training_config.exists():
                 training.rename(work / f"interrupted_before_checkpoint_{time.time_ns()}")
             run_module("p4.train", "train", dataset=dataset, scene=initializer,
                        output=training, config=config_path, **resume)
-        if read_json(training / "config.json") != read_json(config_path):
+        if read_json(training_config) != read_json(config_path):
             raise ValueError(f"Scratch training config differs at {training}")
 
         destination.mkdir(parents=True, exist_ok=True)
@@ -200,11 +230,12 @@ def main():
     parser.add_argument("--scratch", type=Path, required=True, help="Private scratch root for active checkpoints")
     parser.add_argument("--scenes", nargs="+", choices=SCENES, default=SCENES)
     parser.add_argument("--methods", nargs="+", choices=METHODS, default=METHODS)
-    parser.add_argument("--steps", type=int, default=30000)
+    parser.add_argument("--steps", type=int, default=LONG_BUDGET,
+                        help="Final step (default 30000, evaluated at 7000, 15000, and 30000)")
     parser.add_argument("--check-inputs", action="store_true", help="Validate inputs without creating outputs or using CUDA")
     parser.add_argument("--keep-final", action="store_true", help="Retain final checkpoints under scratch")
     args = parser.parse_args()
-    config = TrainConfig(steps=args.steps, save_steps=(COMPARISON_STEP, args.steps))
+    config = budget_config(args.steps)
     if args.steps <= COMPARISON_STEP or args.steps % config.log_every:
         parser.error(f"--steps must exceed {COMPARISON_STEP} and be divisible by {config.log_every}")
     config.validate()
@@ -223,7 +254,7 @@ def main():
         "source": source_version(), "driver_sha256": sha256_file(Path(__file__)),
         "keep_final_checkpoints": args.keep_final,
         "budget_description": "Fresh long schedule. The means learning-rate decay uses the final budget from step 1.",
-        "evaluation": "Fixed 7,000-step intermediate and final endpoints, scored after training; no holdout selection.",
+        "evaluation": "Predeclared checkpoints are scored after training without selecting on the holdout.",
     }
     protocol_path = output / "protocol.json"
     if protocol_path.exists() and read_json(protocol_path) != protocol:
