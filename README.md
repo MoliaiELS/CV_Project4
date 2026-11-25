@@ -12,6 +12,7 @@ AIAA 3201 Project 4 的 Part 1 比较 COLMAP、VGGT 和 VGGT-Ω 的相机与点�
 - [Part 3 闭环结果](results/part3/)包含两轮生成前后的三项指标、留出视角比较、主动视角轨迹和失败案例。[Difix-ref 权重、运行与复现](docs/part3.md)
 - [Part 3 补充结果](results/part3_progressive/)记录真实纹理投影与扩散补洞的对照。DL3DV 在同一测试集上的 PSNR 从原闭环的 15.5009 提升到 15.6056 dB。
 - [稀疏重建改进与同预算对照](results/part3_mse30/)记录 DL3DV 的一致性种子、Re10k 的 DA3-Large 初始化、两轮回灌与固定留出集的 MSE 比较。
+- [汇报后实验](results/postpre_optimization/)记录稀疏视角位姿与渲染质量诊断、外参联合优化及长预算对照。[复现命令](docs/postpre_optimization.md)
 - [最终 CVPR 报告源文件和编译方法](report/README.md)汇总 Part 1–3，并包含 Mip-NeRF 360 Bonsai 加测结果。
 
 ```bash

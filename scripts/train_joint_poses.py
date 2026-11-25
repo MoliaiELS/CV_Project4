@@ -70,7 +70,11 @@ def _load_base(torch, path, fingerprint, expected_sha256=None):
     if expected_sha256 is not None and sha256_file(path) != expected_sha256:
         raise ValueError(f"Checkpoint checksum mismatch: {path}")
     saved = torch.load(path, map_location="cpu", weights_only=False)
-    if saved["schema_version"] != 1 or saved["fingerprint"] != fingerprint:
+    known_fingerprint = saved["fingerprint"]
+    joint_fingerprint_matches = (
+        "joint" in saved and known_fingerprint == {**fingerprint, "requires_joint_export": True}
+    )
+    if saved["schema_version"] != 1 or (known_fingerprint != fingerprint and not joint_fingerprint_matches):
         raise ValueError("Checkpoint is incompatible with the original dataset, initializer, or backend")
     return saved
 
@@ -227,7 +231,8 @@ def train_joint(dataset, initializer, warmup, output, pose_config=None, *, resum
             print(json.dumps(row), flush=True)
         if completed in cfg.save_steps or completed == stop:
             torch.cuda.synchronize()
-            payload = {"schema_version": 1, "step": completed, "config": asdict(cfg), "fingerprint": fingerprint,
+            payload = {"schema_version": 1, "step": completed, "config": asdict(cfg),
+                       "fingerprint": {**fingerprint, "requires_joint_export": True},
                        "splats": splats.state_dict(), "optimizers": {k: v.state_dict() for k, v in optimizers.items()},
                        "scheduler": scheduler.state_dict(), "strategy": state, "normalization": normalization,
                        "sampler": sampler.bit_generator.state, "order": order, "cursor": cursor,

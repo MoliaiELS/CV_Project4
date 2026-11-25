@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from scripts.train_joint_poses import PoseConfig, _normalization_poses, _poses_for_export, apply_pose_delta
+from scripts.train_joint_poses import PoseConfig, _load_base, _normalization_poses, _poses_for_export, apply_pose_delta
 
 
 def test_pose_schedule_has_warmup_and_frozen_tail():
@@ -10,6 +10,21 @@ def test_pose_schedule_has_warmup_and_frozen_tail():
         PoseConfig(stop=7000).validate(7000)
     with pytest.raises(ValueError, match="finite"):
         PoseConfig(learning_rate=float("nan")).validate(7000)
+
+
+def test_joint_checkpoint_marker_only_accepts_joint_training_state():
+    class Saved:
+        def __init__(self, payload):
+            self.payload = payload
+
+        def load(self, *args, **kwargs):
+            return self.payload
+
+    fingerprint = {"scene_sha256": "known", "manifest_sha256": "data"}
+    tagged = {"schema_version": 1, "fingerprint": {**fingerprint, "requires_joint_export": True}}
+    with pytest.raises(ValueError, match="incompatible"):
+        _load_base(Saved(tagged), "raw.pt", fingerprint)
+    assert _load_base(Saved({**tagged, "joint": {}}), "raw.pt", fingerprint)["joint"] == {}
 
 
 def test_pose_update_and_export_use_the_original_scene_frame():
